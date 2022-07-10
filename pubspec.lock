@@ -55,13 +55,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_lints:
-    dependency: "direct dev"
-    description:
-      name: flutter_lints
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -72,6 +65,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.6.5"
   intl:
     dependency: transitive
     description:
@@ -79,13 +79,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.17.0"
-  lints:
-    dependency: transitive
+  lint:
+    dependency: "direct dev"
     description:
-      name: lints
+      name: lint
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.8.2"
   matcher:
     dependency: transitive
     description:
