@@ -10,11 +10,12 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
+  cupertino_icons: ^1.0.5
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   get: ^4.6.5
+  google_fonts: ^3.0.1
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +31,18 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+
+  fonts:
+    - family: NotoSansKR
+      fonts:
+        - asset: assets/fonts/NotoSansKR-Regular.otf
+        - asset: assets/fonts/NotoSansKR-Thin.otf
+          weight: 100
+        - asset: assets/fonts/NotoSansKR-Light.otf
+          weight: 300
+        - asset: assets/fonts/NotoSansKR-Medium.otf
+          weight: 500
+        - asset: assets/fonts/NotoSansKR-Bold.otf
+          weight: 700
+        - asset: assets/fonts/NotoSansKR-Black.otf
+          weight: 900
