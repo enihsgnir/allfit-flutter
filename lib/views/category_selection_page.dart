@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/controller/order_controller.dart';
+import 'package:allfit_flutter/controllers/order_controller.dart';
 import 'package:allfit_flutter/routes/pages.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_classes_with_only_static_members
 
-import 'package:allfit_flutter/controller/main_controller.dart';
-import 'package:allfit_flutter/controller/order_controller.dart';
+import 'package:allfit_flutter/controllers/main_controller.dart';
+import 'package:allfit_flutter/controllers/order_controller.dart';
 import 'package:allfit_flutter/views/category_selection_page.dart';
 import 'package:allfit_flutter/views/main.page.dart';
 import 'package:allfit_flutter/views/part_selection_page.dart';
