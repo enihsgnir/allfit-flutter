@@ -1,4 +1,4 @@
-package com.example.allfit_flutter
+package com.h2on.allfit
 
 import io.flutter.embedding.android.FlutterActivity
 
