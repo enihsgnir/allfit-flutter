@@ -1,4 +1,7 @@
+import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PointSelectionPage extends StatelessWidget {
   const PointSelectionPage({Key? key}) : super(key: key);
@@ -6,10 +9,12 @@ class PointSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const DefaultAppBar(),
+      extendBodyBehindAppBar: true,
       body: Center(
         child: Column(
           children: [
-            Image(
+            const Image(
               image: AssetImage("assets/images/clothes_sample.png"),
             ),
             Expanded(
@@ -19,7 +24,7 @@ class PointSelectionPage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 16),
                     Row(
-                      children: [
+                      children: const [
                         Text(
                           "티셔츠/맨투맨",
                           style: TextStyle(
@@ -50,12 +55,12 @@ class PointSelectionPage extends StatelessWidget {
                       child: ListView.builder(
                         itemCount: 2,
                         itemBuilder: (context, index) => ListTile(
-                          leading: Icon(Icons.abc),
-                          title: Text("총기장 줄임"),
-                          subtitle: Text("6cm"),
+                          leading: const FlutterLogo(size: 41),
+                          title: const Text("총기장 줄임"),
+                          subtitle: const Text("6cm"),
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
-                            children: [
+                            children: const [
                               Text("수정"),
                               Text("삭제"),
                             ],
@@ -66,17 +71,17 @@ class PointSelectionPage extends StatelessWidget {
                     InkWell(
                       onTap: () {},
                       child: Row(
-                        children: [
+                        children: const [
                           Icon(Icons.add, size: 12),
                           Text("수선 희망 부위 추가"),
                         ],
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text("예상 가격"),
                         Text("12,000원~"),
                       ],
@@ -88,7 +93,7 @@ class PointSelectionPage extends StatelessWidget {
                             onPressed: () async {
                               await bottomSheet(context);
                             },
-                            child: Text("다음"),
+                            child: const Text("다음"),
                           ),
                         ),
                       ],
@@ -105,32 +110,45 @@ class PointSelectionPage extends StatelessWidget {
   }
 
   Future<void> bottomSheet(BuildContext context) async {
+    // return Get.bottomSheet(
+    //   Container(),
+    // );
     return showModalBottomSheet<void>(
       context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
       builder: (context) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-            ),
-          ),
-          child: Center(
-            child: Column(
-              children: [
-                Text("매칭된 수선업체"),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text("주문하기"),
-                      ),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              const SizedBox(height: 28),
+              Row(
+                children: const [
+                  Text(
+                    "매칭된 수선업체",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Get.toNamed(Routes.ORDER_DETAIL),
+                      child: const Text("주문하기"),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

@@ -44,3 +44,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Auto-generated
+/lib/**/*.freezed.dart
+/lib/**/*.g.dart

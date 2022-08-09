@@ -9,7 +9,7 @@ class PartSelectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppBar(),
+      appBar: const DefaultAppBar(),
       body: Center(
         child: Column(
           children: [
