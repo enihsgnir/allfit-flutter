@@ -1,10 +1,16 @@
+import 'package:allfit_flutter/firebase_options.dart';
 import 'package:allfit_flutter/routes/pages.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString("google_fonts/OFL.txt");
     yield LicenseEntryWithLineBreaks(["google_fonts"], license);
