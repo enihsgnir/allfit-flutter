@@ -19,4 +19,6 @@ class OrderController extends GetxController {
   set category(String value) => _category.value = value;
 
   final _point = "".obs;
+  String get point => _point.value;
+  set point(String value) => _point.value = value;
 }

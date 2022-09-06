@@ -1,22 +1,35 @@
+import 'dart:async';
+
 import 'package:allfit_flutter/firebase_options.dart';
 import 'package:allfit_flutter/routes/pages.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 Future<void> main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  runZonedGuarded<Future<void>>(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString("google_fonts/OFL.txt");
-    yield LicenseEntryWithLineBreaks(["google_fonts"], license);
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    if (kDebugMode) {
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+    }
+
+    LicenseRegistry.addLicense(() async* {
+      final license = await rootBundle.loadString("google_fonts/OFL.txt");
+      yield LicenseEntryWithLineBreaks(["google_fonts"], license);
+    });
+
+    runApp(const MyApp());
+  }, (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack);
   });
-
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
