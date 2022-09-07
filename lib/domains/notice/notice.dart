@@ -12,7 +12,7 @@ class Notice with _$Notice {
     required String noticedBy,
     required DateTime createdAt,
     DateTime? deletedAt,
-}) = _Notice;
+  }) = _Notice;
 
   factory Notice.fromJson(Map<String, dynamic> json) => _$NoticeFromJson(json);
 }

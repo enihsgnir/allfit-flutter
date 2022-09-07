@@ -1,5 +1,5 @@
-import 'package:allfit_flutter/models/tailor.dart';
-import 'package:allfit_flutter/models/user.dart';
+import 'package:allfit_flutter/domains/tailor/tailor.dart';
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'order.freezed.dart';

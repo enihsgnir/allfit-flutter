@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/models/user.dart';
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final userRepository = UserRepository();
