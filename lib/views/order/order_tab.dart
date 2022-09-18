@@ -1,5 +1,5 @@
-import 'package:allfit_flutter/constants/colors.dart';
 import 'package:allfit_flutter/controllers/main_controller.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/category_selection_page.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
@@ -64,12 +64,8 @@ class OrderTab extends GetView<MainController> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Image(
-                                image: AssetImage("assets/images/camera.png"),
-                              ),
+                            Image(
+                              image: AssetImage("assets/images/camera.png"),
                             ),
                           ],
                         ),
@@ -77,9 +73,7 @@ class OrderTab extends GetView<MainController> {
                     ),
                     const SizedBox(height: 17),
                     InkWell(
-                      onTap: () {
-                        showUnpreparedDialog(context);
-                      },
+                      onTap: () => showUnpreparedDialog(context),
                       child: Container(
                         color: backgroundColor,
                         padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -95,8 +89,8 @@ class OrderTab extends GetView<MainController> {
                               ),
                             ),
                             SizedBox(
-                              width: 50,
-                              height: 63,
+                              width: 45,
+                              height: 79,
                               child: Image(
                                 image: AssetImage(
                                   "assets/images/avatar_pic.png",

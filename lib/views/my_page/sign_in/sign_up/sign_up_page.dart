@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/constants/colors.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_completion_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
@@ -82,7 +82,8 @@ class SignUpPage extends GetView<SignUpController> {
                     child: SizedBox(
                       height: 44,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await controller.signUp();
                           Get.offNamedUntil(
                             SignUpCompletionPage.route,
                             ModalRoute.withName(MainPage.route),

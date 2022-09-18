@@ -44,35 +44,35 @@ class SignUpController extends GetxController {
     final now = DateTime.now();
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailEdit.text.trim(),
         password: pwEdit.text,
       );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "email-already-in-use") {
-        print("The account already exists for that email.");
-      } else if (e.code == "invalid-email") {
-        print("invalid-email");
-      } else if (e.code == "weak-password") {
-        print("The password provided is too weak.");
-      }
-    }
 
-    final user = await userRepository.createOne(
-      User(
-        id: "",
-        email: emailEdit.text.trim(),
-        name: "",
-        address: "",
-        wayToEnter: "",
-        service: AlterService(
-          category: "",
+      await userRepository.createOne(
+        User(
+          id: "",
+          authUid: credential.user!.uid,
+          email: emailEdit.text.trim(),
+          wayToEnter: "",
+          service: AlterService(
+            category: "1회 이용수선서비스",
+            createdAt: now,
+            status: "이용 중",
+          ),
+          commercialAgreement: commercial,
           createdAt: now,
-          status: "",
         ),
-        commercialAgreement: commercial,
-        createdAt: now,
-      ),
-    );
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "weak-password") {
+        print("The password provided is too weak.");
+      } else if (e.code == "email-already-in-use") {
+        print("The account already exists for that email.");
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

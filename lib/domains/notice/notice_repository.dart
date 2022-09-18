@@ -1,22 +1,16 @@
-import 'package:allfit_flutter/domains/user/user.dart';
+import 'package:allfit_flutter/domains/notice/notice.dart';
 import 'package:allfit_flutter/utils/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-final userRepository = UserRepository();
+final noticeRepository = NoticeRepository();
 
-class UserRepository extends _UserRepository {
-  Future<User> getByAuthUid(String uid) async {
-    final snapshot =
-        await collection.where("authUid", isEqualTo: uid).limit(1).get();
-    return snapshot.docs.first.data();
-  }
-}
+class NoticeRepository extends _NoticeRepository {}
 
-abstract class _UserRepository {
+abstract class _NoticeRepository {
   final collection =
-      FirebaseFirestore.instance.collection("user").withConverter<User>(
+      FirebaseFirestore.instance.collection("notice").withConverter<Notice>(
     fromFirestore: (snapshot, _) {
-      final data = User.fromJson(
+      final data = Notice.fromJson(
         snapshot.data()!..addAll({"id": snapshot.id}),
       );
       logger.v(data.toJson());
@@ -29,23 +23,23 @@ abstract class _UserRepository {
     },
   );
 
-  Future<List<User>> getAll() async {
+  Future<List<Notice>> getAll() async {
     final snapshot = await collection.get();
     return snapshot.docs.map((e) => e.data()).toList();
   }
 
-  Future<User> getById(String id) async {
+  Future<Notice> getById(String id) async {
     final snapshot = await collection.doc(id).get();
     return snapshot.data()!;
   }
 
-  Future<User> createOne(User data) async {
+  Future<Notice> createOne(Notice data) async {
     final reference = await collection.add(data);
     final snapshot = await reference.get();
     return snapshot.data()!;
   }
 
-  Future<User> updateOne(
+  Future<Notice> updateOne(
     String id, {
     required Map<String, Object?> data,
   }) async {
@@ -55,7 +49,7 @@ abstract class _UserRepository {
     return snapshot.data()!;
   }
 
-  Future<User> removeOne(String id) async {
+  Future<Notice> removeOne(String id) async {
     final snapshot = await collection.doc(id).get();
     final data = snapshot.data()!;
     await collection.doc(id).delete();

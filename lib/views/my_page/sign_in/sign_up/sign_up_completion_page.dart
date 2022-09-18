@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/constants/colors.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,7 +24,9 @@ class SignUpCompletionPage extends StatelessWidget {
               minHeight: 4,
             ),
             const Spacer(),
-            const FlutterLogo(size: 116),
+            const Image(
+              image: AssetImage("assets/images/sign_up_completion.png"),
+            ),
             const SizedBox(height: 24),
             const Text(
               "간편한 수선생활\n함께 시작해볼까요?",

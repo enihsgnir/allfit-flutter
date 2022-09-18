@@ -6,8 +6,8 @@ class AlterServicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DefaultAppBar(title: "이용 중인 서비스"),
+    return const Scaffold(
+      appBar: DefaultAppBar(title: "이용 중인 서비스"),
       body: Placeholder(),
     );
   }

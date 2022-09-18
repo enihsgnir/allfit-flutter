@@ -6,8 +6,9 @@ class PaymentHistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DefaultAppBar(title: "결제내역"),
+    return const Scaffold(
+      appBar: DefaultAppBar(title: "결제내역"),
+      body: Placeholder(),
     );
   }
 }

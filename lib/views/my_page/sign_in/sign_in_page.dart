@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/constants/colors.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/agreement_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
@@ -50,8 +50,9 @@ class SignInPage extends GetView<SignInController> {
                     child: SizedBox(
                       height: 44,
                       child: ElevatedButton(
-                        onPressed: () {
-                          showUnpreparedDialog(context);
+                        onPressed: () async {
+                          await controller.signIn();
+                          Get.back();
                         },
                         child: const Text(
                           "로그인하기",
@@ -70,9 +71,7 @@ class SignInPage extends GetView<SignInController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
-                    onPressed: () {
-                      showUnpreparedDialog(context);
-                    },
+                    onPressed: () => showUnpreparedDialog(context),
                     child: const Text(
                       "아이디 찾기",
                       style: TextStyle(fontSize: 12),
@@ -80,9 +79,7 @@ class SignInPage extends GetView<SignInController> {
                   ),
                   const VerticalDivider(width: 16),
                   TextButton(
-                    onPressed: () {
-                      showUnpreparedDialog(context);
-                    },
+                    onPressed: () => showUnpreparedDialog(context),
                     child: const Text(
                       "비밀번호 찾기",
                       style: TextStyle(fontSize: 12),

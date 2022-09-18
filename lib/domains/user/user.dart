@@ -7,11 +7,12 @@ part 'user.g.dart';
 class User with _$User {
   const factory User({
     required String id,
+    required String authUid,
     required String email,
-    required String name,
+    String? name,
     String? phone,
-    required String address,
-    required String wayToEnter,
+    String? address,
+    String? wayToEnter,
     required AlterService service,
     required bool commercialAgreement,
     required DateTime createdAt,

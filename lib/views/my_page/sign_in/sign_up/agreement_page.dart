@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/constants/colors.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
@@ -92,9 +92,7 @@ class AgreementPage extends GetView<SignUpController> {
                   style: TextStyle(fontSize: 11),
                 ),
                 InkWell(
-                  onTap: () {
-                    showUnpreparedDialog(context);
-                  },
+                  onTap: () => showUnpreparedDialog(context),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       vertical: 4,
@@ -136,9 +134,7 @@ class AgreementPage extends GetView<SignUpController> {
                   style: TextStyle(fontSize: 11),
                 ),
                 InkWell(
-                  onTap: () {
-                    showUnpreparedDialog(context);
-                  },
+                  onTap: () => showUnpreparedDialog(context),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       vertical: 4,

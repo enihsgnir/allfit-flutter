@@ -1,9 +1,12 @@
+import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PointSelectionPage extends StatelessWidget {
+class PointSelectionPage extends GetView<OrderController> {
   const PointSelectionPage({super.key});
 
   static const route = "/order/point";
@@ -13,108 +16,143 @@ class PointSelectionPage extends StatelessWidget {
     return Scaffold(
       appBar: const DefaultAppBar(),
       extendBodyBehindAppBar: true,
-      body: Center(
-        child: Column(
-          children: [
-            const Image(
-              image: AssetImage("assets/images/clothes_sample.png"),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 16),
-                    Row(
+      body: Column(
+        children: [
+          const Image(
+            image: AssetImage("assets/images/clothes_sample.png"),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  Text(
+                    controller.title[controller.category],
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ListTile(
+                    leading: Image(
+                      image: AssetImage(
+                        "assets/images/${controller.icon[controller.category]}.png",
+                      ),
+                      width: 40,
+                    ),
+                    title: Text(
+                      controller.parts[controller.category][controller.part],
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    subtitle: const Text(
+                      "6cm",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        InkWell(
+                          onTap: () => showUnpreparedDialog(context),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              "수정",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => showUnpreparedDialog(context),
+                          child: const Padding(
+                            padding: EdgeInsets.all(8),
+                            child: Text(
+                              "삭제",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () => showUnpreparedDialog(context),
+                    child: Row(
                       children: const [
                         Text(
-                          "티셔츠/맨투맨",
+                          "+",
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        Text(
+                          "수선 희망 부위 추가",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 18),
-                    // ...List.generate(
-                    //   2,
-                    //   (index) => ListTile(
-                    //     leading: Icon(Icons.abc),
-                    //     title: Text("총기장 줄임"),
-                    //     subtitle: Text("6cm"),
-                    //     trailing: Row(
-                    //       mainAxisSize: MainAxisSize.min,
-                    //       children: [
-                    //         Text("수정"),
-                    //         Text("삭제"),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    Container(
-                      height: 70,
-                      child: ListView.builder(
-                        itemCount: 2,
-                        itemBuilder: (context, index) => ListTile(
-                          leading: const FlutterLogo(size: 41),
-                          title: const Text("총기장 줄임"),
-                          subtitle: const Text("6cm"),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Text("수정"),
-                              Text("삭제"),
-                            ],
+                  ),
+                  const Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "예상 가격",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "12,000원~",
+                        style: TextStyle(
+                          color: bluePointColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await bottomSheet(context);
+                          },
+                          child: const Text(
+                            "다음",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Row(
-                        children: const [
-                          Icon(Icons.add, size: 12),
-                          Text("수선 희망 부위 추가"),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    const Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text("예상 가격"),
-                        Text("12,000원~"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              await bottomSheet(context);
-                            },
-                            child: const Text("다음"),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 17),
-                  ],
-                ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Future<void> bottomSheet(BuildContext context) async {
-    // return Get.bottomSheet(
-    //   Container(),
-    // );
     return showModalBottomSheet<void>(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -140,16 +178,54 @@ class PointSelectionPage extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  const Image(
+                    image: AssetImage("assets/images/tailor_circle_image.png"),
+                  ),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "더현대서울 실과바늘",
+                        style: TextStyle(
+                          color: bluePointColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "위치 5km 이내, 수선경력 20년, 명품 의류 전문",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const Divider(),
+              const Spacer(),
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () => Get.toNamed(OrderDetailPage.route),
-                      child: const Text("주문하기"),
+                      child: const Text(
+                        "주문하기",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
+              const SizedBox(height: 16),
             ],
           ),
         );

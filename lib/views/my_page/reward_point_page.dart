@@ -6,8 +6,9 @@ class RewardPointPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DefaultAppBar(title: "포인트 현황"),
+    return const Scaffold(
+      appBar: DefaultAppBar(title: "포인트 현황"),
+      body: Placeholder(),
     );
   }
 }

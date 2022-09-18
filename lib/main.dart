@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:allfit_flutter/constants/colors.dart';
 import 'package:allfit_flutter/firebase_options.dart';
-import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/utils/pages.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';

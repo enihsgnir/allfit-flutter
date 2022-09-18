@@ -6,8 +6,9 @@ class MyInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const DefaultAppBar(title: "내 정보"),
+    return const Scaffold(
+      appBar: DefaultAppBar(title: "내 정보"),
+      body: Placeholder(),
     );
   }
 }

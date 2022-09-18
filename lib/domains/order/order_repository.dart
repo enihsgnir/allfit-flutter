@@ -1,6 +1,9 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/domains/user/user_repository.dart';
+import 'package:allfit_flutter/utils/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+final orderRepository = OrderRepository();
 
 class OrderRepository extends _OrderRepository {
   Future<List<Order>> getAllByUserId(String userId) async {
@@ -32,11 +35,19 @@ class OrderRepository extends _OrderRepository {
 abstract class _OrderRepository {
   final collection =
       FirebaseFirestore.instance.collection("order").withConverter<Order>(
-            fromFirestore: (snapshot, _) => Order.fromJson(
-              snapshot.data()!..addAll({"id": snapshot.id}),
-            ),
-            toFirestore: (value, _) => value.toJson()..remove("id"),
-          );
+    fromFirestore: (snapshot, _) {
+      final data = Order.fromJson(
+        snapshot.data()!..addAll({"id": snapshot.id}),
+      );
+      logger.v(data.toJson());
+      return data;
+    },
+    toFirestore: (value, _) {
+      final data = value.toJson()..remove("id");
+      logger.v(data);
+      return data;
+    },
+  );
 
   Future<List<Order>> getAll() async {
     final snapshot = await collection.get();

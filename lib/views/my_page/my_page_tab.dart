@@ -1,7 +1,9 @@
-import 'package:allfit_flutter/constants/colors.dart';
 import 'package:allfit_flutter/controllers/main_controller.dart';
+import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/alter_service_page.dart';
-import 'package:allfit_flutter/views/my_page/coupon_page.dart';
+import 'package:allfit_flutter/views/my_page/coupon/coupon_controller.dart';
+import 'package:allfit_flutter/views/my_page/coupon/coupon_page.dart';
 import 'package:allfit_flutter/views/my_page/faq_page.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_page.dart';
 import 'package:allfit_flutter/views/my_page/my_info_page.dart';
@@ -10,7 +12,6 @@ import 'package:allfit_flutter/views/my_page/notice/notice_page.dart';
 import 'package:allfit_flutter/views/my_page/payment_history_page.dart';
 import 'package:allfit_flutter/views/my_page/reward_point_page.dart';
 import 'package:allfit_flutter/views/my_page/settings_page.dart';
-import 'package:allfit_flutter/views/my_page/sign_in/sign_in_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,49 +27,62 @@ class MyPageTab extends GetView<MainController> {
       children: [
         SizedBox(height: MediaQuery.of(context).padding.top),
         const SizedBox(height: 36),
-        if (controller.currentUser == null)
-          Row(
-            children: [
-              const SizedBox(width: 12),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(SignInPage.route);
-                },
-                child: const Text(
-                  "로그인 해주세요",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
+        Obx(() {
+          if (!controller.isSignedIn) {
+            return Row(
+              children: [
+                const SizedBox(width: 12),
+                TextButton(
+                  onPressed: () {
+                    Get.toNamed(SignInPage.route);
+                  },
+                  child: const Text(
+                    "로그인 해주세요",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        else
-          Row(
-            children: const [
-              SizedBox(width: 24),
-              Image(
+              ],
+            );
+          }
+          return Row(
+            children: [
+              const SizedBox(width: 24),
+              const Image(
                 image: AssetImage("assets/images/circle_avatar.png"),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               Text(
-                "XXX님",
-                style: TextStyle(
+                "${usernameFromEmail(controller.currentUser)}님",
+                style: const TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const Spacer(),
+              IconButton(
+                onPressed: () async {
+                  await controller.signOut();
+                },
+                icon: const Icon(Icons.logout),
+              ),
+              const SizedBox(width: 24),
             ],
-          ),
+          );
+        }),
         const SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             InkWell(
               onTap: () {
-                Get.to(() => const CouponPage());
+                Get.to(
+                  () => const CouponPage(),
+                  binding: BindingsBuilder.put(() => CouponController()),
+                );
               },
               child: Column(
                 children: const [

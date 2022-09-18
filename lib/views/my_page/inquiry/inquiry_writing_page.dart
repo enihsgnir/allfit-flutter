@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/constants/colors.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';

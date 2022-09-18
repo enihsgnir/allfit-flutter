@@ -1,10 +1,12 @@
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
+import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OrderDetailPage extends StatelessWidget {
+class OrderDetailPage extends GetView<OrderController> {
   const OrderDetailPage({super.key});
 
   static const route = "/order/detail";
@@ -16,53 +18,72 @@ class OrderDetailPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
-              children: const [
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 ListTile(
-                  leading: FlutterLogo(size: 37),
+                  leading: Image(
+                    image: AssetImage(
+                      "assets/images/${controller.icon[controller.category]}.png",
+                    ),
+                    width: 36,
+                  ),
                   title: Text(
-                    "티셔츠/맨투맨  1개",
-                    style: TextStyle(fontSize: 15),
+                    "${controller.title[controller.category]} 1개",
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   subtitle: Text(
-                    "총기장 줄임 6cm",
-                    style: TextStyle(fontSize: 12),
+                    "${controller.parts[controller.category][controller.part]} 6cm",
+                    style: const TextStyle(fontSize: 12),
                   ),
-                  trailing: Text(
+                  trailing: const Text(
                     "12,000원~",
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-                Text(
+                const Text(
                   "수선업체: 더현대서울 실과바늘",
                   style: TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                Text(
+                const Text(
                   "주문번호: B0T301NQ",
                   style: TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 12,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 24),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
                   "주소",
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   "서울특별시 성동구 사근동",
                   style: TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -73,13 +94,17 @@ class OrderDetailPage extends StatelessWidget {
               children: const [
                 Text(
                   "수거일정",
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   "2022년 10월 14일 (금)",
                   style: TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -90,13 +115,17 @@ class OrderDetailPage extends StatelessWidget {
               children: const [
                 Text(
                   "수선 요청사항",
-                  style: TextStyle(fontSize: 15),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 Text(
                   "밑단 포인트 살려주세요",
                   style: TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -109,28 +138,93 @@ class OrderDetailPage extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text("총 수선금액"),
-                    Text("12,000원"),
+                    Text(
+                      "총 수선금액",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      "12,000원",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text("배달팁"),
-                    Text("3,000원"),
+                    Text(
+                      "배달팁",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      "3,000원",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ],
             ),
-            const Divider(),
+            const Divider(color: Colors.black),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-                Text("총 결제금액"),
-                Text("15,000원"),
+                Text(
+                  "총 결제금액",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  "15,000원",
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ],
             ),
-            const Text("2022년 11월 17일 완료 예상"),
+            const SizedBox(height: 48),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  text: const TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "2022년 11월 17일 ",
+                        style: TextStyle(
+                          color: bluePointColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "완료 예상",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Expanded(
@@ -139,12 +233,18 @@ class OrderDetailPage extends StatelessWidget {
                       DepositInfoPage.route,
                       ModalRoute.withName(MainPage.route),
                     ),
-                    child: const Text("15,000원 결제하기"),
+                    child: const Text(
+                      "15,000원 결제하기",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 17),
+            const SizedBox(height: 16),
           ],
         ),
       ),

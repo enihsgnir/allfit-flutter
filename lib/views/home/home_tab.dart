@@ -13,9 +13,7 @@ class HomeTab extends StatelessWidget {
         SizedBox(
           height: 50,
           child: InkWell(
-            onTap: () {
-              showUnpreparedDialog(context);
-            },
+            onTap: () => showUnpreparedDialog(context),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -91,9 +89,7 @@ class HomeTab extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               InkWell(
-                onTap: () {
-                  showUnpreparedDialog(context);
-                },
+                onTap: () => showUnpreparedDialog(context),
                 child: const SizedBox(
                   height: 100,
                   child: Image(
