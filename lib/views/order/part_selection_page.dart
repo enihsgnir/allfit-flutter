@@ -1,10 +1,12 @@
-import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/views/order/point_selection_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PartSelectionPage extends StatelessWidget {
-  const PartSelectionPage({Key? key}) : super(key: key);
+  const PartSelectionPage({super.key});
+
+  static const route = "/order/part";
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class PartSelectionPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.POINT_SELECTION);
+                      Get.toNamed(PointSelectionPage.route);
                     },
                     child: Container(
                       width: 153,

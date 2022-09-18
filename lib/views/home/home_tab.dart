@@ -1,9 +1,9 @@
-import 'package:allfit_flutter/constants/colors.dart';
+import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  const HomeTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,73 +12,94 @@ class HomeTab extends StatelessWidget {
         SizedBox(height: MediaQuery.of(context).padding.top),
         SizedBox(
           height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "배송 주소 설정",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+          child: InkWell(
+            onTap: () {
+              showUnpreparedDialog(context);
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "배송 주소 설정",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  CupertinoIcons.chevron_down,
-                  size: 12,
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  width: 28,
+                  height: 12,
+                  child: const Icon(
+                    CupertinoIcons.chevron_down,
+                    size: 16,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          color: backgroundColor,
-          child: Column(
-            children: [
-              const SizedBox(height: 23),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
+        Stack(
+          children: [
+            const Image(
+              image: AssetImage("assets/images/home_tab_background.png"),
+            ),
+            Positioned(
+              right: 12,
+              bottom: 36,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: const [
+                  Text(
+                    "환경을 위한 솔선수선",
+                    style: TextStyle(
                       color: Colors.white,
-                      width: 148,
-                      height: 148,
-                      child: Text(
-                        "수선가격\n확인하기",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      alignment: Alignment.center,
+                  SizedBox(height: 20),
+                  Text(
+                    "수선으로 시작하는\n친환경 라이프스타일",
+                    style: TextStyle(
                       color: Colors.white,
-                      width: 148,
-                      height: 148,
-                      child: Text(
-                        "신체아바타\n측정하기",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
+                    textAlign: TextAlign.right,
                   ),
                 ],
               ),
-              Image(
-                image: AssetImage("assets/images/home_tab_background.png"),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Divider(
+                height: 48,
+                color: Colors.black,
+              ),
+              const Text(
+                "얼핏이 처음이세요?",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 12),
+              InkWell(
+                onTap: () {
+                  showUnpreparedDialog(context);
+                },
+                child: const SizedBox(
+                  height: 100,
+                  child: Image(
+                    image: AssetImage("assets/images/price_table.png"),
+                  ),
+                ),
               ),
             ],
           ),

@@ -47,7 +47,7 @@ android {
 
     defaultConfig {
         applicationId "com.h2on.allfit"
-        minSdkVersion 20
+        minSdkVersion 21
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

@@ -1,12 +1,14 @@
 import 'package:allfit_flutter/controllers/order_controller.dart';
-import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategorySelectionPage extends GetView<OrderController> {
-  const CategorySelectionPage({Key? key}) : super(key: key);
+  const CategorySelectionPage({super.key});
+
+  static const route = "/order/category";
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class CategorySelectionPage extends GetView<OrderController> {
                   ),
                   onTap: () {
                     controller.category = controller.title[index];
-                    Get.toNamed(Routes.PART_SELECTION);
+                    Get.toNamed(PartSelectionPage.route);
                   },
                   tileColor: const Color.fromRGBO(245, 245, 245, 1),
                 ),

@@ -1,10 +1,13 @@
-import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/views/main_page.dart';
+import 'package:allfit_flutter/views/order/deposit_info_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderDetailPage extends StatelessWidget {
-  const OrderDetailPage({Key? key}) : super(key: key);
+  const OrderDetailPage({super.key});
+
+  static const route = "/order/detail";
 
   @override
   Widget build(BuildContext context) {
@@ -133,8 +136,8 @@ class OrderDetailPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => Get.offNamedUntil(
-                      Routes.DEPOSIT_INFO,
-                      ModalRoute.withName(Routes.MAIN),
+                      DepositInfoPage.route,
+                      ModalRoute.withName(MainPage.route),
                     ),
                     child: const Text("15,000원 결제하기"),
                   ),

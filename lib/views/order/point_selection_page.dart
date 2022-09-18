@@ -1,10 +1,12 @@
-import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/views/order/order_detail_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PointSelectionPage extends StatelessWidget {
-  const PointSelectionPage({Key? key}) : super(key: key);
+  const PointSelectionPage({super.key});
+
+  static const route = "/order/point";
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +144,7 @@ class PointSelectionPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () => Get.toNamed(Routes.ORDER_DETAIL),
+                      onPressed: () => Get.toNamed(OrderDetailPage.route),
                       child: const Text("주문하기"),
                     ),
                   ),

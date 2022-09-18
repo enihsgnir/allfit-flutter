@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class DepositInfoPage extends StatelessWidget {
-  const DepositInfoPage({Key? key}) : super(key: key);
+  const DepositInfoPage({super.key});
+
+  static const route = "/order/deposit";
 
   @override
   Widget build(BuildContext context) {

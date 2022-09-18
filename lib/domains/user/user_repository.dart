@@ -3,7 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final userRepository = UserRepository();
 
-class UserRepository {
+class UserRepository extends _UserRepository {}
+
+abstract class _UserRepository {
   final collection =
       FirebaseFirestore.instance.collection("user").withConverter<User>(
             fromFirestore: (snapshot, _) => User.fromJson(
@@ -22,53 +24,26 @@ class UserRepository {
     return snapshot.data()!;
   }
 
-  Future<User> createOne({
-    required String name,
-    required String email,
-    String? phone,
-    Gender? gender,
-    String? address,
-  }) async {
-    final reference = await collection.add(
-      User(
-        id: "",
-        name: name,
-        email: email,
-        phone: phone,
-        gender: gender,
-        address: address,
-        createdAt: DateTime.now(),
-      ),
-    );
+  Future<User> createOne(User data) async {
+    final reference = await collection.add(data);
     final snapshot = await reference.get();
     return snapshot.data()!;
   }
 
   Future<User> updateOne(
     String id, {
-    String? name,
-    String? email,
-    String? phone,
-    Gender? gender,
-    String? address,
+    required Map<String, Object?> data,
   }) async {
     final reference = collection.doc(id);
-    await reference.update(
-      {
-        "name": name,
-        "email": email,
-        "phone": phone,
-        "gender": gender?.name,
-      }..removeWhere((key, value) => value == null),
-    );
+    await reference.update(data..removeWhere((key, value) => value == null));
     final snapshot = await reference.get();
     return snapshot.data()!;
   }
 
   Future<User> removeOne(String id) async {
     final snapshot = await collection.doc(id).get();
-    final user = snapshot.data()!;
+    final data = snapshot.data()!;
     await collection.doc(id).delete();
-    return user;
+    return data;
   }
 }

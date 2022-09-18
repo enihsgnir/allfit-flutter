@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:allfit_flutter/constants/colors.dart';
 import 'package:allfit_flutter/firebase_options.dart';
 import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/views/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -33,7 +35,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,29 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: const Color(0xFFF5F5F5),
         fontFamily: "NotoSansKR",
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: greyPointColor),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: greyPointColor),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: const Color.fromRGBO(30, 30, 30, 1),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: const Color.fromRGBO(30, 30, 30, 1),
+          ),
+        ),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.black,
+        ),
       ),
-      initialRoute: Routes.MAIN,
+      initialRoute: MainPage.route,
       getPages: Pages.routes,
     );
   }

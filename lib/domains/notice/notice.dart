@@ -6,6 +6,7 @@ part 'notice.g.dart';
 @freezed
 class Notice with _$Notice {
   const factory Notice({
+    required String id,
     required String title,
     required String category,
     required String contents,

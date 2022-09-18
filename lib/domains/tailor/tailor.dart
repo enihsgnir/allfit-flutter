@@ -7,6 +7,7 @@ part 'tailor.g.dart';
 @freezed
 class Tailor with _$Tailor {
   const factory Tailor({
+    required String id,
     required String businessName,
     LatLng? location,
     required Category category,

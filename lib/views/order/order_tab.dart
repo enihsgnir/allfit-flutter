@@ -1,11 +1,12 @@
 import 'package:allfit_flutter/constants/colors.dart';
 import 'package:allfit_flutter/controllers/main_controller.dart';
-import 'package:allfit_flutter/routes/pages.dart';
+import 'package:allfit_flutter/views/order/category_selection_page.dart';
+import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderTab extends GetView<MainController> {
-  const OrderTab({Key? key}) : super(key: key);
+  const OrderTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +34,6 @@ class OrderTab extends GetView<MainController> {
           ),
           Column(
             children: [
-              const SizedBox(height: 50),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                height: 40,
-                child: TextField(
-                  controller: controller.addressEdit,
-                  decoration: InputDecoration(
-                    hintText: "어디에서 픽업할까요?",
-                    prefixIcon: const Icon(Icons.search, size: 24),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(28),
-                    ),
-                  ),
-                  style: const TextStyle(fontSize: 16),
-                  textAlignVertical: TextAlignVertical.bottom,
-                ),
-              ),
               const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -67,7 +49,7 @@ class OrderTab extends GetView<MainController> {
                   children: [
                     const SizedBox(height: 21),
                     InkWell(
-                      onTap: () => Get.toNamed(Routes.CATEGORY_SELECTION),
+                      onTap: () => Get.toNamed(CategorySelectionPage.route),
                       child: Container(
                         color: backgroundColor,
                         padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -95,7 +77,9 @@ class OrderTab extends GetView<MainController> {
                     ),
                     const SizedBox(height: 17),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        showUnpreparedDialog(context);
+                      },
                       child: Container(
                         color: backgroundColor,
                         padding: const EdgeInsets.symmetric(horizontal: 28),
