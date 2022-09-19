@@ -1,4 +1,5 @@
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
@@ -26,32 +27,32 @@ class OrderDetailPage extends GetView<OrderController> {
                 ListTile(
                   leading: Image(
                     image: AssetImage(
-                      "assets/images/${controller.icon[controller.category]}.png",
+                      "assets/images/${controller.iconAssetName}.png",
                     ),
                     width: 36,
                   ),
                   title: Text(
-                    "${controller.title[controller.category]} 1개",
+                    "${controller.category} 1개",
                     style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   subtitle: Text(
-                    "${controller.parts[controller.category][controller.part]} 6cm",
+                    "${controller.part} ${controller.pointValue}cm",
                     style: const TextStyle(fontSize: 12),
                   ),
-                  trailing: const Text(
-                    "12,000원~",
-                    style: TextStyle(
+                  trailing: Text(
+                    formatCurrency(controller.minCost),
+                    style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                const Text(
-                  "수선업체: 더현대서울 실과바늘",
-                  style: TextStyle(
+                Text(
+                  "수선업체: ${controller.tailorName}",
+                  style: const TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
@@ -70,8 +71,8 @@ class OrderDetailPage extends GetView<OrderController> {
             const SizedBox(height: 24),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "주소",
                   style: TextStyle(
                     fontSize: 15,
@@ -79,8 +80,8 @@ class OrderDetailPage extends GetView<OrderController> {
                   ),
                 ),
                 Text(
-                  "서울특별시 성동구 사근동",
-                  style: TextStyle(
+                  controller.address,
+                  style: const TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -112,8 +113,8 @@ class OrderDetailPage extends GetView<OrderController> {
             const SizedBox(height: 33),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "수선 요청사항",
                   style: TextStyle(
                     fontSize: 15,
@@ -121,8 +122,8 @@ class OrderDetailPage extends GetView<OrderController> {
                   ),
                 ),
                 Text(
-                  "밑단 포인트 살려주세요",
-                  style: TextStyle(
+                  controller.extra,
+                  style: const TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,

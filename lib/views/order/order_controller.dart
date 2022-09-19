@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 enum Category {
@@ -11,7 +12,7 @@ enum Category {
 class OrderController extends GetxController {
   static OrderController get to => Get.find();
 
-  final icon = ["t_shirt", "dress_shirt", "pants", "one_piece_dress", "skirt"];
+  final icons = ["t_shirt", "dress_shirt", "pants", "one_piece_dress", "skirt"];
   final title = ["티셔츠/맨투맨", "셔츠/블라우스", "바지", "원피스", "치마"];
 
   // final parts = [
@@ -102,15 +103,41 @@ class OrderController extends GetxController {
     ],
   ];
 
-  final _category = 0.obs;
-  int get category => _category.value;
-  set category(int value) => _category.value = value;
+  String get iconAssetName => icons[categoryIndex];
 
-  final _part = 0.obs;
-  int get part => _part.value;
-  set part(int value) => _part.value = value;
+  final _categoryIndex = 0.obs;
+  int get categoryIndex => _categoryIndex.value;
+  set categoryIndex(int value) => _categoryIndex.value = value;
 
-  final _point = "".obs;
-  String get point => _point.value;
-  set point(String value) => _point.value = value;
+  String get category => title[categoryIndex];
+
+  final _partIndex = 0.obs;
+  int get partIndex => _partIndex.value;
+  set partIndex(int value) => _partIndex.value = value;
+
+  String get part => parts[categoryIndex][partIndex];
+
+  final _pointValue = 6.obs;
+  int get pointValue => _pointValue.value;
+  set pointValue(int value) => _pointValue.value = value;
+
+  final _minCost = 12000.obs;
+  int get minCost => _minCost.value;
+  set minCost(int value) => _minCost.value = value;
+
+  final _tailorName = "더현대서울 실과바늘".obs;
+  String get tailorName => _tailorName.value;
+  set tailorName(String value) => _tailorName.value = value;
+
+  final extraEdit = TextEditingController();
+  String get extra => extraEdit.text.isEmpty ? "없음" : extraEdit.text;
+
+  final _address = "서울특별시 성동구 사근동".obs;
+  String get address => _address.value;
+  set address(String value) => _address.value = value;
+
+  @override
+  void onClose() {
+    extraEdit.dispose();
+  }
 }

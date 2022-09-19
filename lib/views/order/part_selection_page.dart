@@ -34,12 +34,13 @@ class PartSelectionPage extends GetView<OrderController> {
                 mainAxisSpacing: 9,
                 crossAxisSpacing: 9,
                 children: List.generate(
-                  controller.parts[controller.category].length,
+                  controller.parts[controller.categoryIndex].length,
                   (index) {
-                    final part = controller.parts[controller.category][index];
+                    final part =
+                        controller.parts[controller.categoryIndex][index];
                     return InkWell(
                       onTap: () {
-                        controller.part = index;
+                        controller.partIndex = index;
                         Get.toNamed(PointSelectionPage.route);
                       },
                       child: Container(

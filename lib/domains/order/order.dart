@@ -1,5 +1,3 @@
-import 'package:allfit_flutter/domains/tailor/tailor.dart';
-import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'order.freezed.dart';
@@ -9,8 +7,8 @@ part 'order.g.dart';
 class Order with _$Order {
   const factory Order({
     required String id,
-    required User user,
-    required Tailor tailor,
+    required String userId,
+    required String tailorId,
     required List<OrderItem> items,
     required String address,
     required DateTime pickUpSchedule,

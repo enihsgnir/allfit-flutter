@@ -29,7 +29,7 @@ class PointSelectionPage extends GetView<OrderController> {
                 children: [
                   const SizedBox(height: 16),
                   Text(
-                    controller.title[controller.category],
+                    controller.category,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -39,20 +39,20 @@ class PointSelectionPage extends GetView<OrderController> {
                   ListTile(
                     leading: Image(
                       image: AssetImage(
-                        "assets/images/${controller.icon[controller.category]}.png",
+                        "assets/images/${controller.iconAssetName}.png",
                       ),
                       width: 40,
                     ),
                     title: Text(
-                      controller.parts[controller.category][controller.part],
+                      controller.part,
                       style: const TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    subtitle: const Text(
-                      "6cm",
-                      style: TextStyle(fontSize: 12),
+                    subtitle: Text(
+                      "${controller.pointValue}cm",
+                      style: const TextStyle(fontSize: 12),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,

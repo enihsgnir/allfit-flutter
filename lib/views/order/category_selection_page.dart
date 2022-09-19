@@ -40,7 +40,7 @@ class CategorySelectionPage extends GetView<OrderController> {
                 child: ListTile(
                   leading: Image(
                     image: AssetImage(
-                      "assets/images/${controller.icon[index]}.png",
+                      "assets/images/${controller.icons[index]}.png",
                     ),
                     width: 24,
                   ),
@@ -57,7 +57,7 @@ class CategorySelectionPage extends GetView<OrderController> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   onTap: () {
-                    controller.category = index;
+                    controller.categoryIndex = index;
                     Get.toNamed(PartSelectionPage.route);
                   },
                   tileColor: const Color.fromRGBO(245, 245, 245, 1),

@@ -7,6 +7,10 @@ extension CurrencyExtension on int {
   }
 }
 
+String formatCurrency(int number) {
+  return NumberFormat("#,###원").format(number);
+}
+
 String usernameFromEmail(User? user) {
   if (user == null) {
     return "(알 수 없음)";
