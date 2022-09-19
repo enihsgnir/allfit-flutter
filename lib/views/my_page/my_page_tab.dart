@@ -79,10 +79,7 @@ class MyPageTab extends GetView<MainController> {
           children: [
             InkWell(
               onTap: () {
-                Get.to(
-                  () => const CouponPage(),
-                  binding: BindingsBuilder.put(() => CouponController()),
-                );
+                Get.toNamed(CouponPage.route);
               },
               child: Column(
                 children: const [
@@ -99,7 +96,7 @@ class MyPageTab extends GetView<MainController> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const RewardPointPage());
+                Get.toNamed(RewardPointPage.route);
               },
               child: Column(
                 children: const [
@@ -116,7 +113,7 @@ class MyPageTab extends GetView<MainController> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const PaymentHistoryPage());
+                Get.toNamed(PaymentHistoryPage.route);
               },
               child: Column(
                 children: const [
@@ -133,7 +130,7 @@ class MyPageTab extends GetView<MainController> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => const MyInfoPage());
+                Get.toNamed(MyInfoPage.route);
               },
               child: Column(
                 children: const [
@@ -162,7 +159,7 @@ class MyPageTab extends GetView<MainController> {
           trailing: const Icon(CupertinoIcons.chevron_forward),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            Get.to(() => const AlterServicePage());
+            Get.toNamed(AlterServicePage.route);
           },
         ),
         Container(
@@ -198,10 +195,7 @@ class MyPageTab extends GetView<MainController> {
           trailing: const Icon(CupertinoIcons.chevron_forward),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            Get.to(
-              () => const NoticePage(),
-              binding: BindingsBuilder.put(() => NoticeController()),
-            );
+            Get.toNamed(NoticePage.route);
           },
         ),
         ListTile(
@@ -215,7 +209,7 @@ class MyPageTab extends GetView<MainController> {
           trailing: const Icon(CupertinoIcons.chevron_forward),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            Get.to(() => const SettingsPage());
+            Get.toNamed(SettingsPage.route);
           },
         ),
         const Spacer(),
@@ -242,7 +236,7 @@ class MyPageTab extends GetView<MainController> {
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            Get.to(() => const FAQPage());
+            Get.toNamed(FAQPage.route);
           },
         ),
         ListTile(
@@ -255,7 +249,7 @@ class MyPageTab extends GetView<MainController> {
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            Get.to(() => const InquiryPage());
+            Get.toNamed(InquiryPage.route);
           },
         ),
         const SizedBox(height: 60),

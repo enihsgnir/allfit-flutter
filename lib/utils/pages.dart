@@ -1,5 +1,20 @@
 import 'package:allfit_flutter/controllers/main_controller.dart';
+import 'package:allfit_flutter/views/home/address/address_controller.dart';
+import 'package:allfit_flutter/views/home/address/address_setting_page.dart';
 import 'package:allfit_flutter/views/main_page.dart';
+import 'package:allfit_flutter/views/my_page/alter_service_page.dart';
+import 'package:allfit_flutter/views/my_page/coupon/coupon_controller.dart';
+import 'package:allfit_flutter/views/my_page/coupon/coupon_page.dart';
+import 'package:allfit_flutter/views/my_page/faq_page.dart';
+import 'package:allfit_flutter/views/my_page/inquiry/inquiry_page.dart';
+import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_controller.dart';
+import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_page.dart';
+import 'package:allfit_flutter/views/my_page/my_info_page.dart';
+import 'package:allfit_flutter/views/my_page/notice/notice_controller.dart';
+import 'package:allfit_flutter/views/my_page/notice/notice_page.dart';
+import 'package:allfit_flutter/views/my_page/payment_history_page.dart';
+import 'package:allfit_flutter/views/my_page/reward_point_page.dart';
+import 'package:allfit_flutter/views/my_page/settings_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_completion_page.dart';
@@ -15,11 +30,21 @@ abstract class Pages {
   const Pages._();
 
   static final routes = [
+    // main
     GetPage(
       name: MainPage.route,
       page: () => const MainPage(),
       binding: BindingsBuilder.put(() => MainController()),
     ),
+
+    // home
+    GetPage(
+      name: AddressSettingPage.route,
+      page: () => const AddressSettingPage(),
+      binding: BindingsBuilder.put(() => AddressController()),
+    ),
+
+    // order
     GetPage(
       name: CategorySelectionPage.route,
       page: () => const CategorySelectionPage(),
@@ -41,6 +66,8 @@ abstract class Pages {
       name: DepositInfoPage.route,
       page: () => const DepositInfoPage(),
     ),
+
+    // my_page
     GetPage(
       name: SignUpCompletionPage.route,
       page: () => const SignUpCompletionPage(),
@@ -49,6 +76,49 @@ abstract class Pages {
       name: SignInPage.route,
       page: () => const SignInPage(),
       binding: BindingsBuilder.put(() => SignInController()),
+    ),
+    GetPage(
+      name: CouponPage.route,
+      page: () => const CouponPage(),
+      binding: BindingsBuilder.put(() => CouponController()),
+    ),
+    GetPage(
+      name: RewardPointPage.route,
+      page: () => const RewardPointPage(),
+    ),
+    GetPage(
+      name: PaymentHistoryPage.route,
+      page: () => const PaymentHistoryPage(),
+    ),
+    GetPage(
+      name: MyInfoPage.route,
+      page: () => const MyInfoPage(),
+    ),
+    GetPage(
+      name: AlterServicePage.route,
+      page: () => const AlterServicePage(),
+    ),
+    GetPage(
+      name: NoticePage.route,
+      page: () => const NoticePage(),
+      binding: BindingsBuilder.put(() => NoticeController()),
+    ),
+    GetPage(
+      name: SettingsPage.route,
+      page: () => const SettingsPage(),
+    ),
+    GetPage(
+      name: FAQPage.route,
+      page: () => const FAQPage(),
+    ),
+    GetPage(
+      name: InquiryPage.route,
+      page: () => const InquiryPage(),
+    ),
+    GetPage(
+      name: InquiryWritingPage.route,
+      page: () => const InquiryWritingPage(),
+      binding: BindingsBuilder.put(() => InquiryWritingController()),
     ),
   ];
 }

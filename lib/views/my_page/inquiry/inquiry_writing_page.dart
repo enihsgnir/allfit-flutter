@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 class InquiryWritingPage extends GetView<InquiryWritingController> {
   const InquiryWritingPage({super.key});
 
+  static const route = "/my_page/inquiry/writing";
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class FAQPage extends StatefulWidget {
   const FAQPage({super.key});
 
+  static const route = "/my_page/faq";
+
   @override
   State<FAQPage> createState() => _FAQPageState();
 }

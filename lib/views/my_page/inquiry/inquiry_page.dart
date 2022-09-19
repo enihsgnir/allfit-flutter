@@ -8,6 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 class InquiryPage extends StatelessWidget {
   const InquiryPage({super.key});
 
+  static const route = "/my_page/inquiry";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,12 +58,7 @@ class InquiryPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(
-                        () => const InquiryWritingPage(),
-                        binding: BindingsBuilder.put(
-                          () => InquiryWritingController(),
-                        ),
-                      );
+                      Get.toNamed(InquiryWritingPage.route);
                     },
                     child: const Text(
                       "채팅 상담",

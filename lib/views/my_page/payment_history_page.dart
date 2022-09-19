@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class PaymentHistoryPage extends StatelessWidget {
   const PaymentHistoryPage({super.key});
 
+  static const route = "/my_page/payment_history";
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

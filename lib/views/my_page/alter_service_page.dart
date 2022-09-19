@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class AlterServicePage extends StatelessWidget {
   const AlterServicePage({super.key});
 
+  static const route = "/my_page/alter_service";
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

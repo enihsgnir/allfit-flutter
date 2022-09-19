@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 class CouponPage extends GetView<CouponController> {
   const CouponPage({super.key});
 
+  static const route = "/my_page/coupon";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

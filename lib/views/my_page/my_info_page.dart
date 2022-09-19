@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class MyInfoPage extends StatelessWidget {
   const MyInfoPage({super.key});
 
+  static const route = "/my_page/my_info";
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

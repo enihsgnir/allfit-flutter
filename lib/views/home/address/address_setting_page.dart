@@ -8,6 +8,8 @@ import 'package:kpostal/kpostal.dart';
 class AddressSettingPage extends StatelessWidget {
   const AddressSettingPage({super.key});
 
+  static const route = "/home/address_setting";
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

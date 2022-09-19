@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class NoticePage extends StatefulWidget {
   const NoticePage({super.key});
 
+  static const route = "/my_page/notice";
+
   @override
   State<NoticePage> createState() => _NoticePageState();
 }

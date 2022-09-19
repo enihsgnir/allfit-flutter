@@ -21,7 +21,7 @@ class HomeTab extends GetView<MainController> {
               if (!controller.isSignedIn) {
                 showToast("로그인 후 이용가능합니다");
               } else {
-                Get.to(() => const AddressSettingPage());
+                Get.toNamed(AddressSettingPage.route);
               }
             },
             child: Row(
