@@ -1,8 +1,12 @@
+import 'package:allfit_flutter/controllers/main_controller.dart';
+import 'package:allfit_flutter/views/home/address/address_setting_page.dart';
+import 'package:allfit_flutter/widgets/toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends GetView<MainController> {
   const HomeTab({super.key});
 
   @override
@@ -13,7 +17,13 @@ class HomeTab extends StatelessWidget {
         SizedBox(
           height: 50,
           child: InkWell(
-            onTap: () => showUnpreparedDialog(context),
+            onTap: () {
+              if (!controller.isSignedIn) {
+                showToast("로그인 후 이용가능합니다");
+              } else {
+                Get.to(() => const AddressSettingPage());
+              }
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

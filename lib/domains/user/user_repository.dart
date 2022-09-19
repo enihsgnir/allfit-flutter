@@ -10,6 +10,15 @@ class UserRepository extends _UserRepository {
         await collection.where("authUid", isEqualTo: uid).limit(1).get();
     return snapshot.docs.first.data();
   }
+
+  Future<User> updateAddress(String id, String address) async {
+    return updateOne(
+      id,
+      data: {
+        "address": address,
+      },
+    );
+  }
 }
 
 abstract class _UserRepository {
