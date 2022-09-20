@@ -46,7 +46,19 @@ class PartSelectionPage extends GetView<OrderController> {
                       child: Container(
                         alignment: Alignment.center,
                         color: backgroundColor,
-                        child: Text(part),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image(
+                              width: 96,
+                              image: AssetImage(
+                                "assets/images/${controller.iconAssetName}_${controller.partListEng[controller.categoryIndex][index]}.png",
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(part),
+                          ],
+                        ),
                       ),
                     );
                   },

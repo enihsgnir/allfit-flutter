@@ -34,3 +34,20 @@ class AlterService with _$AlterService {
   factory AlterService.fromJson(Map<String, dynamic> json) =>
       _$AlterServiceFromJson(json);
 }
+
+extension UserExtension on User? {
+  String get username {
+    final user = this;
+    if (user == null) {
+      return "(알 수 없음)";
+    }
+
+    final name = user.name;
+    if (name != null) {
+      return name;
+    }
+
+    final email = user.email;
+    return email.split("@")[0];
+  }
+}

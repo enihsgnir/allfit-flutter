@@ -11,7 +11,6 @@ class FAQ with _$FAQ {
     required String title,
     required String contents,
     required DateTime createdAt,
-    required DateTime updatedAt,
   }) = _FAQ;
 
   factory FAQ.fromJson(Map<String, dynamic> json) => _$FAQFromJson(json);

@@ -1,29 +1,29 @@
-import 'package:allfit_flutter/domains/notice/notice.dart';
+import 'package:allfit_flutter/domains/faq/faq.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
-import 'package:allfit_flutter/views/my_page/notice/notice_controller.dart';
+import 'package:allfit_flutter/views/my_page/faq/faq_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NoticePage extends StatefulWidget {
-  const NoticePage({super.key});
+class FAQPage extends StatefulWidget {
+  const FAQPage({super.key});
 
-  static const route = "/my_page/notice";
+  static const route = "/my_page/faq";
 
   @override
-  State<NoticePage> createState() => _NoticePageState();
+  State<FAQPage> createState() => _FAQPageState();
 }
 
-class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
-  final controller = NoticeController.to;
+class _FAQPageState extends State<FAQPage> with TickerProviderStateMixin {
+  final controller = FAQController.to;
 
   late TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 7, vsync: this);
   }
 
   @override
@@ -35,7 +35,7 @@ class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "공지사항"),
+      appBar: const DefaultAppBar(title: "자주 묻는 질문"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,8 +65,8 @@ class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
                 children: [
                   SingleChildScrollView(
                     child: ExpansionPanelList.radio(
-                      children: controller.notices
-                          .map((e) => NoticeExpansionPanel(e))
+                      children: controller.faqs
+                          .map((e) => FAQExpansionPanel(e))
                           .toList(),
                     ),
                   ),
@@ -75,8 +75,8 @@ class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
                     (index) => SingleChildScrollView(
                       child: ExpansionPanelList.radio(
                         children: controller
-                            .categorizedNotices(index + 1)
-                            .map((e) => NoticeExpansionPanel(e))
+                            .categorizedFAQs(index + 1)
+                            .map((e) => FAQExpansionPanel(e))
                             .toList(),
                       ),
                     ),
@@ -91,12 +91,12 @@ class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
   }
 }
 
-class NoticeExpansionPanel extends ExpansionPanelRadio {
-  final Notice notice;
+class FAQExpansionPanel extends ExpansionPanelRadio {
+  final FAQ faq;
 
-  NoticeExpansionPanel(this.notice)
+  FAQExpansionPanel(this.faq)
       : super(
-          value: notice.id,
+          value: faq.id,
           headerBuilder: (context, isExpanded) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
@@ -107,7 +107,7 @@ class NoticeExpansionPanel extends ExpansionPanelRadio {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        notice.category,
+                        faq.category,
                         style: const TextStyle(
                           color: greyPointColor,
                           fontSize: 10,
@@ -115,7 +115,7 @@ class NoticeExpansionPanel extends ExpansionPanelRadio {
                         ),
                       ),
                       Text(
-                        formatDateTimeDotted(notice.createdAt),
+                        formatDateTimeDotted(faq.createdAt),
                         style: const TextStyle(
                           color: greyPointColor,
                           fontSize: 10,
@@ -126,7 +126,7 @@ class NoticeExpansionPanel extends ExpansionPanelRadio {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    notice.title,
+                    faq.title,
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
@@ -141,7 +141,7 @@ class NoticeExpansionPanel extends ExpansionPanelRadio {
             color: backgroundColor,
             constraints: const BoxConstraints(minHeight: 180),
             child: Text(
-              notice.contents,
+              faq.contents,
               style: const TextStyle(fontSize: 12),
             ),
           ),

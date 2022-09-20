@@ -7,10 +7,9 @@ part 'notice.g.dart';
 class Notice with _$Notice {
   const factory Notice({
     required String id,
-    required String title,
     required String category,
+    required String title,
     required String contents,
-    required String noticedBy,
     required DateTime createdAt,
     DateTime? deletedAt,
   }) = _Notice;

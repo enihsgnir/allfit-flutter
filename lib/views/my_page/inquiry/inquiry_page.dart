@@ -1,6 +1,7 @@
-import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_controller.dart';
+import 'package:allfit_flutter/controllers/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,10 +30,7 @@ class InquiryPage extends StatelessWidget {
             ),
             const Divider(height: 16),
             const Text(
-              "02-1234-5678\n" +
-                  "\nallfit@gmail.com\n" +
-                  "\nAM 09:00 ~ PM 18:00 (점심시간 12:00-13:00)\n" +
-                  "\nDAY OFF (토/일/공휴일)\n",
+              "02-1234-5678\n\nallfit@gmail.com\n\nAM 09:00 ~ PM 18:00 (점심시간 12:00-13:00)\n\nDAY OFF (토/일/공휴일)\n",
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
@@ -58,7 +56,11 @@ class InquiryPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.toNamed(InquiryWritingPage.route);
+                      if (MainController.to.currentUser == null) {
+                        showToast("로그인 후 이용가능합니다");
+                      } else {
+                        Get.toNamed(InquiryWritingPage.route);
+                      }
                     },
                     child: const Text(
                       "채팅 상담",

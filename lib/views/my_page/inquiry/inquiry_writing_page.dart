@@ -1,3 +1,4 @@
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
@@ -22,8 +23,8 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
           child: Column(
             children: [
               Row(
-                children: const [
-                  SizedBox(
+                children: [
+                  const SizedBox(
                     width: 100,
                     child: Text(
                       "성명",
@@ -31,15 +32,15 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                     ),
                   ),
                   Text(
-                    "example_name",
-                    style: TextStyle(fontSize: 12),
+                    controller.user.username,
+                    style: const TextStyle(fontSize: 12),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
               Row(
-                children: const [
-                  SizedBox(
+                children: [
+                  const SizedBox(
                     width: 100,
                     child: Text(
                       "아이디 (이메일)",
@@ -47,8 +48,8 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                     ),
                   ),
                   Text(
-                    "example@gmail.com",
-                    style: TextStyle(fontSize: 12),
+                    controller.user!.email,
+                    style: const TextStyle(fontSize: 12),
                   ),
                 ],
               ),

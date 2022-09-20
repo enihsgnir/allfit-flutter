@@ -1,9 +1,11 @@
+import 'package:allfit_flutter/controllers/main_controller.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -230,10 +232,17 @@ class OrderDetailPage extends GetView<OrderController> {
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => Get.offNamedUntil(
-                      DepositInfoPage.route,
-                      ModalRoute.withName(MainPage.route),
-                    ),
+                    onPressed: () async {
+                      if (MainController.to.currentUser == null) {
+                        showToast("로그인 후 이용가능합니다");
+                      } else {
+                        await controller.createOrder();
+                        Get.offNamedUntil(
+                          DepositInfoPage.route,
+                          ModalRoute.withName(MainPage.route),
+                        );
+                      }
+                    },
                     child: const Text(
                       "15,000원 결제하기",
                       style: TextStyle(

@@ -19,6 +19,19 @@ class UserRepository extends _UserRepository {
       },
     );
   }
+
+  Future<User> withdraw(String id) async {
+    return updateOne(
+      id,
+      data: {
+        "name": null,
+        "phone": null,
+        "address": null,
+        "wayToEnter": null,
+        "deletedAt": DateTime.now().toIso8601String(),
+      },
+    );
+  }
 }
 
 abstract class _UserRepository {

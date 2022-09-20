@@ -1,10 +1,16 @@
+import 'package:allfit_flutter/controllers/main_controller.dart';
 import 'package:allfit_flutter/domains/inquiry/inquiry.dart';
 import 'package:allfit_flutter/domains/inquiry/inquiry_repository.dart';
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InquiryWritingController extends GetxController {
   static InquiryWritingController get to => Get.find();
+
+  final _user = Rxn<User>();
+  User? get user => _user.value;
+  set user(User? value) => _user.value = value;
 
   final titleEdit = TextEditingController();
   final _titleText = "".obs;
@@ -23,6 +29,8 @@ class InquiryWritingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    user = MainController.to.currentUser;
+
     titleEdit.addListener(() {
       _titleText.value = titleEdit.text;
     });
@@ -44,8 +52,8 @@ class InquiryWritingController extends GetxController {
       Inquiry(
         id: "",
         title: titleEdit.text,
-        name: "example_name",
-        email: "example@gmail.com",
+        name: user.username,
+        email: user!.email,
         contents: contentsEdit.text,
         isReplyAllowed: allowReply,
         createdAt: DateTime.now(),

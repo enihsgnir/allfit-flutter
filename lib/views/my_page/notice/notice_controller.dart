@@ -1,4 +1,5 @@
 import 'package:allfit_flutter/domains/notice/notice.dart';
+import 'package:allfit_flutter/domains/notice/notice_repository.dart';
 import 'package:get/get.dart';
 
 class NoticeController extends GetxController {
@@ -11,5 +12,18 @@ class NoticeController extends GetxController {
   set notices(List<Notice> value) => _notices.value = value;
 
   @override
-  void onReady() {}
+  Future<void> onReady() async {
+    await getNotices();
+  }
+
+  Future<void> getNotices() async {
+    notices = await noticeRepository.getAll()
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  }
+
+  List<Notice> categorizedNotices(int index) {
+    return notices
+        .where((element) => element.category == categories[index])
+        .toList();
+  }
 }
