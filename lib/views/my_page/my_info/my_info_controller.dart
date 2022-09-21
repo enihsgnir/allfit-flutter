@@ -1,5 +1,5 @@
-import 'package:allfit_flutter/controllers/main_controller.dart';
 import 'package:allfit_flutter/domains/user/user_repository.dart';
+import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 

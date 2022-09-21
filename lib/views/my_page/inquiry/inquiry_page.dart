@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/controllers/main_controller.dart';
+import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:allfit_flutter/widgets/toast.dart';

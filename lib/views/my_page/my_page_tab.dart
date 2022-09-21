@@ -1,6 +1,6 @@
-import 'package:allfit_flutter/controllers/main_controller.dart';
 import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/alter_service_page.dart';
 import 'package:allfit_flutter/views/my_page/coupon/coupon_page.dart';
 import 'package:allfit_flutter/views/my_page/faq/faq_page.dart';
