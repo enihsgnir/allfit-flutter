@@ -14,7 +14,8 @@ import 'package:allfit_flutter/views/my_page/my_info/my_info_controller.dart';
 import 'package:allfit_flutter/views/my_page/my_info/my_info_page.dart';
 import 'package:allfit_flutter/views/my_page/notice/notice_controller.dart';
 import 'package:allfit_flutter/views/my_page/notice/notice_page.dart';
-import 'package:allfit_flutter/views/my_page/payment_history_page.dart';
+import 'package:allfit_flutter/views/my_page/payment_history/payment_history_controller.dart';
+import 'package:allfit_flutter/views/my_page/payment_history/payment_history_page.dart';
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_page.dart';
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_registration_controller.dart';
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_registration_page.dart';
@@ -98,6 +99,7 @@ abstract class Pages {
     GetPage(
       name: PaymentHistoryPage.route,
       page: () => const PaymentHistoryPage(),
+      binding: BindingsBuilder.put(() => PaymentHistoryController()),
     ),
     GetPage(
       name: MyInfoPage.route,

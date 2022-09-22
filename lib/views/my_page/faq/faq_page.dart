@@ -18,7 +18,7 @@ class FAQPage extends StatefulWidget {
 class _FAQPageState extends State<FAQPage> with TickerProviderStateMixin {
   final controller = FAQController.to;
 
-  late TabController tabController;
+  late final TabController tabController;
 
   @override
   void initState() {

@@ -18,7 +18,7 @@ class NoticePage extends StatefulWidget {
 class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
   final controller = NoticeController.to;
 
-  late TabController tabController;
+  late final TabController tabController;
 
   @override
   void initState() {

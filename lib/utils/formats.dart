@@ -1,5 +1,9 @@
 import 'package:intl/intl.dart';
 
+extension DateTimeExtension on DateTime {
+  DateTime dateOnly() => DateTime(year, month, day);
+}
+
 String formatCurrency(int number) {
   return NumberFormat("#,###원").format(number);
 }

@@ -1,5 +1,4 @@
 import 'package:allfit_flutter/domains/order/order.dart';
-import 'package:allfit_flutter/domains/user/user_repository.dart';
 import 'package:allfit_flutter/utils/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -8,25 +7,24 @@ final orderRepository = OrderRepository();
 class OrderRepository extends _OrderRepository {
   Future<List<Order>> getAllByUserId(String userId) async {
     final snapshot = await collection
-        .where(
-          "user",
-          isEqualTo: userRepository.collection.doc(userId),
-        )
+        .where("userId", isEqualTo: userId)
+        .orderBy("createdAt", descending: true)
         .get();
     return snapshot.docs.map((e) => e.data()).toList();
   }
 
-  Future<List<Order>> getAllPaid(String userId) async {
+  Future<List<Order>> getAllPaid(
+    String userId, {
+    required int days,
+  }) async {
     final snapshot = await collection
+        .where("userId", isEqualTo: userId)
         .where(
-          "user",
-          isEqualTo: userRepository.collection.doc(userId),
-        )
-        .where(
-          "createdAt",
+          "paidAt",
           isGreaterThanOrEqualTo:
-              DateTime.now().subtract(const Duration(days: 90)),
+              DateTime.now().subtract(Duration(days: days)).toIso8601String(),
         )
+        .orderBy("paidAt", descending: true)
         .get();
     return snapshot.docs.map((e) => e.data()).toList();
   }

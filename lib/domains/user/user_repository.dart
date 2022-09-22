@@ -24,10 +24,10 @@ class UserRepository extends _UserRepository {
     return updateOne(
       id,
       data: {
-        "name": null,
-        "phone": null,
-        "address": null,
-        "wayToEnter": null,
+        "name": FieldValue.delete(),
+        "phone": FieldValue.delete(),
+        "address": FieldValue.delete(),
+        "wayToEnter": FieldValue.delete(),
         "deletedAt": DateTime.now().toIso8601String(),
       },
     );
