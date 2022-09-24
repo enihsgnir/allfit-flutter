@@ -8,7 +8,20 @@ class SignInController extends GetxController {
   static SignInController get to => Get.find();
 
   final emailEdit = TextEditingController();
+
+  final _emailErrorMessage = "".obs;
+  String get emailErrorMessage => _emailErrorMessage.value;
+  set emailErrorMessage(String value) => _emailErrorMessage.value = value;
+
+  bool get isEmailValueFailed => emailErrorMessage.isNotEmpty;
+
   final pwEdit = TextEditingController();
+
+  final _pwErrorMessage = "".obs;
+  String get pwErrorMessage => _pwErrorMessage.value;
+  set pwErrorMessage(String value) => _pwErrorMessage.value = value;
+
+  bool get isPwValueFailed => pwErrorMessage.isNotEmpty;
 
   @override
   void onClose() {
@@ -16,7 +29,10 @@ class SignInController extends GetxController {
     pwEdit.dispose();
   }
 
-  Future<void> signIn() async {
+  Future<bool> signIn() async {
+    emailErrorMessage = "";
+    pwErrorMessage = "";
+
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailEdit.text,
@@ -25,12 +41,27 @@ class SignInController extends GetxController {
 
       final user = await userRepository.getByAuthUid(credential.user!.uid);
       MainController.to.currentUser = user;
+
+      return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == "user-not-found") {
-        print("No user found for that email.");
+      if (e.code == "invalid-email" ||
+          e.code == "user-disabled" ||
+          e.code == "user-not-found") {
+        emailErrorMessage = "이메일이 올바르지 않습니다.";
       } else if (e.code == "wrong-password") {
-        print("Wrong password provided for that user.");
+        pwErrorMessage = "비밀번호가 올바르지 않습니다.";
+      } else if (e.code == "too-many-requests") {
+        pwErrorMessage = "잠시 후 다시 시도해주세요.";
+      } else if (e.message == "Given String is empty or null") {
+        if (emailEdit.text.isEmpty) {
+          emailErrorMessage = "이메일을 입력해주세요.";
+        } else {
+          pwErrorMessage = "비밀번호를 입력해주세요.";
+        }
+      } else {
+        rethrow;
       }
+      return false;
     }
   }
 }

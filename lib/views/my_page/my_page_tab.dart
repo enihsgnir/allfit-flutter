@@ -11,6 +11,7 @@ import 'package:allfit_flutter/views/my_page/payment_history/payment_history_pag
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_page.dart';
 import 'package:allfit_flutter/views/my_page/settings_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
+import 'package:allfit_flutter/widgets/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,11 +62,25 @@ class MyPageTab extends GetView<MainController> {
                 ),
               ),
               const Spacer(),
-              IconButton(
-                onPressed: () async {
-                  await controller.signOut();
-                },
-                icon: const Icon(Icons.logout),
+              SizedBox(
+                height: 20,
+                child: OutlinedButton(
+                  onPressed: () async {
+                    await controller.signOut();
+                    showToast("로그아웃 성공!");
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    side: const BorderSide(),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    "로그아웃",
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ),
               ),
               const SizedBox(width: 24),
             ],

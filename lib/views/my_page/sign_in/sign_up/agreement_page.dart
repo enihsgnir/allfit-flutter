@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 class AgreementPage extends GetView<SignUpController> {
   const AgreementPage({super.key});
 
+  static const route = "/sign_up/agreement";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,7 @@ class AgreementPage extends GetView<SignUpController> {
           children: [
             const SizedBox(height: 36),
             const LinearProgressIndicator(
-              value: 1 / 3,
+              value: 1 / 4,
               backgroundColor: backgroundColor,
               color: semiBlackPointColor,
               minHeight: 4,
@@ -215,7 +217,7 @@ class AgreementPage extends GetView<SignUpController> {
                       return ElevatedButton(
                         onPressed: !controller.canMoveOn
                             ? null
-                            : () => Get.to(() => const SignUpPage()),
+                            : () => Get.toNamed(SignUpPage.route),
                         child: const Text(
                           "동의 후 가입하기",
                           style: TextStyle(

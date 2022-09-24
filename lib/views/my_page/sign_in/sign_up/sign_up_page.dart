@@ -1,6 +1,5 @@
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/views/main_page.dart';
-import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_completion_page.dart';
+import 'package:allfit_flutter/views/my_page/sign_in/sign_up/account_detail_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +25,7 @@ class SignUpPage extends GetView<SignUpController> {
             children: [
               const SizedBox(height: 36),
               const LinearProgressIndicator(
-                value: 2 / 3,
+                value: 2 / 4,
                 backgroundColor: backgroundColor,
                 color: semiBlackPointColor,
                 minHeight: 4,
@@ -49,6 +48,18 @@ class SignUpPage extends GetView<SignUpController> {
                 keyboardType: TextInputType.emailAddress,
                 style: const TextStyle(fontSize: 12),
               ),
+              Obx(() {
+                if (!controller.isEmailValueFailed) {
+                  return const SizedBox.shrink();
+                }
+                return Text(
+                  controller.emailErrorMessage,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 11,
+                  ),
+                );
+              }),
               const SizedBox(height: 24),
               Obx(() {
                 return TextFormField(
@@ -75,6 +86,18 @@ class SignUpPage extends GetView<SignUpController> {
                   obscureText: controller.obscureText,
                 );
               }),
+              Obx(() {
+                if (!controller.isPwValueFailed) {
+                  return const SizedBox.shrink();
+                }
+                return Text(
+                  controller.pwErrorMessage,
+                  style: const TextStyle(
+                    color: Colors.red,
+                    fontSize: 11,
+                  ),
+                );
+              }),
               const SizedBox(height: 20),
               Row(
                 children: [
@@ -82,12 +105,8 @@ class SignUpPage extends GetView<SignUpController> {
                     child: SizedBox(
                       height: 44,
                       child: ElevatedButton(
-                        onPressed: () async {
-                          await controller.signUp();
-                          Get.offNamedUntil(
-                            SignUpCompletionPage.route,
-                            ModalRoute.withName(MainPage.route),
-                          );
+                        onPressed: () {
+                          Get.toNamed(AccountDetailPage.route);
                         },
                         child: const Text(
                           "다음",

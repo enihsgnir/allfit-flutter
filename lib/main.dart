@@ -53,12 +53,17 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromRGBO(30, 30, 30, 1),
+            backgroundColor: const Color.fromRGBO(30, 30, 30, 1),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: const Color.fromRGBO(30, 30, 30, 1),
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            primary: const Color.fromRGBO(30, 30, 30, 1),
+            foregroundColor: const Color.fromRGBO(30, 30, 30, 1),
           ),
         ),
         textSelectionTheme: const TextSelectionThemeData(

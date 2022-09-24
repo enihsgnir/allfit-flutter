@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class ExpandedElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final Color? backgroundColor;
 
   const ExpandedElevatedButton({
     super.key,
     required this.text,
     required this.onPressed,
+    this.backgroundColor,
   });
 
   @override
@@ -19,6 +21,9 @@ class ExpandedElevatedButton extends StatelessWidget {
             height: 44,
             child: ElevatedButton(
               onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: backgroundColor,
+              ),
               child: Text(
                 text,
                 style: const TextStyle(

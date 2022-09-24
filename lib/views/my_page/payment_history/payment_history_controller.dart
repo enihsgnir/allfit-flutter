@@ -1,6 +1,5 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/domains/order/order_repository.dart';
-import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:get/get.dart';
 

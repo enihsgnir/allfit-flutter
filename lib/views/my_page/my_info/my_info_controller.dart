@@ -13,11 +13,11 @@ class MyInfoController extends GetxController {
   bool get isEmailEditing => _isEmailEditing.value;
   set isEmailEditing(bool value) => _isEmailEditing.value = value;
 
-  final passwordEdit = TextEditingController();
+  final pwEdit = TextEditingController();
 
-  final _isPasswordEditing = false.obs;
-  bool get isPasswordEditing => _isPasswordEditing.value;
-  set isPasswordEditing(bool value) => _isPasswordEditing.value = value;
+  final _isPwEditing = false.obs;
+  bool get isPwEditing => _isPwEditing.value;
+  set isPwEditing(bool value) => _isPwEditing.value = value;
 
   final _isInfoEditing = false.obs;
   bool get isInfoEditing => _isInfoEditing.value;
@@ -26,7 +26,47 @@ class MyInfoController extends GetxController {
   @override
   void onClose() {
     emailEdit.dispose();
-    passwordEdit.dispose();
+    pwEdit.dispose();
+  }
+
+  void willEditEmail({required bool willOpen}) {
+    emailEdit.text = "";
+
+    isEmailEditing = willOpen;
+    isPwEditing = false;
+    isInfoEditing = false;
+  }
+
+  Future<void> changeEmail(String newEmail) async {
+    final authUser = FirebaseAuth.instance.currentUser;
+    if (authUser == null) {
+      return;
+    }
+
+    await authUser.updateEmail(newEmail);
+  }
+
+  void willEditPassword({required bool willOpen}) {
+    pwEdit.text = "";
+
+    isEmailEditing = false;
+    isPwEditing = willOpen;
+    isInfoEditing = false;
+  }
+
+  Future<void> changePassword(String newPassword) async {
+    final authUser = FirebaseAuth.instance.currentUser;
+    if (authUser == null) {
+      return;
+    }
+
+    await authUser.updatePassword(newPassword);
+  }
+
+  void willEditInfo({required bool willOpen}) {
+    isEmailEditing = false;
+    isPwEditing = false;
+    isInfoEditing = willOpen;
   }
 
   Future<void> withdraw() async {

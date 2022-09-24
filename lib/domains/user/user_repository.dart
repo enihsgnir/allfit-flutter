@@ -45,7 +45,9 @@ abstract class _UserRepository {
       return data;
     },
     toFirestore: (value, _) {
-      final data = value.toJson()..remove("id");
+      final data = value.toJson()
+        ..remove("id")
+        ..addAll({"updatedAt": FieldValue.serverTimestamp()});
       logger.v(data);
       return data;
     },

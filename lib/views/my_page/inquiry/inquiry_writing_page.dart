@@ -115,8 +115,8 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                   text: "등록하기",
                   onPressed: !controller.canMoveOn
                       ? null
-                      : () {
-                          controller.inquire();
+                      : () async {
+                          await controller.inquire();
                           Get.back();
                         },
                 );

@@ -1,5 +1,6 @@
 import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/domains/user/user_repository.dart';
+import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,19 +29,44 @@ class SignUpController extends GetxController {
   bool get isAllChecked => canMoveOn && commercial;
 
   final emailEdit = TextEditingController();
+
+  final _emailErrorMessage = "".obs;
+  String get emailErrorMessage => _emailErrorMessage.value;
+  set emailErrorMessage(String value) => _emailErrorMessage.value = value;
+
+  bool get isEmailValueFailed => emailErrorMessage.isNotEmpty;
+
   final pwEdit = TextEditingController();
 
   final _obscureText = true.obs;
   bool get obscureText => _obscureText.value;
   set obscureText(bool value) => _obscureText.value = value;
 
+  final _pwErrorMessage = "6자리 이상의 비밀번호를 사용하세요.".obs;
+  String get pwErrorMessage => _pwErrorMessage.value;
+  set pwErrorMessage(String value) => _pwErrorMessage.value = value;
+
+  bool get isPwValueFailed => pwErrorMessage.isNotEmpty;
+
+  final nicknameEdit = TextEditingController();
+  final postCodeEdit = TextEditingController();
+  final roadAddressEdit = TextEditingController();
+  final detailAddressEdit = TextEditingController();
+
   @override
   void onClose() {
     emailEdit.dispose();
     pwEdit.dispose();
+    nicknameEdit.dispose();
+    postCodeEdit.dispose();
+    roadAddressEdit.dispose();
+    detailAddressEdit.dispose();
   }
 
-  Future<void> signUp() async {
+  Future<bool> signUp() async {
+    emailErrorMessage = "";
+    pwErrorMessage = "";
+
     final now = DateTime.now();
 
     try {
@@ -50,7 +76,7 @@ class SignUpController extends GetxController {
         password: pwEdit.text,
       );
 
-      await userRepository.createOne(
+      final user = await userRepository.createOne(
         User(
           id: "",
           authUid: credential.user!.uid,
@@ -65,14 +91,28 @@ class SignUpController extends GetxController {
           createdAt: now,
         ),
       );
+      MainController.to.currentUser = user;
+
+      return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == "weak-password") {
-        print("The password provided is too weak.");
-      } else if (e.code == "email-already-in-use") {
-        print("The account already exists for that email.");
+      if (e.code == "email-already-in-use") {
+        emailErrorMessage = "이미 사용 중인 이메일입니다.";
+      } else if (e.code == "invalid-email") {
+        emailErrorMessage = "이메일 형식이 올바르지 않습니다.";
+      } else if (e.code == "weak-password") {
+        pwErrorMessage = "6자리 이상의 비밀번호를 사용하세요.";
+      } else if (e.code == "too-many-requests") {
+        pwErrorMessage = "잠시 후 다시 시도해주세요.";
+      } else if (e.message == "Given String is empty or null") {
+        if (emailEdit.text.isEmpty) {
+          emailErrorMessage = "이메일을 입력해주세요.";
+        } else {
+          pwErrorMessage = "비밀번호를 입력해주세요.";
+        }
+      } else {
+        rethrow;
       }
-    } catch (e) {
-      print(e);
+      return false;
     }
   }
 }
