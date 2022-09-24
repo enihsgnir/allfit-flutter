@@ -3,10 +3,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class DefaultCachedImage extends StatelessWidget {
+  final double? width;
+  final double? height;
   final String path;
 
   const DefaultCachedImage({
     super.key,
+    this.width,
+    this.height,
     required this.path,
   });
 
@@ -15,20 +19,17 @@ class DefaultCachedImage extends StatelessWidget {
     return FutureBuilder<String>(
       future: Storage.urlFromPath(path),
       builder: (context, snapshot) {
+        final data = snapshot.data;
+        if (data == null) {
+          return const SizedBox.shrink();
+        }
         return CachedNetworkImage(
-          imageUrl: snapshot.requireData,
+          imageUrl: data,
           imageBuilder: (context, imageProvider) {
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: imageProvider,
-                  fit: BoxFit.cover,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.red,
-                    BlendMode.colorBurn,
-                  ),
-                ),
-              ),
+            return Image(
+              width: width,
+              height: height,
+              image: imageProvider,
             );
           },
           progressIndicatorBuilder: (context, url, progress) {
