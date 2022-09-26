@@ -1,11 +1,11 @@
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/views/home/address/address_search_page.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_completion_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
 import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';
-import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -78,7 +78,15 @@ class AccountDetailPage extends GetView<SignUpController> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: InkWell(
-                      onTap: () => showUnpreparedDialog(context),
+                      onTap: () {
+                        Get.toNamed(
+                          AddressSearchPage.route,
+                          arguments: [
+                            controller.postCodeEdit,
+                            controller.roadAddressEdit,
+                          ],
+                        );
+                      },
                       child: Container(
                         alignment: Alignment.center,
                         height: 48,

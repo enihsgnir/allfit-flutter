@@ -1,8 +1,11 @@
 import 'package:allfit_flutter/views/home/address/address_controller.dart';
-import 'package:allfit_flutter/views/home/address/address_setting_page.dart';
+import 'package:allfit_flutter/views/home/address/address_page.dart';
+import 'package:allfit_flutter/views/home/address/address_search_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/main_page.dart';
-import 'package:allfit_flutter/views/my_page/alter_service_page.dart';
+import 'package:allfit_flutter/views/my_page/alter_service/alter_service_change_page.dart';
+import 'package:allfit_flutter/views/my_page/alter_service/alter_service_controller.dart';
+import 'package:allfit_flutter/views/my_page/alter_service/alter_service_page.dart';
 import 'package:allfit_flutter/views/my_page/coupon/coupon_controller.dart';
 import 'package:allfit_flutter/views/my_page/coupon/coupon_page.dart';
 import 'package:allfit_flutter/views/my_page/faq/faq_controller.dart';
@@ -48,9 +51,13 @@ abstract class Pages {
 
     // home
     GetPage(
-      name: AddressSettingPage.route,
-      page: () => const AddressSettingPage(),
+      name: AddressPage.route,
+      page: () => const AddressPage(),
       binding: BindingsBuilder.put(() => AddressController()),
+    ),
+    GetPage(
+      name: AddressSearchPage.route,
+      page: () => const AddressSearchPage(),
     ),
 
     // order
@@ -126,6 +133,11 @@ abstract class Pages {
     GetPage(
       name: AlterServicePage.route,
       page: () => const AlterServicePage(),
+      binding: BindingsBuilder.put(() => AlterServiceController()),
+    ),
+    GetPage(
+      name: AlterServiceChangePage.route,
+      page: () => const AlterServiceChangePage(),
     ),
     GetPage(
       name: NoticePage.route,

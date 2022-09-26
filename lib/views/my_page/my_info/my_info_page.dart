@@ -1,5 +1,6 @@
 import 'package:allfit_flutter/views/my_page/my_info/my_info_controller.dart';
 import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -92,15 +93,15 @@ class MyInfoPage extends GetView<MyInfoController> {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           "아이디 (이메일)",
                           style: TextStyle(fontSize: 12),
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Text(
-                          "allfit@gmail.com",
-                          style: TextStyle(
+                          controller.user.email,
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
@@ -225,13 +226,110 @@ class MyInfoPage extends GetView<MyInfoController> {
                 ),
               ),
               const Divider(),
+              const SizedBox(height: 20),
               Obx(() {
                 if (controller.isInfoEditing) {
-                  return Container();
+                  return ExpandedElevatedButton(
+                    text: "저장하기",
+                    onPressed: () {
+                      controller.willEditInfo(willOpen: false);
+                    },
+                  );
                 }
-                return Container();
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 72,
+                          child: Text(
+                            "닉네임",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Text(
+                          controller.user.nickname,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: const [
+                        SizedBox(
+                          width: 72,
+                          child: Text(
+                            "연락처",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Text(
+                          "010-XXXX-XXXX",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          width: 72,
+                          child: Text(
+                            "배송지",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            controller.user.mainAddress,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 72,
+                          child: Text(
+                            "출입방법",
+                            style: TextStyle(fontSize: 12),
+                          ),
+                        ),
+                        Text(
+                          controller.user.wayToEnter,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    ExpandedElevatedButton(
+                      text: "정보 수정하기",
+                      onPressed: () {
+                        controller.willEditInfo(willOpen: true);
+                      },
+                    ),
+                  ],
+                );
               }),
-              const SizedBox(height: 40),
+              const Spacer(),
               InkWell(
                 onTap: () async {
                   await controller.withdraw();
@@ -246,6 +344,7 @@ class MyInfoPage extends GetView<MyInfoController> {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),

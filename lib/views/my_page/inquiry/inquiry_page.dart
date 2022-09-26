@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class InquiryPage extends StatelessWidget {
+class InquiryPage extends GetView<MainController> {
   const InquiryPage({super.key});
 
   static const route = "/my_page/inquiry";
@@ -56,7 +56,7 @@ class InquiryPage extends StatelessWidget {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      if (MainController.to.currentUser == null) {
+                      if (!controller.isSignedIn) {
                         showToast("로그인 후 이용가능합니다");
                       } else {
                         Get.toNamed(InquiryWritingPage.route);

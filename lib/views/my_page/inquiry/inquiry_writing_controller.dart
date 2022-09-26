@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 class InquiryWritingController extends GetxController {
   static InquiryWritingController get to => Get.find();
 
-  final _user = Rxn<User>();
-  User? get user => _user.value;
-  set user(User? value) => _user.value = value;
+  late final Rx<User> _user;
+  User get user => _user.value;
+  set user(User value) => _user.value = value;
 
   final titleEdit = TextEditingController();
   final _titleText = "".obs;
@@ -29,7 +29,7 @@ class InquiryWritingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    user = MainController.to.currentUser;
+    _user = MainController.to.currentUser!.obs;
 
     titleEdit.addListener(() {
       _titleText.value = titleEdit.text;
@@ -53,7 +53,7 @@ class InquiryWritingController extends GetxController {
         id: "",
         title: titleEdit.text,
         name: user.username,
-        email: user!.email,
+        email: user.email,
         contents: contentsEdit.text,
         isReplyAllowed: allowReply,
         createdAt: DateTime.now(),

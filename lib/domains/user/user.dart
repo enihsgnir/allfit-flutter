@@ -9,17 +9,46 @@ class User with _$User {
     required String id,
     required String authUid,
     required String email,
-    String? name,
+    required String nickname,
     String? phone,
-    String? address,
-    String? wayToEnter,
+    required List<Address> addresses,
+    required int mainAddressIndex,
+    required String wayToEnter,
     required AlterService service,
     required bool commercialAgreement,
     required DateTime createdAt,
     DateTime? deletedAt,
   }) = _User;
 
+  const User._();
+
+  String get mainAddress {
+    if (addresses.isEmpty) {
+      return "없음";
+    }
+    return addresses[mainAddressIndex].toFormatted();
+  }
+
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+@freezed
+class Address with _$Address {
+  const factory Address({
+    String? alias,
+    required String postCode,
+    required String roadAddress,
+    required String detailAddress,
+  }) = _Address;
+
+  const Address._();
+
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
+
+  String toFormatted() {
+    return "$roadAddress, $detailAddress";
+  }
 }
 
 @freezed
@@ -41,13 +70,6 @@ extension UserExtension on User? {
     if (user == null) {
       return "(알 수 없음)";
     }
-
-    final name = user.name;
-    if (name != null) {
-      return name;
-    }
-
-    final email = user.email;
-    return email.split("@")[0];
+    return user.nickname;
   }
 }

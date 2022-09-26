@@ -38,3 +38,20 @@ class ExpandedElevatedButton extends StatelessWidget {
     );
   }
 }
+
+// class CustomElevatedButton extends StatelessWidget {
+//   final bool isExpanded;
+//   final double height;
+//   final VoidCallback onPressed;
+//   final Color? backgroundColor;
+//   final Widget? child;
+//   final String? text;
+//   final TextStyle? style;
+
+//   const CustomElevatedButton({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

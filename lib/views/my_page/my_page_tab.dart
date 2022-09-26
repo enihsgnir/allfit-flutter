@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
-import 'package:allfit_flutter/views/my_page/alter_service_page.dart';
+import 'package:allfit_flutter/views/my_page/alter_service/alter_service_page.dart';
 import 'package:allfit_flutter/views/my_page/coupon/coupon_page.dart';
 import 'package:allfit_flutter/views/my_page/faq/faq_page.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_page.dart';
@@ -11,6 +11,7 @@ import 'package:allfit_flutter/views/my_page/payment_history/payment_history_pag
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_page.dart';
 import 'package:allfit_flutter/views/my_page/settings_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
+import 'package:allfit_flutter/widgets/default_cached_image.dart';
 import 'package:allfit_flutter/widgets/toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +51,9 @@ class MyPageTab extends GetView<MainController> {
           return Row(
             children: [
               const SizedBox(width: 24),
-              const Image(
-                image: AssetImage("assets/images/circle_avatar.png"),
+              const DefaultCachedImage(
+                width: 48,
+                path: "circle_avatar/default.png",
               ),
               const SizedBox(width: 12),
               Text(
@@ -143,7 +145,11 @@ class MyPageTab extends GetView<MainController> {
             ),
             InkWell(
               onTap: () {
-                Get.toNamed(MyInfoPage.route);
+                if (!controller.isSignedIn) {
+                  showToast("로그인 후 이용가능합니다");
+                } else {
+                  Get.toNamed(MyInfoPage.route);
+                }
               },
               child: Column(
                 children: const [
@@ -172,7 +178,11 @@ class MyPageTab extends GetView<MainController> {
           trailing: const Icon(CupertinoIcons.chevron_forward),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            Get.toNamed(AlterServicePage.route);
+            if (!controller.isSignedIn) {
+              showToast("로그인 후 이용가능합니다");
+            } else {
+              Get.toNamed(AlterServicePage.route);
+            }
           },
         ),
         Container(

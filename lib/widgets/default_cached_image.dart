@@ -21,7 +21,14 @@ class DefaultCachedImage extends StatelessWidget {
       builder: (context, snapshot) {
         final data = snapshot.data;
         if (data == null) {
-          return const SizedBox.shrink();
+          final width = this.width;
+          final height = this.height;
+          if (width == null && height == null) {
+            return const SizedBox.shrink();
+          } else if (width != null && height != null) {
+            return SizedBox.fromSize(size: Size(width, height));
+          }
+          return SizedBox.square(dimension: width ?? height);
         }
         return CachedNetworkImage(
           imageUrl: data,
@@ -38,7 +45,10 @@ class DefaultCachedImage extends StatelessWidget {
               color: Colors.black,
             );
           },
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => Icon(
+            Icons.error,
+            size: width ?? height,
+          ),
         );
       },
     );

@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/views/home/address/address_setting_page.dart';
+import 'package:allfit_flutter/views/home/address/address_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/widgets/toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
@@ -21,7 +21,7 @@ class HomeTab extends GetView<MainController> {
               if (!controller.isSignedIn) {
                 showToast("로그인 후 이용가능합니다");
               } else {
-                Get.toNamed(AddressSettingPage.route);
+                Get.toNamed(AddressPage.route);
               }
             },
             child: Row(

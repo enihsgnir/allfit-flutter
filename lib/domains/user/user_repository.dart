@@ -11,12 +11,28 @@ class UserRepository extends _UserRepository {
     return snapshot.docs.first.data();
   }
 
-  Future<User> updateAddress(String id, String address) async {
+  Future<User> addAddress(String id, Address address) async {
     return updateOne(
       id,
       data: {
-        "address": address,
+        "addresses": FieldValue.arrayUnion([address.toJson()]),
       },
+    );
+  }
+
+  Future<User> removeAddress(String id, Address address) async {
+    return updateOne(
+      id,
+      data: {
+        "addresses": FieldValue.arrayRemove([address.toJson()]),
+      },
+    );
+  }
+
+  Future<User> updateAlterServiceCategory(String id, String category) async {
+    return updateOne(
+      id,
+      data: {"service.category": category},
     );
   }
 

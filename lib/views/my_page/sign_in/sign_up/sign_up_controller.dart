@@ -81,6 +81,15 @@ class SignUpController extends GetxController {
           id: "",
           authUid: credential.user!.uid,
           email: emailEdit.text.trim(),
+          nickname: nicknameEdit.text.trim(),
+          addresses: [
+            Address(
+              postCode: postCodeEdit.text,
+              roadAddress: roadAddressEdit.text,
+              detailAddress: detailAddressEdit.text.trim(),
+            ),
+          ],
+          mainAddressIndex: 0,
           wayToEnter: "",
           service: AlterService(
             category: "1회 이용수선서비스",

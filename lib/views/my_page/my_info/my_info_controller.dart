@@ -1,11 +1,16 @@
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/domains/user/user_repository.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MyInfoController extends GetxController {
   static MyInfoController get to => Get.find();
+
+  late final Rx<User> _user;
+  User get user => _user.value;
+  set user(User value) => _user.value = value;
 
   final emailEdit = TextEditingController();
 
@@ -22,6 +27,12 @@ class MyInfoController extends GetxController {
   final _isInfoEditing = false.obs;
   bool get isInfoEditing => _isInfoEditing.value;
   set isInfoEditing(bool value) => _isInfoEditing.value = value;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _user = MainController.to.currentUser!.obs;
+  }
 
   @override
   void onClose() {
@@ -44,6 +55,10 @@ class MyInfoController extends GetxController {
     }
 
     await authUser.updateEmail(newEmail);
+    await userRepository.updateOne(
+      user.id,
+      data: {"email": newEmail},
+    );
   }
 
   void willEditPassword({required bool willOpen}) {
