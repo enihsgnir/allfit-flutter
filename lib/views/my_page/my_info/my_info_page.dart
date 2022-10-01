@@ -227,108 +227,150 @@ class MyInfoPage extends GetView<MyInfoController> {
               ),
               const Divider(),
               const SizedBox(height: 20),
-              Obx(() {
-                if (controller.isInfoEditing) {
-                  return ExpandedElevatedButton(
-                    text: "저장하기",
-                    onPressed: () {
-                      controller.willEditInfo(willOpen: false);
-                    },
-                  );
-                }
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 72,
-                          child: Text(
-                            "닉네임",
-                            style: TextStyle(fontSize: 12),
-                          ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 72,
+                        child: Text(
+                          "닉네임",
+                          style: TextStyle(fontSize: 12),
                         ),
-                        Text(
+                      ),
+                      Obx(() {
+                        if (controller.isInfoEditing) {
+                          return Expanded(
+                            child: SizedBox(
+                              height: 24,
+                              child: TextField(
+                                controller: controller.nicknameEdit,
+                                decoration: InputDecoration(
+                                  hintText: controller.user.nickname,
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlignVertical: TextAlignVertical.bottom,
+                              ),
+                            ),
+                          );
+                        }
+                        return Text(
                           controller.user.nickname,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
+                        );
+                      }),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: const [
+                      SizedBox(
+                        width: 72,
+                        child: Text(
+                          "연락처",
+                          style: TextStyle(fontSize: 12),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: const [
-                        SizedBox(
-                          width: 72,
-                          child: Text(
-                            "연락처",
-                            style: TextStyle(fontSize: 12),
-                          ),
+                      ),
+                      Text(
+                        "010-XXXX-XXXX",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
                         ),
-                        Text(
-                          "010-XXXX-XXXX",
-                          style: TextStyle(
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 72,
+                        child: Text(
+                          "배송지",
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ),
+                      Expanded(
+                        child: Text(
+                          controller.user.mainAddress,
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          width: 72,
-                          child: Text(
-                            "배송지",
-                            style: TextStyle(fontSize: 12),
-                          ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 72,
+                        child: Text(
+                          "출입방법",
+                          style: TextStyle(fontSize: 12),
                         ),
-                        Expanded(
-                          child: Text(
-                            controller.user.mainAddress,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                      ),
+                      Obx(() {
+                        if (controller.isInfoEditing) {
+                          return Expanded(
+                            child: SizedBox(
+                              height: 24,
+                              child: TextField(
+                                controller: controller.wayToEnterEdit,
+                                decoration: InputDecoration(
+                                  hintText: controller.user.wayToEnter,
+                                ),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlignVertical: TextAlignVertical.bottom,
+                              ),
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        const SizedBox(
-                          width: 72,
-                          child: Text(
-                            "출입방법",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
-                        Text(
+                          );
+                        }
+                        return Text(
                           controller.user.wayToEnter,
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    ExpandedElevatedButton(
+                        );
+                      }),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Obx(() {
+                    if (controller.isInfoEditing) {
+                      return ExpandedElevatedButton(
+                        text: "저장하기",
+                        onPressed: () async {
+                          controller.willEditInfo(willOpen: false);
+                        },
+                      );
+                    }
+                    return ExpandedElevatedButton(
                       text: "정보 수정하기",
                       onPressed: () {
+                        controller.nicknameEdit.clear();
+                        controller.wayToEnterEdit.clear();
                         controller.willEditInfo(willOpen: true);
                       },
-                    ),
-                  ],
-                );
-              }),
+                    );
+                  }),
+                ],
+              ),
               const Spacer(),
               InkWell(
                 onTap: () async {

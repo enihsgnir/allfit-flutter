@@ -52,7 +52,7 @@ class InquiryWritingController extends GetxController {
       Inquiry(
         id: "",
         title: titleEdit.text,
-        name: user.username,
+        nickname: user.username,
         email: user.email,
         contents: contentsEdit.text,
         isReplyAllowed: allowReply,

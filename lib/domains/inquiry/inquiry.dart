@@ -7,9 +7,9 @@ part 'inquiry.g.dart';
 class Inquiry with _$Inquiry {
   const factory Inquiry({
     required String id,
-    required String title,
-    required String name,
+    required String nickname,
     required String email,
+    required String title,
     required String contents,
     required bool isReplyAllowed,
     required DateTime createdAt,

@@ -28,6 +28,9 @@ class MyInfoController extends GetxController {
   bool get isInfoEditing => _isInfoEditing.value;
   set isInfoEditing(bool value) => _isInfoEditing.value = value;
 
+  final nicknameEdit = TextEditingController();
+  final wayToEnterEdit = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -38,6 +41,8 @@ class MyInfoController extends GetxController {
   void onClose() {
     emailEdit.dispose();
     pwEdit.dispose();
+    nicknameEdit.dispose();
+    wayToEnterEdit.dispose();
   }
 
   void willEditEmail({required bool willOpen}) {
@@ -55,10 +60,12 @@ class MyInfoController extends GetxController {
     }
 
     await authUser.updateEmail(newEmail);
-    await userRepository.updateOne(
+    final newUser = await userRepository.updateOne(
       user.id,
       data: {"email": newEmail},
     );
+    MainController.to.currentUser = newUser;
+    user = newUser;
   }
 
   void willEditPassword({required bool willOpen}) {
@@ -82,6 +89,24 @@ class MyInfoController extends GetxController {
     isEmailEditing = false;
     isPwEditing = false;
     isInfoEditing = willOpen;
+  }
+
+  Future<void> changeInfo() async {
+    String? nickname;
+    String? wayToEnter;
+
+    if (nicknameEdit.text.isNotEmpty) {
+      nickname = nicknameEdit.text;
+    }
+    if (wayToEnterEdit.text.isNotEmpty) {
+      wayToEnter = wayToEnterEdit.text;
+    }
+
+    await userRepository.updateInfo(
+      user.id,
+      nickname: nickname,
+      wayToEnter: wayToEnter,
+    );
   }
 
   Future<void> withdraw() async {

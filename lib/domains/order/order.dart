@@ -20,6 +20,7 @@ class Order with _$Order {
     DateTime? paidAt,
     DateTime? receivedAt,
     required DateTime createdAt,
+    DateTime? deletedAt,
   }) = _Order;
 
   const Order._();

@@ -97,7 +97,7 @@ class AddressPage extends GetView<AddressController> {
                                 controller.isAddressEditing = false;
                               },
                               child: const Text(
-                                "변경 취소",
+                                "취소",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,

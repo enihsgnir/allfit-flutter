@@ -11,6 +11,20 @@ class UserRepository extends _UserRepository {
     return snapshot.docs.first.data();
   }
 
+  Future<User> updateInfo(
+    String id, {
+    String? nickname,
+    String? wayToEnter,
+  }) async {
+    return updateOne(
+      id,
+      data: {
+        "nickname": nickname,
+        "wayToEnter": wayToEnter,
+      }..removeWhere((key, value) => value == null),
+    );
+  }
+
   Future<User> addAddress(String id, Address address) async {
     return updateOne(
       id,
