@@ -11,15 +11,15 @@ class AddressController extends GetxController {
   User get user => _user.value;
   set user(User value) => _user.value = value;
 
+  Worker? _userWorker;
+
   final _addresses = <Address>[].obs;
   List<Address> get addresses => _addresses;
   set addresses(List<Address> value) => _addresses.value = value;
 
-  Address? get home =>
-      addresses.firstWhereOrNull((element) => element.alias == "집");
+  Address? get home => addresses.firstWhereOrNull((element) => element.isHome);
 
-  Address? get work =>
-      addresses.firstWhereOrNull((element) => element.alias == "회사");
+  Address? get work => addresses.firstWhereOrNull((element) => element.isWork);
 
   List<Address> get others => List.of(addresses)
     ..remove(home)
@@ -38,10 +38,16 @@ class AddressController extends GetxController {
     super.onInit();
     _user = MainController.to.currentUser!.obs;
     addresses = user.addresses;
+    _userWorker = ever(_user, (_) {
+      MainController.to.currentUser = user;
+      addresses = user.addresses;
+    });
   }
 
   @override
   void onClose() {
+    _userWorker?.dispose();
+
     postCodeEdit.dispose();
     roadAddressEdit.dispose();
     detailAddressEdit.dispose();
@@ -55,6 +61,16 @@ class AddressController extends GetxController {
       detailAddress: detailAddressEdit.text.trim(),
     );
     user = await userRepository.addAddress(user.id, address);
-    addresses = user.addresses;
+  }
+
+  Future<void> changeMainAddress(int index) async {
+    if (index == user.mainAddressIndex) {
+      return;
+    }
+
+    user = await userRepository.updateMainAddressIndex(
+      user.id,
+      index: index,
+    );
   }
 }

@@ -11,8 +11,8 @@ import 'package:allfit_flutter/views/my_page/payment_history/payment_history_pag
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_page.dart';
 import 'package:allfit_flutter/views/my_page/settings_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
-import 'package:allfit_flutter/widgets/default_cached_image.dart';
-import 'package:allfit_flutter/widgets/toast.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,9 +51,9 @@ class MyPageTab extends GetView<MainController> {
           return Row(
             children: [
               const SizedBox(width: 24),
-              const DefaultCachedImage(
+              const CustomCachedImage(
                 width: 48,
-                path: "circle_avatar/default.png",
+                path: "circle_avatar/user/default.png",
               ),
               const SizedBox(width: 12),
               Text(
@@ -69,7 +69,7 @@ class MyPageTab extends GetView<MainController> {
                 child: OutlinedButton(
                   onPressed: () async {
                     await controller.signOut();
-                    showToast("로그아웃 성공!");
+                    showCustomToast("로그아웃 성공!");
                   },
                   style: OutlinedButton.styleFrom(
                     padding: EdgeInsets.zero,
@@ -146,7 +146,7 @@ class MyPageTab extends GetView<MainController> {
             InkWell(
               onTap: () {
                 if (!controller.isSignedIn) {
-                  showToast("로그인 후 이용가능합니다");
+                  showCustomToast("로그인 후 이용가능합니다");
                 } else {
                   Get.toNamed(MyInfoPage.route);
                 }
@@ -179,7 +179,7 @@ class MyPageTab extends GetView<MainController> {
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
             if (!controller.isSignedIn) {
-              showToast("로그인 후 이용가능합니다");
+              showCustomToast("로그인 후 이용가능합니다");
             } else {
               Get.toNamed(AlterServicePage.route);
             }

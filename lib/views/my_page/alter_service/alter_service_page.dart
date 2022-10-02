@@ -2,7 +2,7 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_change_page.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class AlterServicePage extends GetView<AlterServiceController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "이용 중인 서비스"),
+      appBar: const CustomAppBar(title: "이용 중인 서비스"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(

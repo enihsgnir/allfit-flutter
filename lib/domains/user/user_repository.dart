@@ -43,6 +43,16 @@ class UserRepository extends _UserRepository {
     );
   }
 
+  Future<User> updateMainAddressIndex(
+    String id, {
+    required int index,
+  }) async {
+    return updateOne(
+      id,
+      data: {"mainAddressIndex": index},
+    );
+  }
+
   Future<User> updateAlterServiceCategory(String id, String category) async {
     return updateOne(
       id,

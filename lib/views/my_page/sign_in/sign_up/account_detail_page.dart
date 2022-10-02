@@ -4,8 +4,8 @@ import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_completion_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +20,7 @@ class AccountDetailPage extends GetView<SignUpController> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: const DefaultAppBar(),
+        appBar: const CustomAppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -123,7 +123,7 @@ class AccountDetailPage extends GetView<SignUpController> {
                 style: const TextStyle(fontSize: 12),
               ),
               const Spacer(),
-              ExpandedElevatedButton(
+              CustomElevatedButton(
                 text: "다음",
                 onPressed: () async {
                   if (await controller.signUp()) {

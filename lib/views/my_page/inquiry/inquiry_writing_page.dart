@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +16,7 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: const DefaultAppBar(),
+        appBar: const CustomAppBar(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -32,7 +32,10 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                   ),
                   Text(
                     controller.user.nickname,
-                    style: const TextStyle(fontSize: 12),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
@@ -48,7 +51,10 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                   ),
                   Text(
                     controller.user.email,
-                    style: const TextStyle(fontSize: 12),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
@@ -110,7 +116,7 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
               ),
               const SizedBox(height: 36),
               Obx(() {
-                return ExpandedElevatedButton(
+                return CustomElevatedButton(
                   text: "등록하기",
                   onPressed: !controller.canMoveOn
                       ? null

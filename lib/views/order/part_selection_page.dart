@@ -1,8 +1,8 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/default_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class PartSelectionPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -50,7 +50,7 @@ class PartSelectionPage extends GetView<OrderController> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            DefaultCachedImage(
+                            CustomCachedImage(
                               width: 96,
                               path:
                                   "category/${controller.iconAssetName}/${controller.partListEng[controller.categoryIndex][index]}.png",

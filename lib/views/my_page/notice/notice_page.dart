@@ -2,7 +2,7 @@ import 'package:allfit_flutter/domains/notice/notice.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/notice/notice_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +35,7 @@ class _NoticePageState extends State<NoticePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "공지사항"),
+      appBar: const CustomAppBar(title: "공지사항"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

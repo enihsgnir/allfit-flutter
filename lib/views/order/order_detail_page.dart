@@ -4,8 +4,9 @@ import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/toast.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +18,7 @@ class OrderDetailPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "주문 상세"),
+      appBar: const CustomAppBar(title: "주문 상세"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -27,11 +28,12 @@ class OrderDetailPage extends GetView<OrderController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  leading: Image(
-                    image: AssetImage(
-                      "assets/images/${controller.iconAssetName}.png",
+                  leading: SizedBox(
+                    height: double.infinity,
+                    child: CustomCachedImage(
+                      width: 28,
+                      path: "icons/category/${controller.iconAssetName}.png",
                     ),
-                    width: 36,
                   ),
                   title: Text(
                     "${controller.category} 1개",
@@ -234,7 +236,7 @@ class OrderDetailPage extends GetView<OrderController> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (MainController.to.currentUser == null) {
-                        showToast("로그인 후 이용가능합니다");
+                        showCustomToast("로그인 후 이용가능합니다");
                       } else {
                         await controller.createOrder();
                         Get.offNamedUntil(

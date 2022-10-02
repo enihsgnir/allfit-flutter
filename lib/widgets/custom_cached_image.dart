@@ -2,12 +2,12 @@ import 'package:allfit_flutter/utils/storage.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class DefaultCachedImage extends StatelessWidget {
+class CustomCachedImage extends StatelessWidget {
   final double? width;
   final double? height;
   final String path;
 
-  const DefaultCachedImage({
+  const CustomCachedImage({
     super.key,
     this.width,
     this.height,
@@ -30,6 +30,7 @@ class DefaultCachedImage extends StatelessWidget {
           }
           return SizedBox.square(dimension: width ?? height);
         }
+
         return CachedNetworkImage(
           imageUrl: data,
           imageBuilder: (context, imageProvider) {

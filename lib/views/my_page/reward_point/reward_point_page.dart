@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/reward_point/reward_point_registration_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class RewardPointPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "포인트 현황"),
+      appBar: const CustomAppBar(title: "포인트 현황"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(

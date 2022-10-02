@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -9,7 +9,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "설정"),
+      appBar: const CustomAppBar(title: "설정"),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

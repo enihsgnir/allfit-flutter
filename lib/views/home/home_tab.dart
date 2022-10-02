@@ -1,6 +1,8 @@
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/views/home/address/address_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
-import 'package:allfit_flutter/widgets/toast.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ class HomeTab extends GetView<MainController> {
           child: InkWell(
             onTap: () {
               if (!controller.isSignedIn) {
-                showToast("로그인 후 이용가능합니다");
+                showCustomToast("로그인 후 이용가능합니다");
               } else {
                 Get.toNamed(AddressPage.route);
               }
@@ -27,13 +29,72 @@ class HomeTab extends GetView<MainController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "배송 주소 설정",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Obx(() {
+                  final user = controller.currentUser;
+                  if (user == null) {
+                    return const Text(
+                      "배송 주소 설정",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+
+                  final index = user.mainAddressIndex;
+                  final address = user.addresses[index];
+                  if (address.isHome) {
+                    return Row(
+                      children: const [
+                        CustomCachedImage(
+                          height: 16,
+                          path: "icons/address/home.png",
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          Address.homeKo,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else if (address.isWork) {
+                    return Row(
+                      children: const [
+                        CustomCachedImage(
+                          height: 16,
+                          path: "icons/address/work.png",
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          Address.workKo,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    );
+                  }
+                  return Row(
+                    children: [
+                      const CustomCachedImage(
+                        height: 16,
+                        path: "icons/address/location.png",
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        address.roadAddress,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  );
+                }),
                 Container(
                   alignment: Alignment.bottomCenter,
                   width: 28,

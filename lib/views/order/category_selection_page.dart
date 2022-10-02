@@ -1,6 +1,7 @@
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class CategorySelectionPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
@@ -38,11 +39,9 @@ class CategorySelectionPage extends GetView<OrderController> {
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: ListTile(
-                  leading: Image(
-                    image: AssetImage(
-                      "assets/images/${controller.icons[index]}.png",
-                    ),
+                  leading: CustomCachedImage(
                     width: 24,
+                    path: "icons/category/${controller.icons[index]}.png",
                   ),
                   title: Text(
                     controller.title[index],

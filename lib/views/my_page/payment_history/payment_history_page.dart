@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/payment_history/payment_history_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "결제내역"),
+      appBar: const CustomAppBar(title: "결제내역"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

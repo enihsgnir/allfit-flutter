@@ -1,6 +1,8 @@
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +14,7 @@ class AlterServiceChangePage extends GetView<AlterServiceController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -35,31 +37,75 @@ class AlterServiceChangePage extends GetView<AlterServiceController> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("월정액 서비스"),
+                  child: SizedBox(
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: backgroundColor,
+                      ),
+                      child: Row(
+                        children: const [
+                          CustomCachedImage(
+                            width: 22,
+                            path: "icons/alter_service/monthly.png",
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "월정액 서비스",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("자유이용 서비스"),
+                  child: SizedBox(
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Row(
+                        children: const [
+                          CustomCachedImage(
+                            width: 22,
+                            path: "icons/alter_service/free.png",
+                          ),
+                          Text(
+                            "자유이용 서비스",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
             const Spacer(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                Text("서비스 즉시 변경은 고객센터를 통해 신청 가능합니다."),
+                Text(
+                  "서비스 즉시 변경은 고객센터를 통해 신청 가능합니다.",
+                  style: TextStyle(fontSize: 12),
+                ),
               ],
             ),
             const SizedBox(height: 24),
-            ExpandedElevatedButton(
+            CustomElevatedButton(
               text: "확인",
               onPressed: () {},
             ),

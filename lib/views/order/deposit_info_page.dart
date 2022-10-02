@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/toast.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class DepositInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -42,7 +42,7 @@ class DepositInfoPage extends StatelessWidget {
                 await Clipboard.setData(
                   const ClipboardData(text: "KB국민 000000-00-000000"),
                 );
-                await showToast("계좌번호 복사 완료");
+                await showCustomToast("계좌번호 복사 완료");
               },
               child: Container(
                 alignment: Alignment.center,

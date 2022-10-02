@@ -1,6 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 
-Future<void> showToast(String msg) async {
+Future<void> showCustomToast(String msg) async {
   await Fluttertoast.showToast(
     msg: msg,
     gravity: ToastGravity.BOTTOM,

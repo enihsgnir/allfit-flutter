@@ -34,6 +34,9 @@ class User with _$User {
 
 @freezed
 class Address with _$Address {
+  static const homeKo = "집";
+  static const workKo = "회사";
+
   const factory Address({
     String? alias,
     required String postCode,
@@ -42,6 +45,9 @@ class Address with _$Address {
   }) = _Address;
 
   const Address._();
+
+  bool get isHome => alias == homeKo;
+  bool get isWork => alias == workKo;
 
   factory Address.fromJson(Map<String, dynamic> json) =>
       _$AddressFromJson(json);

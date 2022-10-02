@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 
-class ExpandedElevatedButton extends StatelessWidget {
+class CustomElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color? backgroundColor;
+  final bool isActive;
+  final bool isExpanded;
+  final double height;
+  final Widget? child;
+  final TextStyle? style;
 
-  const ExpandedElevatedButton({
+  const CustomElevatedButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.backgroundColor,
+    this.isActive = true,
+    this.isExpanded = true,
+    this.height = 44,
+    this.child,
+    this.style,
   });
 
   @override
@@ -38,20 +48,3 @@ class ExpandedElevatedButton extends StatelessWidget {
     );
   }
 }
-
-// class CustomElevatedButton extends StatelessWidget {
-//   final bool isExpanded;
-//   final double height;
-//   final VoidCallback onPressed;
-//   final Color? backgroundColor;
-//   final Widget? child;
-//   final String? text;
-//   final TextStyle? style;
-
-//   const CustomElevatedButton({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }

@@ -1,4 +1,4 @@
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kpostal/kpostal.dart';
@@ -14,7 +14,7 @@ class AddressSearchPage extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         body: KpostalView(
-          appBar: const DefaultAppBar(title: "주소 설정"),
+          appBar: const CustomAppBar(title: "주소 설정"),
           callback: (result) async {
             final arguments = Get.arguments as List<TextEditingController>?;
             if (arguments != null) {

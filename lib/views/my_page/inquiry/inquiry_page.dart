@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/toast.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,7 +14,7 @@ class InquiryPage extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "1:1 문의하기"),
+      appBar: const CustomAppBar(title: "1:1 문의하기"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -57,7 +57,7 @@ class InquiryPage extends GetView<MainController> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (!controller.isSignedIn) {
-                        showToast("로그인 후 이용가능합니다");
+                        showCustomToast("로그인 후 이용가능합니다");
                       } else {
                         Get.toNamed(InquiryWritingPage.route);
                       }

@@ -1,7 +1,8 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class PointSelectionPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(),
+      appBar: const CustomAppBar(),
       extendBodyBehindAppBar: true,
       body: Column(
         children: [
@@ -37,11 +38,12 @@ class PointSelectionPage extends GetView<OrderController> {
                   ),
                   const SizedBox(height: 16),
                   ListTile(
-                    leading: Image(
-                      image: AssetImage(
-                        "assets/images/${controller.iconAssetName}.png",
+                    leading: SizedBox(
+                      height: double.infinity,
+                      child: CustomCachedImage(
+                        width: 28,
+                        path: "icons/category/${controller.iconAssetName}.png",
                       ),
-                      width: 40,
                     ),
                     title: Text(
                       controller.part,
@@ -181,8 +183,9 @@ class PointSelectionPage extends GetView<OrderController> {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  const Image(
-                    image: AssetImage("assets/images/tailor_circle_image.png"),
+                  const CustomCachedImage(
+                    width: 56,
+                    path: "circle_avatar/tailor/default.png",
                   ),
                   const SizedBox(width: 12),
                   Column(

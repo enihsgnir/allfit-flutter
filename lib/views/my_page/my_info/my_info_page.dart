@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/views/my_page/my_info/my_info_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/expanded_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +16,7 @@ class MyInfoPage extends GetView<MyInfoController> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: const DefaultAppBar(title: "내 정보"),
+        appBar: const CustomAppBar(title: "내 정보"),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -353,14 +353,14 @@ class MyInfoPage extends GetView<MyInfoController> {
                   const SizedBox(height: 24),
                   Obx(() {
                     if (controller.isInfoEditing) {
-                      return ExpandedElevatedButton(
+                      return CustomElevatedButton(
                         text: "저장하기",
                         onPressed: () async {
                           controller.willEditInfo(willOpen: false);
                         },
                       );
                     }
-                    return ExpandedElevatedButton(
+                    return CustomElevatedButton(
                       text: "정보 수정하기",
                       onPressed: () {
                         controller.nicknameEdit.clear();

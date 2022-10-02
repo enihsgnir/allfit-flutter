@@ -1,8 +1,8 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/agreement_page.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
-import 'package:allfit_flutter/widgets/toast.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +18,7 @@ class SignInPage extends GetView<SignInController> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: const DefaultAppBar(title: "로그인"),
+        appBar: const CustomAppBar(title: "로그인"),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
@@ -78,7 +78,7 @@ class SignInPage extends GetView<SignInController> {
                         onPressed: () async {
                           if (await controller.signIn()) {
                             Get.back();
-                            showToast("로그인 성공!");
+                            showCustomToast("로그인 성공!");
                           }
                         },
                         child: const Text(

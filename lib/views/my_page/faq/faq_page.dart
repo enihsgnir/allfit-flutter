@@ -2,7 +2,7 @@ import 'package:allfit_flutter/domains/faq/faq.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/faq/faq_controller.dart';
-import 'package:allfit_flutter/widgets/default_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +35,7 @@ class _FAQPageState extends State<FAQPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DefaultAppBar(title: "자주 묻는 질문"),
+      appBar: const CustomAppBar(title: "자주 묻는 질문"),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
