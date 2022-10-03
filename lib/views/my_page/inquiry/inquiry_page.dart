@@ -29,13 +29,19 @@ class InquiryPage extends GetView<MainController> {
               ),
             ),
             const Divider(height: 16),
-            const Text(
-              "02-1234-5678\n\nallfit@example.com\n\nAM 09:00 ~ PM 18:00 (점심시간 12:00-13:00)\n\nDAY OFF (토/일/공휴일)\n",
-              style: TextStyle(
+            Text(
+              [
+                "02-1234-5678",
+                "allfit@example.com",
+                "AM 09:00 ~ PM 18:00 (점심시간 12:00-13:00)",
+                "DAY OFF (토/일/공휴일)",
+              ].join("\n\n"),
+              style: const TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(height: 12),
             Row(
               children: [
                 Expanded(

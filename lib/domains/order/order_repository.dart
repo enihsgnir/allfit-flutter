@@ -13,6 +13,12 @@ class OrderRepository extends _OrderRepository {
     return snapshot.docs.map((e) => e.data()).toList();
   }
 
+  Query<Order> paginatedByUserId(String userId) {
+    return collection
+        .where("userId", isEqualTo: userId)
+        .orderBy("createdAt", descending: true);
+  }
+
   Future<List<Order>> getAllPaid(
     String userId, {
     required int days,
@@ -21,12 +27,32 @@ class OrderRepository extends _OrderRepository {
         .where("userId", isEqualTo: userId)
         .where(
           "paidAt",
-          isGreaterThanOrEqualTo:
-              DateTime.now().subtract(Duration(days: days)).toIso8601String(),
+          isGreaterThanOrEqualTo: DateTime.now()
+              .subtract(
+                Duration(days: days),
+              )
+              .toIso8601String(),
         )
         .orderBy("paidAt", descending: true)
         .get();
     return snapshot.docs.map((e) => e.data()).toList();
+  }
+
+  Query<Order> paginatedByTailorIdInProgress(String tailorId) {
+    return collection
+        .where("tailorId", isEqualTo: tailorId)
+        .where("finishedAt", isEqualTo: null)
+        .orderBy("createdAt", descending: true);
+  }
+
+  Query<Order> paginatedByTailorIdFinished(String tailorId) {
+    return collection
+        .where("tailorId", isEqualTo: tailorId)
+        .where(
+          "finishedAt",
+          isLessThanOrEqualTo: DateTime.now().toIso8601String(),
+        )
+        .orderBy("finishedAt", descending: true);
   }
 }
 

@@ -1,14 +1,20 @@
 import 'package:allfit_flutter/domains/user/user.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/utils/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final userRepository = UserRepository();
 
 class UserRepository extends _UserRepository {
-  Future<User> getByAuthUid(String uid) async {
-    final snapshot =
-        await collection.where("authUid", isEqualTo: uid).limit(1).get();
-    return snapshot.docs.first.data();
+  Future<User?> getByAuthUid(String uid) async {
+    final snapshot = await collection
+        .where(
+          "authUid",
+          isEqualTo: uid,
+        )
+        .limit(1)
+        .get();
+    return snapshot.docs.firstOrNull?.data();
   }
 
   Future<User> updateInfo(
@@ -85,9 +91,7 @@ abstract class _UserRepository {
       return data;
     },
     toFirestore: (value, _) {
-      final data = value.toJson()
-        ..remove("id")
-        ..addAll({"updatedAt": FieldValue.serverTimestamp()});
+      final data = value.toJson()..remove("id");
       logger.v(data);
       return data;
     },

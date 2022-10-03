@@ -2,6 +2,8 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,42 +23,20 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             children: [
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 100,
-                    child: Text(
-                      "닉네임",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ),
-                  Text(
-                    controller.user.nickname,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 100,
-                    child: Text(
-                      "아이디 (이메일)",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ),
-                  Text(
-                    controller.user.email,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
+              const CustomTopPadding(),
+              CustomKeyValueList(
+                mainAxisAlignment: MainAxisAlignment.start,
+                keyWidth: 100,
+                interval: 16,
+                keyStyle: const TextStyle(fontSize: 12),
+                valueStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+                data: {
+                  "닉네임": controller.user.nickname,
+                  "아이디 (이메일)": controller.user.email,
+                },
               ),
               const SizedBox(height: 28),
               TextField(

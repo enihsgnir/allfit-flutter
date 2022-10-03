@@ -24,7 +24,11 @@ class MainController extends GetxController {
     final authUser = FirebaseAuth.instance.currentUser;
     if (authUser != null) {
       final user = await userRepository.getByAuthUid(authUser.uid);
-      currentUser = user;
+      if (user != null) {
+        currentUser = user;
+      } else {
+        await signOut();
+      }
     }
   }
 

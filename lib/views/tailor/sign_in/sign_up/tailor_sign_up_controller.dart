@@ -1,32 +1,13 @@
+import 'package:allfit_flutter/domains/tailor/tailor.dart';
+import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
 import 'package:allfit_flutter/domains/user/user.dart';
-import 'package:allfit_flutter/domains/user/user_repository.dart';
-import 'package:allfit_flutter/views/main_controller.dart';
-import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:allfit_flutter/views/tailor/main/tailor_main_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUpController extends GetxController {
-  static SignUpController get to => Get.find();
-
-  final _terms = false.obs;
-  bool get terms => _terms.value;
-  set terms(bool value) => _terms.value = value;
-
-  final _privacy = false.obs;
-  bool get privacy => _privacy.value;
-  set privacy(bool value) => _privacy.value = value;
-
-  final _notification = false.obs;
-  bool get notification => _notification.value;
-  set notification(bool value) => _notification.value = value;
-
-  final _commercial = false.obs;
-  bool get commercial => _commercial.value;
-  set commercial(bool value) => _commercial.value = value;
-
-  bool get canMoveOn => terms && privacy && notification;
-
-  bool get isAllChecked => canMoveOn && commercial;
+class TailorSignUpController extends GetxController {
+  static TailorSignUpController get to => Get.find();
 
   final emailEdit = TextEditingController();
 
@@ -48,26 +29,32 @@ class SignUpController extends GetxController {
 
   bool get isPwValueFailed => pwErrorMessage.isNotEmpty;
 
-  final nicknameEdit = TextEditingController();
+  final nameEdit = TextEditingController();
   final postCodeEdit = TextEditingController();
   final roadAddressEdit = TextEditingController();
   final detailAddressEdit = TextEditingController();
+  final phoneEdit = TextEditingController();
+  final bankAccountEdit = TextEditingController();
+
+  final _category = <String>[].obs;
+  List<String> get category => _category;
+  set category(List<String> value) => _category.value = value;
 
   @override
   void onClose() {
     emailEdit.dispose();
     pwEdit.dispose();
-    nicknameEdit.dispose();
+    nameEdit.dispose();
     postCodeEdit.dispose();
     roadAddressEdit.dispose();
     detailAddressEdit.dispose();
+    phoneEdit.dispose();
+    bankAccountEdit.dispose();
   }
 
   Future<bool> signUp() async {
     emailErrorMessage = "";
     pwErrorMessage = "";
-
-    final now = DateTime.now();
 
     try {
       final credential =
@@ -76,32 +63,28 @@ class SignUpController extends GetxController {
         password: pwEdit.text,
       );
 
-      final user = await userRepository.createOne(
-        User(
+      final tailor = await tailorRepository.createOne(
+        Tailor(
           id: "",
           authUid: credential.user!.uid,
           email: emailEdit.text.trim(),
-          nickname: nicknameEdit.text.trim(),
-          addresses: [
-            Address(
-              postCode: postCodeEdit.text,
-              roadAddress: roadAddressEdit.text,
-              detailAddress: detailAddressEdit.text.trim(),
-            ),
-          ],
-          mainAddressIndex: 0,
-          wayToEnter: "",
-          service: AlterService(
-            category: "1회 이용수선서비스",
-            createdAt: now,
-            status: "이용 중",
-            cost: "안심 정찰 가격표에 의해 요금 부과",
+          name: nameEdit.text.trim(),
+          address: Address(
+            postCode: postCodeEdit.text,
+            roadAddress: roadAddressEdit.text,
+            detailAddress: detailAddressEdit.text.trim(),
           ),
-          commercialAgreement: commercial,
-          createdAt: now,
+          phone: phoneEdit.text.trim(),
+          bankAccount: bankAccountEdit.text.trim(),
+          category: Category(
+            first: category[0],
+            second: category[1],
+            third: category[2],
+          ),
+          createdAt: DateTime.now(),
         ),
       );
-      MainController.to.currentUser = user;
+      TailorMainController.to.currentTailor = tailor;
 
       return true;
     } on FirebaseAuthException catch (e) {

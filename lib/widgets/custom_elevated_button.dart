@@ -4,7 +4,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color? backgroundColor;
-  final bool isActive;
+  final bool isActiveIf;
   final bool isExpanded;
   final double height;
   final Widget? child;
@@ -15,7 +15,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.backgroundColor,
-    this.isActive = true,
+    this.isActiveIf = true,
     this.isExpanded = true,
     this.height = 44,
     this.child,
@@ -30,7 +30,7 @@ class CustomElevatedButton extends StatelessWidget {
           child: SizedBox(
             height: 44,
             child: ElevatedButton(
-              onPressed: onPressed,
+              onPressed: isActiveIf ? onPressed : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: backgroundColor,
               ),

@@ -1,5 +1,5 @@
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:latlong2/latlong.dart';
 
 part 'tailor.freezed.dart';
 part 'tailor.g.dart';
@@ -8,8 +8,13 @@ part 'tailor.g.dart';
 class Tailor with _$Tailor {
   const factory Tailor({
     required String id,
-    required String businessName,
-    LatLng? location,
+    required String authUid,
+    required String email,
+    required String name,
+    String? description,
+    required Address address,
+    required String phone,
+    required String bankAccount,
     required Category category,
     required DateTime createdAt,
     DateTime? deletedAt,

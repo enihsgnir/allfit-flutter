@@ -1,11 +1,11 @@
-import 'package:allfit_flutter/domains/user/user_repository.dart';
-import 'package:allfit_flutter/views/main_controller.dart';
+import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
+import 'package:allfit_flutter/views/tailor/main/tailor_main_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignInController extends GetxController {
-  static SignInController get to => Get.find();
+class TailorSignInController extends GetxController {
+  static TailorSignInController get to => Get.find();
 
   final emailEdit = TextEditingController();
 
@@ -39,13 +39,13 @@ class SignInController extends GetxController {
         password: pwEdit.text,
       );
 
-      final user = await userRepository.getByAuthUid(credential.user!.uid);
-      if (user == null) {
-        emailErrorMessage = "사장님/관리자는 별도의 앱을 이용해주시기 바랍니다.";
+      final tailor = await tailorRepository.getByAuthUid(credential.user!.uid);
+      if (tailor == null) {
+        emailErrorMessage = "사장님이 아닌 사용자는 별도의 앱을 이용해주시기 바랍니다.";
         return false;
       }
 
-      MainController.to.currentUser = user;
+      TailorMainController.to.currentTailor = tailor;
 
       return true;
     } on FirebaseAuthException catch (e) {

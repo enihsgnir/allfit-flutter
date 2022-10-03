@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class TopPadding extends StatelessWidget {
+class CustomTopPadding extends StatelessWidget {
   final double? top;
 
-  const TopPadding({
+  const CustomTopPadding({
     super.key,
     this.top,
   });
@@ -14,10 +14,10 @@ class TopPadding extends StatelessWidget {
   }
 }
 
-class BottomPadding extends StatelessWidget {
+class CustomBottomPadding extends StatelessWidget {
   final double? bottom;
 
-  const BottomPadding({
+  const CustomBottomPadding({
     super.key,
     this.bottom,
   });

@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/order/category_selection_page.dart';
-import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
+import 'package:allfit_flutter/views/order/my_size/my_size_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -73,7 +73,9 @@ class OrderTab extends GetView<MainController> {
                     ),
                     const SizedBox(height: 17),
                     InkWell(
-                      onTap: () => showUnpreparedDialog(context),
+                      onTap: () {
+                        Get.toNamed(MySizePage.route);
+                      },
                       child: Container(
                         color: backgroundColor,
                         padding: const EdgeInsets.symmetric(horizontal: 28),

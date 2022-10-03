@@ -1,5 +1,7 @@
 import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/views/history/history_list_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
+import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +18,15 @@ class HistoryTab extends GetView<MainController> {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           color: Colors.black,
           child: Obx(() {
-            const temp = "로그인 후 확인 가능합니다.";
-            final isSignedIn = controller.isSignedIn;
-            final service = controller.currentUser?.service;
+            const warning = "로그인 후 확인 가능합니다.";
+            final user = controller.currentUser;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: MediaQuery.of(context).padding.top),
                 const SizedBox(height: 40),
                 Text(
-                  !isSignedIn ? temp : service!.category,
+                  user == null ? warning : user.service.category,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -33,96 +34,28 @@ class HistoryTab extends GetView<MainController> {
                   ),
                 ),
                 const SizedBox(height: 72),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "신청 서비스",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          !isSignedIn ? temp : service!.category,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "신청일",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          !isSignedIn
-                              ? temp
-                              : formatDateTime(service!.createdAt),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "이용 상태",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          !isSignedIn ? temp : service!.status,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
-                          "수선요금",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "안심 정찰 가격표에 의해 요금 부과",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 32),
-                  ],
+                CustomKeyValueList(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  interval: 12,
+                  keyStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  valueStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
+                  data: {
+                    "신청 서비스": user == null ? warning : user.service.category,
+                    "신청일": user == null
+                        ? warning
+                        : formatDateTime(user.service.createdAt),
+                    "이용 상태": user == null ? warning : user.service.status,
+                    "수선요금": user == null ? warning : user.service.cost,
+                  },
                 ),
+                const SizedBox(height: 32),
               ],
             );
           }),
@@ -133,12 +66,27 @@ class HistoryTab extends GetView<MainController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 32),
-              const Text(
-                "이용 내역",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text(
+                    "이용 내역",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(HistoryListPage.route);
+                    },
+                    child: const Text(
+                      "더보기",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ),
+                ],
               ),
               const Divider(color: Colors.black),
               ListTile(
@@ -168,78 +116,22 @@ class HistoryTab extends GetView<MainController> {
                 ),
               ),
               const Divider(color: Colors.black),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "배송지",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "XXXX",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "연락처",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "XXX-XXXX-XXXX",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "결제 정보",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "XX은행",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "공동현관 출입 방법",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        "공동현관 비밀번호",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 32),
-                ],
+              CustomKeyValueList(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                interval: 12,
+                keyStyle: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+                valueStyle: const TextStyle(fontSize: 12),
+                data: const {
+                  "배송지": "XXXX",
+                  "연락처": "XXX-XXXX-XXXX",
+                  "결제 정보": "XX은행",
+                  "공동현관 출입 방법": "공동현관 비밀번호",
+                },
               ),
+              const SizedBox(height: 32),
             ],
           ),
         ),

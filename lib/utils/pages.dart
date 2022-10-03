@@ -1,3 +1,7 @@
+import 'package:allfit_flutter/views/admin/admin_main_controller.dart';
+import 'package:allfit_flutter/views/admin/admin_main_page.dart';
+import 'package:allfit_flutter/views/history/history_detail_page.dart';
+import 'package:allfit_flutter/views/history/history_list_page.dart';
 import 'package:allfit_flutter/views/home/address/address_controller.dart';
 import 'package:allfit_flutter/views/home/address/address_page.dart';
 import 'package:allfit_flutter/views/home/address/address_search_page.dart';
@@ -32,10 +36,18 @@ import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/views/order/category_selection_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
+import 'package:allfit_flutter/views/order/my_size/my_size_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
+import 'package:allfit_flutter/views/tailor/main/tailor_main_controller.dart';
+import 'package:allfit_flutter/views/tailor/main/tailor_main_page.dart';
+import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_account_detail_page.dart';
+import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_sign_up_controller.dart';
+import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_sign_up_page.dart';
+import 'package:allfit_flutter/views/tailor/sign_in/tailor_sign_in_controller.dart';
+import 'package:allfit_flutter/views/tailor/sign_in/tailor_sign_in_page.dart';
 import 'package:get/get.dart';
 
 abstract class Pages {
@@ -60,6 +72,16 @@ abstract class Pages {
       page: () => const AddressSearchPage(),
     ),
 
+    // history
+    GetPage(
+      name: HistoryListPage.route,
+      page: () => const HistoryListPage(),
+    ),
+    GetPage(
+      name: HistoryDetailPage.route,
+      page: () => const HistoryDetailPage(),
+    ),
+
     // order
     GetPage(
       name: CategorySelectionPage.route,
@@ -82,8 +104,17 @@ abstract class Pages {
       name: DepositInfoPage.route,
       page: () => const DepositInfoPage(),
     ),
+    GetPage(
+      name: MySizePage.route,
+      page: () => const MySizePage(),
+    ),
 
     // my_page
+    GetPage(
+      name: SignInPage.route,
+      page: () => const SignInPage(),
+      binding: BindingsBuilder.put(() => SignInController()),
+    ),
     GetPage(
       name: AgreementPage.route,
       page: () => const AgreementPage(),
@@ -100,11 +131,6 @@ abstract class Pages {
     GetPage(
       name: SignUpCompletionPage.route,
       page: () => const SignUpCompletionPage(),
-    ),
-    GetPage(
-      name: SignInPage.route,
-      page: () => const SignInPage(),
-      binding: BindingsBuilder.put(() => SignInController()),
     ),
     GetPage(
       name: CouponPage.route,
@@ -161,6 +187,34 @@ abstract class Pages {
       name: InquiryWritingPage.route,
       page: () => const InquiryWritingPage(),
       binding: BindingsBuilder.put(() => InquiryWritingController()),
+    ),
+
+    // tailor
+    GetPage(
+      name: TailorMainPage.route,
+      page: () => const TailorMainPage(),
+      binding: BindingsBuilder.put(() => TailorMainController()),
+    ),
+    GetPage(
+      name: TailorSignInPage.route,
+      page: () => const TailorSignInPage(),
+      binding: BindingsBuilder.put(() => TailorSignInController()),
+    ),
+    GetPage(
+      name: TailorSignUpPage.route,
+      page: () => const TailorSignUpPage(),
+      binding: BindingsBuilder.put(() => TailorSignUpController()),
+    ),
+    GetPage(
+      name: TailorAccountDetailPage.route,
+      page: () => const TailorAccountDetailPage(),
+    ),
+
+    // admin
+    GetPage(
+      name: AdminMainPage.route,
+      page: () => const AdminMainPage(),
+      binding: BindingsBuilder.put(() => AdminMainController()),
     ),
   ];
 }

@@ -63,6 +63,7 @@ class AlterService with _$AlterService {
     required String category,
     required DateTime createdAt,
     required String status,
+    required String cost,
     DateTime? deletedAt,
   }) = _AlterService;
 

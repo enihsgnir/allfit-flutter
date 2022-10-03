@@ -1,12 +1,15 @@
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
+  final bool enableDrawer;
 
   const CustomAppBar({
     super.key,
     this.title,
+    this.enableDrawer = false,
   });
 
   @override
@@ -17,23 +20,29 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         splashRadius: 24,
-        onPressed: () => Navigator.of(context).pop(),
-        icon: const Icon(
-          CupertinoIcons.chevron_back,
+        onPressed: () {
+          if (enableDrawer) {
+            Scaffold.of(context).openDrawer();
+          } else {
+            Navigator.of(context).pop();
+          }
+        },
+        icon: Icon(
+          enableDrawer ? Icons.menu : CupertinoIcons.chevron_back,
           size: 32,
           color: Colors.black,
         ),
       ),
-      title: title == null
-          ? null
-          : Text(
-              title!,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+      title: title.andThen((value) {
+        return Text(
+          value,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        );
+      }),
       centerTitle: true,
       elevation: 0,
       backgroundColor: Colors.transparent,

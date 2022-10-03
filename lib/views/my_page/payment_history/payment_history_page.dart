@@ -61,13 +61,15 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                 .toList(),
           ),
           Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [
-                HistoryList(ordersPaid: controller.ordersPaid),
-                HistoryList(ordersPaid: controller.ordersPaid),
-              ],
-            ),
+            child: Obx(() {
+              return TabBarView(
+                controller: tabController,
+                children: [
+                  HistoryList(ordersPaid: controller.ordersPaidWithin30days),
+                  HistoryList(ordersPaid: controller.ordersPaid),
+                ],
+              );
+            }),
           ),
         ],
       ),
@@ -85,24 +87,20 @@ class HistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (ordersPaid.isEmpty) {
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text("결제내역이 없습니다."),
-            ],
-          ),
-        );
-      }
-      return ListView.builder(
-        itemCount: ordersPaid.length,
-        itemBuilder: (context, index) => HistoryTile(
-          order: ordersPaid[index],
+    if (ordersPaid.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text("결제내역이 없습니다."),
+          ],
         ),
       );
-    });
+    }
+    return ListView.builder(
+      itemCount: ordersPaid.length,
+      itemBuilder: (context, index) => HistoryTile(order: ordersPaid[index]),
+    );
   }
 }
 

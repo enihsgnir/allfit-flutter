@@ -18,8 +18,10 @@ class Order with _$Order {
     required int discount,
     DateTime? deliverySchedule,
     DateTime? paidAt,
+    DateTime? finishedAt,
     DateTime? receivedAt,
     required DateTime createdAt,
+    DateTime? rejectedAt,
     DateTime? deletedAt,
   }) = _Order;
 
@@ -60,4 +62,15 @@ class OrderPoint with _$OrderPoint {
 
   factory OrderPoint.fromJson(Map<String, dynamic> json) =>
       _$OrderPointFromJson(json);
+}
+
+@freezed
+class OrderStatus with _$OrderStatus {
+  const factory OrderStatus({
+    required String title,
+    required String subtitle,
+  }) = _OrderStatus;
+
+  factory OrderStatus.fromJson(Map<String, dynamic> json) =>
+      _$OrderStatusFromJson(json);
 }

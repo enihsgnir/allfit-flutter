@@ -1,10 +1,22 @@
 import 'package:allfit_flutter/domains/tailor/tailor.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/utils/logger.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final tailorRepository = TailorRepository();
 
-class TailorRepository extends _TailorRepository {}
+class TailorRepository extends _TailorRepository {
+  Future<Tailor?> getByAuthUid(String uid) async {
+    final snapshot = await collection
+        .where(
+          "authUid",
+          isEqualTo: uid,
+        )
+        .limit(1)
+        .get();
+    return snapshot.docs.firstOrNull?.data();
+  }
+}
 
 abstract class _TailorRepository {
   final collection =
