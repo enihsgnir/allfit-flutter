@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:allfit_flutter/domains/order/order.dart';
-import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/views/main_controller.dart';
+import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
-import 'package:allfit_flutter/views/order/order_detail_page.dart';
+import 'package:allfit_flutter/views/order/part_selection_page.dart';
+import 'package:allfit_flutter/views/order/tailor_match_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
@@ -20,18 +18,18 @@ class PointSelectionPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
       extendBodyBehindAppBar: true,
+      appBar: const CustomAppBar(),
       body: Stack(
         children: [
           const Image(
             fit: BoxFit.fitWidth,
             image: AssetImage("assets/images/clothes_sample.png"),
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
+          ListView(
+            reverse: true,
+            children: [
+              Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 color: backgroundColor,
                 child: Column(
@@ -40,61 +38,33 @@ class PointSelectionPage extends GetView<OrderController> {
                   children: [
                     const SizedBox(height: 16),
                     Text(
-                      controller.category,
+                      controller.getCurrentCategoryKo(),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16),
-                    ListTile(
-                      leading: SizedBox(
-                        height: double.infinity,
-                        child: CustomCachedImage(
-                          width: 28,
-                          path:
-                              "icons/category/${controller.iconAssetName}.png",
-                        ),
-                      ),
-                      title: Text(
-                        controller.part,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      subtitle: Text(
-                        "${controller.pointValue}cm",
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () => showUnpreparedDialog(context),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "수정",
-                                style: TextStyle(fontSize: 10),
+                    Obx(() {
+                      if (controller.pointsCache.isEmpty) {
+                        return const SizedBox(height: 64);
+                      }
+                      return Column(
+                        children: controller.pointsCache
+                            .map(
+                              (e) => OrderPointListTile(
+                                categoryEng: "t_shirt",
+                                point: e,
+                                atDecision: false,
                               ),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () => showUnpreparedDialog(context),
-                            child: const Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "삭제",
-                                style: TextStyle(fontSize: 10),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                            )
+                            .toList(),
+                      );
+                    }),
                     InkWell(
-                      onTap: () => showUnpreparedDialog(context),
+                      onTap: () {
+                        Get.until(ModalRoute.withName(PartSelectionPage.route));
+                      },
                       child: Row(
                         children: const [
                           Text(
@@ -118,8 +88,8 @@ class PointSelectionPage extends GetView<OrderController> {
                     const Divider(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           "예상 가격",
                           style: TextStyle(
                             fontSize: 16,
@@ -127,8 +97,8 @@ class PointSelectionPage extends GetView<OrderController> {
                           ),
                         ),
                         Text(
-                          "12,000원~",
-                          style: TextStyle(
+                          "${formatCurrency(controller.totalCost)}~",
+                          style: const TextStyle(
                             color: bluePointColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
@@ -141,8 +111,8 @@ class PointSelectionPage extends GetView<OrderController> {
                       children: [
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () async {
-                              await showTailorDetailBottomSheet(context);
+                            onPressed: () {
+                              Get.toNamed(TailorMatchPage.route);
                             },
                             child: const Text(
                               "다음",
@@ -159,174 +129,34 @@ class PointSelectionPage extends GetView<OrderController> {
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),
     );
   }
-
-  Future<void> showTailorDetailBottomSheet(BuildContext context) async {
-    final user = MainController.to.currentUser;
-
-    final tailors = await tailorRepository.getAll();
-    final tailor = tailors.elementAt(Random().nextInt(tailors.length));
-
-    return showModalBottomSheet<void>(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        ),
-      ),
-      isScrollControlled: true,
-      builder: (context) {
-        return Wrap(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 28),
-                  const Text(
-                    "매칭된 수선업체",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    children: [
-                      const CustomCachedImage(
-                        width: 56,
-                        path: "circle_avatar/tailor/default.png",
-                      ),
-                      const SizedBox(width: 12),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tailor.name,
-                            style: const TextStyle(
-                              color: bluePointColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            tailor.description ?? tailor.name,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  ...controller.pointsCache
-                      .map((e) => OrderPointListTile(point: e))
-                      .toList(),
-                  const SizedBox(height: 24),
-                  const Text(
-                    "수선 요청사항",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    "수선 사장님께",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: controller.extraEdit,
-                  ),
-                  const SizedBox(height: 32),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        const TextSpan(
-                          text: "수선할 의류",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        TextSpan(
-                          text: " 총 ${controller.pointsCache.length}개",
-                          style: const TextStyle(
-                            color: greyPointColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            const warning = "로그인 후 이용가능합니다.";
-
-                            final now = DateTime.now();
-                            controller.tailorId = tailor.id;
-                            controller.tailorName = tailor.name;
-                            controller.address = user?.mainAddress ?? warning;
-                            controller.pickUpSchedule =
-                                now.add(const Duration(days: 3));
-                            controller.deliverySchedule =
-                                now.add(const Duration(days: 7));
-
-                            Get.toNamed(OrderDetailPage.route);
-                          },
-                          child: const Text(
-                            "주문하기",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
 
 class OrderPointListTile extends StatelessWidget {
+  final String categoryEng;
   final OrderPoint point;
+  final bool atDecision;
 
   const OrderPointListTile({
     super.key,
+    required this.categoryEng,
     required this.point,
+    required this.atDecision,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: const SizedBox(
+      leading: SizedBox(
         height: double.infinity,
         child: CustomCachedImage(
           width: 28,
-          path: "icons/category/t_shirt.png",
+          path: "icons/category/$categoryEng.png",
         ),
       ),
       title: Text(
@@ -343,26 +173,38 @@ class OrderPointListTile extends StatelessWidget {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          InkWell(
-            onTap: () => showUnpreparedDialog(context),
-            child: const Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                "수정",
-                style: TextStyle(fontSize: 10),
+          if (atDecision)
+            Text(
+              formatCurrency(point.cost),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          else ...[
+            SizedBox(
+              width: 40,
+              child: TextButton(
+                onPressed: () => showUnpreparedDialog(context),
+                child: const Text(
+                  "수정",
+                  style: TextStyle(fontSize: 10),
+                ),
               ),
             ),
-          ),
-          InkWell(
-            onTap: () => showUnpreparedDialog(context),
-            child: const Padding(
-              padding: EdgeInsets.all(8),
-              child: Text(
-                "삭제",
-                style: TextStyle(fontSize: 10),
+            SizedBox(
+              width: 40,
+              child: TextButton(
+                onPressed: () {
+                  OrderController.to.removePoint(point);
+                },
+                child: const Text(
+                  "삭제",
+                  style: TextStyle(fontSize: 10),
+                ),
               ),
             ),
-          ),
+          ],
         ],
       ),
     );

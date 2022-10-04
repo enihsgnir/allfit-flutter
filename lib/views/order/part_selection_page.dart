@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
-import 'package:allfit_flutter/views/order/point_selection_page.dart';
+import 'package:allfit_flutter/views/order/value_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +35,14 @@ class PartSelectionPage extends GetView<OrderController> {
                 mainAxisSpacing: 9,
                 crossAxisSpacing: 9,
                 children: List.generate(
-                  controller.parts[controller.categoryIndex].length,
+                  controller.partListKo[controller.categoryIndexCache].length,
                   (index) {
-                    final part =
-                        controller.parts[controller.categoryIndex][index];
+                    final part = controller
+                        .partListKo[controller.categoryIndexCache][index];
                     return InkWell(
                       onTap: () {
-                        controller.partIndex = index;
-                        Get.toNamed(PointSelectionPage.route);
+                        controller.partIndexCache = index;
+                        Get.toNamed(ValueSelectionPage.route);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -53,7 +53,7 @@ class PartSelectionPage extends GetView<OrderController> {
                             CustomCachedImage(
                               width: 96,
                               path:
-                                  "category/${controller.iconAssetName}/${controller.partListEng[controller.categoryIndex][index]}.png",
+                                  "category/${controller.getCurrentCategoryEn()}/${controller.getPartEn(index)}.png",
                             ),
                             const SizedBox(height: 12),
                             Text(part),

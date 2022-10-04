@@ -76,7 +76,7 @@ class TailorSignUpController extends GetxController {
           ),
           phone: phoneEdit.text.trim(),
           bankAccount: bankAccountEdit.text.trim(),
-          category: Category(
+          category: TailorCategory(
             first: category[0],
             second: category[1],
             third: category[2],

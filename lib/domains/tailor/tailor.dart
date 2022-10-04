@@ -15,7 +15,7 @@ class Tailor with _$Tailor {
     required Address address,
     required String phone,
     required String bankAccount,
-    required Category category,
+    required TailorCategory category,
     required DateTime createdAt,
     DateTime? deletedAt,
   }) = _Tailor;
@@ -30,13 +30,13 @@ class Tailor with _$Tailor {
 }
 
 @freezed
-class Category with _$Category {
-  const factory Category({
+class TailorCategory with _$TailorCategory {
+  const factory TailorCategory({
     String? first,
     String? second,
     String? third,
-  }) = _Category;
+  }) = _TailorCategory;
 
-  factory Category.fromJson(Map<String, dynamic> json) =>
-      _$CategoryFromJson(json);
+  factory TailorCategory.fromJson(Map<String, dynamic> json) =>
+      _$TailorCategoryFromJson(json);
 }

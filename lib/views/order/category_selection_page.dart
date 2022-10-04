@@ -35,16 +35,17 @@ class CategorySelectionPage extends GetView<OrderController> {
             ),
             const SizedBox(height: 38),
             ...List.generate(
-              controller.icons.length,
+              controller.categoryListEn.length,
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: ListTile(
                   leading: CustomCachedImage(
                     width: 24,
-                    path: "icons/category/${controller.icons[index]}.png",
+                    path:
+                        "icons/category/${controller.categoryListEn[index]}.png",
                   ),
                   title: Text(
-                    controller.title[index],
+                    controller.categoryListKo[index],
                     style: const TextStyle(fontSize: 15),
                   ),
                   trailing: const Icon(
@@ -56,7 +57,7 @@ class CategorySelectionPage extends GetView<OrderController> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   onTap: () {
-                    controller.categoryIndex = index;
+                    controller.categoryIndexCache = index;
                     Get.toNamed(PartSelectionPage.route);
                   },
                   tileColor: const Color.fromRGBO(245, 245, 245, 1),

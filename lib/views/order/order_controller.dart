@@ -1,5 +1,7 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/domains/order/order_repository.dart';
+import 'package:allfit_flutter/domains/tailor/tailor.dart';
+import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,10 +9,22 @@ import 'package:get/get.dart';
 class OrderController extends GetxController {
   static OrderController get to => Get.find();
 
-  final icons = ["t_shirt", "dress_shirt", "pants", "one_piece_dress", "skirt"];
-  final title = ["티셔츠/맨투맨", "셔츠/블라우스", "바지", "원피스", "치마"];
+  final categoryListEn = [
+    "t_shirt",
+    "dress_shirt",
+    "pants",
+    "one_piece_dress",
+    "skirt",
+  ];
+  final categoryListKo = [
+    "티셔츠/맨투맨",
+    "셔츠/블라우스",
+    "바지",
+    "원피스",
+    "치마",
+  ];
 
-  final partListEng = [
+  final partListEn = [
     [
       "sleeve_length",
       "sleeve_width",
@@ -53,8 +67,7 @@ class OrderController extends GetxController {
       "accessory",
     ],
   ];
-
-  final parts = [
+  final partListKo = [
     [
       "소매기장 줄임",
       "전체팔통 줄임",
@@ -98,40 +111,42 @@ class OrderController extends GetxController {
     ],
   ];
 
-  String get iconAssetName => icons[categoryIndex];
-
-  final _categoryIndex = 0.obs;
-  int get categoryIndex => _categoryIndex.value;
-  set categoryIndex(int value) => _categoryIndex.value = value;
-
-  String get category => title[categoryIndex];
-
-  final _partIndex = 0.obs;
-  int get partIndex => _partIndex.value;
-  set partIndex(int value) => _partIndex.value = value;
-
-  String get part => parts[categoryIndex][partIndex];
-
-  String get partImageAssetName =>
-      "${iconAssetName}_${partListEng[categoryIndex][partIndex]}";
-
-  final _pointValue = 6.obs;
-  int get pointValue => _pointValue.value;
-  set pointValue(int value) => _pointValue.value = value;
-
   final _pointsCache = <OrderPoint>[].obs;
   List<OrderPoint> get pointsCache => _pointsCache;
   set pointsCache(List<OrderPoint> value) => _pointsCache.value = value;
 
-  final _minCost = 12000.obs;
-  int get minCost => _minCost.value;
-  set minCost(int value) => _minCost.value = value;
+  final _categoryIndexCache = 0.obs;
+  int get categoryIndexCache => _categoryIndexCache.value;
+  set categoryIndexCache(int value) => _categoryIndexCache.value = value;
+
+  final _partIndexCache = 0.obs;
+  int get partIndexCache => _partIndexCache.value;
+  set partIndexCache(int value) => _partIndexCache.value = value;
+
+  final _valueCache = 0.0.obs;
+  double get valueCache => _valueCache.value;
+  set valueCache(double value) => _valueCache.value = value;
+
+  final _costCache = 0.obs;
+  int get costCache => _costCache.value;
+  set costCache(int value) => _costCache.value = value;
+
+  int get alterCost {
+    return pointsCache.fold(
+      0,
+      (previousValue, element) => previousValue + element.cost,
+    );
+  }
 
   final _deliveryFee = 3000.obs;
   int get deliveryFee => _deliveryFee.value;
   set deliveryFee(int value) => _deliveryFee.value = value;
 
-  int get totalCost => minCost + deliveryFee;
+  int get totalCost => alterCost + deliveryFee;
+
+  final _tailors = <Tailor>[].obs;
+  List<Tailor> get tailors => _tailors;
+  set tailors(List<Tailor> value) => _tailors.value = value;
 
   final _tailorId = "".obs;
   String get tailorId => _tailorId.value;
@@ -157,22 +172,50 @@ class OrderController extends GetxController {
   set deliverySchedule(DateTime value) => _deliverySchedule.value = value;
 
   @override
+  Future<void> onReady() async {
+    tailors = await tailorRepository.getAll();
+  }
+
+  @override
   void onClose() {
     extraEdit.dispose();
   }
 
-  void addPoint({
-    required String part,
-    required double value,
-    required int cost,
-  }) {
+  String getCurrentCategoryEn() {
+    return categoryListEn[categoryIndexCache];
+  }
+
+  String getCurrentCategoryKo() {
+    return categoryListKo[categoryIndexCache];
+  }
+
+  String getPartEn(int index) {
+    return partListEn[categoryIndexCache][index];
+  }
+
+  String getPartKo(int index) {
+    return partListKo[categoryIndexCache][index];
+  }
+
+  String getCurrentPartKo() {
+    return partListKo[categoryIndexCache][partIndexCache];
+  }
+
+  void addPoint() {
     pointsCache.add(
       OrderPoint(
-        part: part,
-        value: value,
-        cost: cost,
+        part: getPartKo(partIndexCache),
+        value: valueCache,
+        cost: costCache,
       ),
     );
+    partIndexCache = 0;
+    valueCache = 0.0;
+    costCache = 0;
+  }
+
+  void removePoint(OrderPoint point) {
+    pointsCache.remove(point);
   }
 
   Future<void> createOrder() async {
@@ -188,7 +231,7 @@ class OrderController extends GetxController {
         tailorId: tailorId,
         items: [
           OrderItem(
-            category: category,
+            category: getCurrentCategoryKo(),
             points: pointsCache,
           ),
         ],

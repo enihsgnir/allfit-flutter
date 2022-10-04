@@ -42,6 +42,8 @@ import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
+import 'package:allfit_flutter/views/order/tailor_match_page.dart';
+import 'package:allfit_flutter/views/order/value_selection_page.dart';
 import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_controller.dart';
 import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_page.dart';
 import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_settle_page.dart';
@@ -97,8 +99,16 @@ abstract class Pages {
       page: () => const PartSelectionPage(),
     ),
     GetPage(
+      name: ValueSelectionPage.route,
+      page: () => const ValueSelectionPage(),
+    ),
+    GetPage(
       name: PointSelectionPage.route,
       page: () => const PointSelectionPage(),
+    ),
+    GetPage(
+      name: TailorMatchPage.route,
+      page: () => const TailorMatchPage(),
     ),
     GetPage(
       name: OrderDetailPage.route,
