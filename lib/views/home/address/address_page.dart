@@ -5,6 +5,7 @@ import 'package:allfit_flutter/views/home/address/address_search_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_modal_bottom_sheet.dart';
+import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -165,6 +166,11 @@ class AddressPage extends GetView<AddressController> {
                           home.roadAddress,
                           style: const TextStyle(fontSize: 11),
                         ),
+                  trailing: home == null ||
+                          controller.user.mainAddressIndex !=
+                              controller.addresses.indexOf(home)
+                      ? null
+                      : const Icon(Icons.check),
                   contentPadding: EdgeInsets.zero,
                   onTap: home == null
                       ? null
@@ -197,6 +203,11 @@ class AddressPage extends GetView<AddressController> {
                           work.roadAddress,
                           style: const TextStyle(fontSize: 11),
                         ),
+                  trailing: work == null ||
+                          controller.user.mainAddressIndex !=
+                              controller.addresses.indexOf(work)
+                      ? null
+                      : const Icon(Icons.check),
                   contentPadding: EdgeInsets.zero,
                   onTap: work == null
                       ? null
@@ -232,8 +243,17 @@ class AddressPage extends GetView<AddressController> {
                           address.roadAddress,
                           style: const TextStyle(fontSize: 11),
                         ),
+                        trailing: controller.user.mainAddressIndex !=
+                                controller.addresses.indexOf(address)
+                            ? null
+                            : const Icon(Icons.check),
                         contentPadding: EdgeInsets.zero,
-                        onTap: () {},
+                        onTap: () {
+                          showAddressActionSheet(
+                            context: context,
+                            address: address,
+                          );
+                        },
                       );
                     },
                   );
@@ -268,7 +288,10 @@ class AddressPage extends GetView<AddressController> {
             ),
             const Divider(),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.back();
+                showUnpreparedDialog(context);
+              },
               child: const Text("삭제"),
             ),
             const Divider(),

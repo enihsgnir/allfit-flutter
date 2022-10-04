@@ -1,8 +1,8 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/payment_history/payment_history_controller.dart';
+import 'package:allfit_flutter/views/my_page/payment_history/payment_history_detail_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
-import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,15 +61,15 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                 .toList(),
           ),
           Expanded(
-            child: Obx(() {
-              return TabBarView(
-                controller: tabController,
-                children: [
-                  HistoryList(ordersPaid: controller.ordersPaidWithin30days),
-                  HistoryList(ordersPaid: controller.ordersPaid),
-                ],
-              );
-            }),
+            child: TabBarView(
+              controller: tabController,
+              children: [
+                PaymentHistoryList(
+                  ordersPaid: controller.ordersPaidWithin30days,
+                ),
+                PaymentHistoryList(ordersPaid: controller.ordersPaid),
+              ],
+            ),
           ),
         ],
       ),
@@ -77,75 +77,81 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
   }
 }
 
-class HistoryList extends StatelessWidget {
+class PaymentHistoryList extends StatelessWidget {
   final List<Order> ordersPaid;
 
-  const HistoryList({
+  const PaymentHistoryList({
     super.key,
     required this.ordersPaid,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (ordersPaid.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text("결제내역이 없습니다."),
-          ],
+    return Obx(() {
+      if (ordersPaid.isEmpty) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text("결제내역이 없습니다."),
+            ],
+          ),
+        );
+      }
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: ListView.builder(
+          itemCount: ordersPaid.length,
+          itemBuilder: (context, index) =>
+              PaymentHistoryListTile(order: ordersPaid[index]),
         ),
       );
-    }
-    return ListView.builder(
-      itemCount: ordersPaid.length,
-      itemBuilder: (context, index) => HistoryTile(order: ordersPaid[index]),
-    );
+    });
   }
 }
 
-class HistoryTile extends StatelessWidget {
+class PaymentHistoryListTile extends StatelessWidget {
   final Order order;
 
-  const HistoryTile({
+  const PaymentHistoryListTile({
     super.key,
     required this.order,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => showUnpreparedDialog(context),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ListTile(
+      title: Text(
+        formatDateTime(order.createdAt),
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(
+        order.serviceCategory,
+        style: const TextStyle(
+          color: Colors.black,
+          fontSize: 10,
+        ),
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                formatDateTime(order.createdAt),
-                style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Text(
-                order.serviceCategory,
-                style: const TextStyle(fontSize: 10),
-              ),
-            ],
+          Text(
+            formatCurrency(order.totalCost),
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
           ),
-          Row(
-            children: [
-              Text(
-                order.totalCost.toString(),
-                style: const TextStyle(fontSize: 10),
-              ),
-              const Icon(CupertinoIcons.chevron_forward)
-            ],
-          ),
+          const Icon(CupertinoIcons.chevron_forward),
         ],
       ),
+      contentPadding: EdgeInsets.zero,
+      onTap: () {
+        Get.toNamed(PaymentHistoryDetailPage.route, arguments: order);
+      },
     );
   }
 }

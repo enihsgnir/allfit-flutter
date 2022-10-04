@@ -131,16 +131,34 @@ class OrderController extends GetxController {
   int get minCost => _minCost.value;
   set minCost(int value) => _minCost.value = value;
 
-  final _tailorName = "더현대서울 실과바늘".obs;
+  final _deliveryFee = 3000.obs;
+  int get deliveryFee => _deliveryFee.value;
+  set deliveryFee(int value) => _deliveryFee.value = value;
+
+  int get totalCost => minCost + deliveryFee;
+
+  final _tailorId = "".obs;
+  String get tailorId => _tailorId.value;
+  set tailorId(String value) => _tailorId.value = value;
+
+  final _tailorName = "".obs;
   String get tailorName => _tailorName.value;
   set tailorName(String value) => _tailorName.value = value;
 
   final extraEdit = TextEditingController();
   String get extra => extraEdit.text.isEmpty ? "없음" : extraEdit.text;
 
-  final _address = "서울특별시 성동구 사근동".obs;
+  final _address = "".obs;
   String get address => _address.value;
   set address(String value) => _address.value = value;
+
+  final _pickUpSchedule = DateTime.now().obs;
+  DateTime get pickUpSchedule => _pickUpSchedule.value;
+  set pickUpSchedule(DateTime value) => _pickUpSchedule.value = value;
+
+  final _deliverySchedule = DateTime.now().obs;
+  DateTime get deliverySchedule => _deliverySchedule.value;
+  set deliverySchedule(DateTime value) => _deliverySchedule.value = value;
 
   @override
   void onClose() {
@@ -148,13 +166,11 @@ class OrderController extends GetxController {
   }
 
   Future<void> createOrder() async {
-    final now = DateTime.now();
-
     await orderRepository.createOne(
       Order(
         id: "",
         userId: MainController.to.currentUser?.id ?? "",
-        tailorId: "p8531OY6EkpjB6TMmOCH",
+        tailorId: tailorId,
         items: [
           OrderItem(
             points: [
@@ -167,11 +183,11 @@ class OrderController extends GetxController {
           ),
         ],
         address: address,
-        pickUpSchedule: now.add(const Duration(days: 14)),
-        serviceCategory: "",
-        deliveryFee: 3000,
+        pickUpSchedule: pickUpSchedule,
+        serviceCategory: "1회 이용수선서비스",
+        deliveryFee: deliveryFee,
         discount: 0,
-        createdAt: now,
+        createdAt: DateTime.now(),
       ),
     );
   }

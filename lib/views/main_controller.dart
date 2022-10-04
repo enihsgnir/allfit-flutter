@@ -1,7 +1,8 @@
+import 'package:allfit_flutter/domains/order/order.dart';
+import 'package:allfit_flutter/domains/order/order_repository.dart';
 import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/domains/user/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MainController extends GetxController {
@@ -17,7 +18,9 @@ class MainController extends GetxController {
   int get index => _index.value;
   set index(int value) => _index.value = value;
 
-  final addressEdit = TextEditingController();
+  final _historyPreview = <Order>[].obs;
+  List<Order> get historyPreview => _historyPreview;
+  set historyPreview(List<Order> value) => _historyPreview.value = value;
 
   @override
   Future<void> onReady() async {
@@ -26,15 +29,18 @@ class MainController extends GetxController {
       final user = await userRepository.getByAuthUid(authUser.uid);
       if (user != null) {
         currentUser = user;
+        await getHistoryPreview(user);
       } else {
         await signOut();
       }
     }
   }
 
-  @override
-  void onClose() {
-    addressEdit.dispose();
+  Future<void> getHistoryPreview(User user) async {
+    historyPreview = await orderRepository.getAllByUserId(
+      user.id,
+      limit: 1,
+    );
   }
 
   Future<void> signOut() async {

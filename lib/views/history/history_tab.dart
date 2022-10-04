@@ -1,8 +1,9 @@
+import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/views/history/history_detail_page.dart';
 import 'package:allfit_flutter/views/history/history_list_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
-import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -89,23 +90,9 @@ class HistoryTab extends GetView<MainController> {
                 ],
               ),
               const Divider(color: Colors.black),
-              ListTile(
-                title: const Text(
-                  "2022년 XX월 XX일 (X)",
-                  style: TextStyle(fontSize: 13),
-                ),
-                subtitle: const Text(
-                  "수령 완료",
-                  style: TextStyle(
-                    color: Color.fromRGBO(60, 132, 240, 1),
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                trailing: const Icon(CupertinoIcons.chevron_forward),
-                contentPadding: EdgeInsets.zero,
-                onTap: () => showUnpreparedDialog(context),
-              ),
+              ...controller.historyPreview
+                  .map((e) => HistoryListTile(order: e))
+                  .toList(),
               const Divider(),
               const SizedBox(height: 40),
               const Text(
@@ -136,6 +123,38 @@ class HistoryTab extends GetView<MainController> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class HistoryListTile extends StatelessWidget {
+  final Order order;
+
+  const HistoryListTile({
+    super.key,
+    required this.order,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        formatDateTime(order.createdAt),
+        style: const TextStyle(fontSize: 13),
+      ),
+      subtitle: Text(
+        order.status,
+        style: const TextStyle(
+          color: Color.fromRGBO(60, 132, 240, 1),
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: const Icon(CupertinoIcons.chevron_forward),
+      contentPadding: EdgeInsets.zero,
+      onTap: () {
+        Get.toNamed(HistoryDetailPage.route, arguments: order);
+      },
     );
   }
 }

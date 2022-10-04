@@ -5,10 +5,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final orderRepository = OrderRepository();
 
 class OrderRepository extends _OrderRepository {
-  Future<List<Order>> getAllByUserId(String userId) async {
+  Future<List<Order>> getAllByUserId(String userId, {int limit = 0}) async {
     final snapshot = await collection
         .where("userId", isEqualTo: userId)
         .orderBy("createdAt", descending: true)
+        .limit(limit)
         .get();
     return snapshot.docs.map((e) => e.data()).toList();
   }

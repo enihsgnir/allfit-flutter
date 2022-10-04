@@ -96,8 +96,8 @@ class OrderDetailPage extends GetView<OrderController> {
             const SizedBox(height: 33),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "수거일정",
                   style: TextStyle(
                     fontSize: 15,
@@ -105,8 +105,8 @@ class OrderDetailPage extends GetView<OrderController> {
                   ),
                 ),
                 Text(
-                  "2022년 10월 14일 (금)",
-                  style: TextStyle(
+                  formatDateTime(controller.pickUpSchedule),
+                  style: const TextStyle(
                     color: Color.fromRGBO(177, 177, 177, 1),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
@@ -142,8 +142,8 @@ class OrderDetailPage extends GetView<OrderController> {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       "총 수선금액",
                       style: TextStyle(
                         fontSize: 15,
@@ -151,8 +151,8 @@ class OrderDetailPage extends GetView<OrderController> {
                       ),
                     ),
                     Text(
-                      "12,000원",
-                      style: TextStyle(
+                      formatCurrency(controller.minCost),
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
@@ -162,8 +162,8 @@ class OrderDetailPage extends GetView<OrderController> {
                 const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       "배달팁",
                       style: TextStyle(
                         fontSize: 15,
@@ -171,8 +171,8 @@ class OrderDetailPage extends GetView<OrderController> {
                       ),
                     ),
                     Text(
-                      "3,000원",
-                      style: TextStyle(
+                      formatCurrency(controller.deliveryFee),
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),
@@ -184,8 +184,8 @@ class OrderDetailPage extends GetView<OrderController> {
             const Divider(color: Colors.black),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "총 결제금액",
                   style: TextStyle(
                     fontSize: 18,
@@ -193,8 +193,8 @@ class OrderDetailPage extends GetView<OrderController> {
                   ),
                 ),
                 Text(
-                  "15,000원",
-                  style: TextStyle(
+                  formatCurrency(controller.totalCost),
+                  style: const TextStyle(
                     fontSize: 21,
                     fontWeight: FontWeight.bold,
                   ),
@@ -206,18 +206,18 @@ class OrderDetailPage extends GetView<OrderController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "2022년 11월 17일 ",
-                        style: TextStyle(
+                        text: formatDateTime(controller.deliverySchedule),
+                        style: const TextStyle(
                           color: bluePointColor,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      TextSpan(
-                        text: "완료 예상",
+                      const TextSpan(
+                        text: " 완료 예상",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,
@@ -245,9 +245,9 @@ class OrderDetailPage extends GetView<OrderController> {
                         );
                       }
                     },
-                    child: const Text(
-                      "15,000원 결제하기",
-                      style: TextStyle(
+                    child: Text(
+                      "${formatCurrency(controller.totalCost)} 결제하기",
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
                       ),

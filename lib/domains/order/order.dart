@@ -39,6 +39,31 @@ class Order with _$Order {
 
   int get totalCost => alterCost + deliveryFee - discount;
 
+  String get status {
+    if (receivedAt != null) {
+      return "수령 완료";
+    } else if (finishedAt != null) {
+      return "배송 대기 중";
+    }
+    return "수선 대기 중";
+  }
+
+  String get substatus {
+    if (receivedAt != null) {
+      return "수선물을 확인해주세요.";
+    } else if (finishedAt != null) {
+      return "기사님을 기다리는 중입니다.";
+    }
+    return "수선 사장님이 물건을 확인 중입니다.";
+  }
+
+  List<OrderPoint> get allPoints {
+    return items.fold(
+      [],
+      (previousValue, element) => previousValue..addAll(element.points),
+    );
+  }
+
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 }
 
@@ -62,15 +87,4 @@ class OrderPoint with _$OrderPoint {
 
   factory OrderPoint.fromJson(Map<String, dynamic> json) =>
       _$OrderPointFromJson(json);
-}
-
-@freezed
-class OrderStatus with _$OrderStatus {
-  const factory OrderStatus({
-    required String title,
-    required String subtitle,
-  }) = _OrderStatus;
-
-  factory OrderStatus.fromJson(Map<String, dynamic> json) =>
-      _$OrderStatusFromJson(json);
 }

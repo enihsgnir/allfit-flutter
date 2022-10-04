@@ -22,44 +22,50 @@ class HistoryDetailPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 12),
-            Text(formatDateTime(order.createdAt)),
-            ...() {
-              const style1 = TextStyle();
-              const style2 = TextStyle();
-
-              String text1 = "";
-              String text2 = "";
-
-              final now = DateTime.now();
-              final receivedAt = order.receivedAt;
-              if (receivedAt == null) {
-                text1 = "배송 중";
-                text2 = "내일 배송 예정";
-              } else {
-                text1 = "수선 아이템 수령 완료";
-                text2 = "수선물을 확인해주세요.";
-              }
-
-              return [
-                Text(
-                  text1,
-                  style: style1,
-                ),
-                Text(
-                  text2,
-                  style: style2,
-                ),
-              ];
-            }(),
+            Text(
+              formatDateTime(order.createdAt),
+              style: const TextStyle(fontSize: 12),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              order.status,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              order.substatus,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            const Text(
+              "결제금액",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Divider(color: Colors.black),
             CustomKeyValueList(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               interval: 12,
+              keyStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+              valueStyle: const TextStyle(fontSize: 12),
               data: {
                 "안심 정찰 가격": order.alterCost.toString(),
                 "수거 & 배송": order.deliveryFee.toString(),
                 "총 결제 금액": order.totalCost.toString(),
               },
             ),
+            const SizedBox(height: 120),
           ],
         ),
       ),

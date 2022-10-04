@@ -46,6 +46,7 @@ class SignInController extends GetxController {
       }
 
       MainController.to.currentUser = user;
+      MainController.to.getHistoryPreview(user);
 
       return true;
     } on FirebaseAuthException catch (e) {

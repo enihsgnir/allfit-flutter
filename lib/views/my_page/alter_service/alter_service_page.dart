@@ -3,6 +3,8 @@ import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_change_page.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
+import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,76 +49,20 @@ class AlterServicePage extends GetView<AlterServiceController> {
               style: TextStyle(fontSize: 12),
             ),
             const SizedBox(height: 28),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "신청 서비스",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      controller.user.service.category,
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "신청일",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      formatDateTime(controller.user.service.createdAt),
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "이용 상태",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      controller.user.service.status,
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      "수선요금",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "안심 정찰 가격표에 의해 요금 부과",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
-              ],
+            CustomKeyValueList(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              interval: 12,
+              keyStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+              valueStyle: const TextStyle(fontSize: 12),
+              data: {
+                "신청 서비스": controller.user.service.category,
+                "신청일": formatDateTime(controller.user.service.createdAt),
+                "이용 상태": controller.user.service.status,
+                "수선요금": controller.user.service.cost,
+              },
             ),
             const SizedBox(height: 32),
             Row(
@@ -132,15 +78,36 @@ class AlterServicePage extends GetView<AlterServiceController> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => showUnpreparedDialog(context),
                     child: const Text("해지"),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 80),
-            const Text("신청 서비스"),
+            const Text(
+              "신청 서비스",
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const Divider(color: Colors.black),
+            CustomKeyValueList(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              interval: 12,
+              keyStyle: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+              valueStyle: const TextStyle(fontSize: 12),
+              data: const {
+                "배송지": "XXXX",
+                "연락처": "XXX-XXXX-XXXX",
+                "결제 정보": "XX은행",
+                "공동현관 출입 방법": "공동현관 비밀번호",
+              },
+            ),
             const SizedBox(height: 16),
           ],
         ),

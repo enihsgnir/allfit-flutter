@@ -1,4 +1,8 @@
+import 'dart:math';
+
+import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
@@ -155,6 +159,11 @@ class PointSelectionPage extends GetView<OrderController> {
   }
 
   Future<void> bottomSheet(BuildContext context) async {
+    final user = MainController.to.currentUser;
+
+    final tailors = await tailorRepository.getAll();
+    final tailor = tailors.elementAt(Random().nextInt(tailors.length));
+
     return showModalBottomSheet<void>(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -190,18 +199,18 @@ class PointSelectionPage extends GetView<OrderController> {
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
-                        "더현대서울 실과바늘",
-                        style: TextStyle(
+                        tailor.name,
+                        style: const TextStyle(
                           color: bluePointColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "위치 5km 이내, 수선경력 20년, 명품 의류 전문",
-                        style: TextStyle(
+                        tailor.description ?? tailor.name,
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -216,7 +225,20 @@ class PointSelectionPage extends GetView<OrderController> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () => Get.toNamed(OrderDetailPage.route),
+                      onPressed: () {
+                        const warning = "로그인 후 이용가능합니다.";
+
+                        final now = DateTime.now();
+                        controller.tailorId = tailor.id;
+                        controller.tailorName = tailor.name;
+                        controller.address = user?.mainAddress ?? warning;
+                        controller.pickUpSchedule =
+                            now.add(const Duration(days: 3));
+                        controller.deliverySchedule =
+                            now.add(const Duration(days: 7));
+
+                        Get.toNamed(OrderDetailPage.route);
+                      },
                       child: const Text(
                         "주문하기",
                         style: TextStyle(
