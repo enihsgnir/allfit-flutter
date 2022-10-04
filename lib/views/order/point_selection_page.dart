@@ -22,135 +22,142 @@ class PointSelectionPage extends GetView<OrderController> {
     return Scaffold(
       appBar: const CustomAppBar(),
       extendBodyBehindAppBar: true,
-      body: Column(
+      body: Stack(
         children: [
           const Image(
+            fit: BoxFit.fitWidth,
             image: AssetImage("assets/images/clothes_sample.png"),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 16),
-                  Text(
-                    controller.category,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ListTile(
-                    leading: SizedBox(
-                      height: double.infinity,
-                      child: CustomCachedImage(
-                        width: 28,
-                        path: "icons/category/${controller.iconAssetName}.png",
-                      ),
-                    ),
-                    title: Text(
-                      controller.part,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                color: backgroundColor,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 16),
+                    Text(
+                      controller.category,
                       style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    subtitle: Text(
-                      "${controller.pointValue}cm",
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        InkWell(
-                          onTap: () => showUnpreparedDialog(context),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "수정",
-                              style: TextStyle(fontSize: 10),
-                            ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () => showUnpreparedDialog(context),
-                          child: const Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text(
-                              "삭제",
-                              style: TextStyle(fontSize: 10),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () => showUnpreparedDialog(context),
-                    child: Row(
-                      children: const [
-                        Text(
-                          "+",
-                          style: TextStyle(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Text(
-                          "수선 희망 부위 추가",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Divider(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "예상 가격",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                    const SizedBox(height: 16),
+                    ListTile(
+                      leading: SizedBox(
+                        height: double.infinity,
+                        child: CustomCachedImage(
+                          width: 28,
+                          path:
+                              "icons/category/${controller.iconAssetName}.png",
                         ),
                       ),
-                      Text(
-                        "12,000원~",
-                        style: TextStyle(
-                          color: bluePointColor,
-                          fontSize: 14,
+                      title: Text(
+                        controller.part,
+                        style: const TextStyle(
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await bottomSheet(context);
-                          },
-                          child: const Text(
-                            "다음",
+                      subtitle: Text(
+                        "${controller.pointValue}cm",
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () => showUnpreparedDialog(context),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                "수정",
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () => showUnpreparedDialog(context),
+                            child: const Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text(
+                                "삭제",
+                                style: TextStyle(fontSize: 10),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () => showUnpreparedDialog(context),
+                      child: Row(
+                        children: const [
+                          Text(
+                            "+",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 19,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
+                          SizedBox(width: 16),
+                          Text(
+                            "수선 희망 부위 추가",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          "예상 가격",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "12,000원~",
+                          style: TextStyle(
+                            color: bluePointColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              await showTailorDetailBottomSheet(context);
+                            },
+                            child: const Text(
+                              "다음",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
           ),
@@ -159,7 +166,7 @@ class PointSelectionPage extends GetView<OrderController> {
     );
   }
 
-  Future<void> bottomSheet(BuildContext context) async {
+  Future<void> showTailorDetailBottomSheet(BuildContext context) async {
     final user = MainController.to.currentUser;
 
     final tailors = await tailorRepository.getAll();
@@ -323,7 +330,7 @@ class OrderPointListTile extends StatelessWidget {
         ),
       ),
       title: Text(
-        point.category,
+        point.part,
         style: const TextStyle(
           fontSize: 13,
           fontWeight: FontWeight.w500,

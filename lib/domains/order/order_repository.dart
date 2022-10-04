@@ -55,6 +55,13 @@ class OrderRepository extends _OrderRepository {
         )
         .orderBy("finishedAt", descending: true);
   }
+
+  Future<Order> finishOrder(String id) async {
+    return updateOne(
+      id,
+      data: {"finishedAt": DateTime.now().toIso8601String()},
+    );
+  }
 }
 
 abstract class _OrderRepository {

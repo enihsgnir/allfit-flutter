@@ -11,10 +11,10 @@ class PaymentHistoryDetailPage extends StatelessWidget {
 
   static const route = "/my_page/payment_history/detail";
 
-  static final order = Get.arguments as Order;
-
   @override
   Widget build(BuildContext context) {
+    final order = Get.arguments as Order;
+
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Padding(
@@ -80,7 +80,7 @@ class PaymentHistoryDetailPage extends StatelessWidget {
               valueStyle: const TextStyle(fontSize: 12),
               data: {
                 for (final point in order.allPoints)
-                  point.category: formatCurrency(point.cost)
+                  point.part: formatCurrency(point.cost)
               },
             ),
             const SizedBox(height: 48),

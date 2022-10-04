@@ -42,6 +42,9 @@ import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
+import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_controller.dart';
+import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_page.dart';
+import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_settle_page.dart';
 import 'package:allfit_flutter/views/tailor/main/tailor_main_controller.dart';
 import 'package:allfit_flutter/views/tailor/main/tailor_main_page.dart';
 import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_account_detail_page.dart';
@@ -199,6 +202,15 @@ abstract class Pages {
       name: TailorMainPage.route,
       page: () => const TailorMainPage(),
       binding: BindingsBuilder.put(() => TailorMainController()),
+    ),
+    GetPage(
+      name: TailorOrderDetailPage.route,
+      page: () => const TailorOrderDetailPage(),
+      binding: BindingsBuilder.put(() => TailorOrderDetailController()),
+    ),
+    GetPage(
+      name: TailorOrderSettlePage.route,
+      page: () => const TailorOrderSettlePage(),
     ),
     GetPage(
       name: TailorSignInPage.route,

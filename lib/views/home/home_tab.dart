@@ -43,50 +43,23 @@ class HomeTab extends GetView<MainController> {
 
                   final index = user.mainAddressIndex;
                   final address = user.addresses[index];
-                  if (address.isHome) {
-                    return Row(
-                      children: const [
-                        CustomCachedImage(
-                          height: 16,
-                          path: "icons/address/home.png",
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          Address.homeKo,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    );
-                  } else if (address.isWork) {
-                    return Row(
-                      children: const [
-                        CustomCachedImage(
-                          height: 16,
-                          path: "icons/address/work.png",
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          Address.workKo,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    );
-                  }
                   return Row(
                     children: [
-                      const CustomCachedImage(
+                      CustomCachedImage(
                         height: 16,
-                        path: "icons/address/location.png",
+                        path: address.isHome
+                            ? "icons/address/home.png"
+                            : address.isWork
+                                ? "icons/address/work.png"
+                                : "icons/address/location.png",
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        address.roadAddress,
+                        address.isHome
+                            ? Address.homeKo
+                            : address.isWork
+                                ? Address.workKo
+                                : address.roadAddress,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -108,64 +81,109 @@ class HomeTab extends GetView<MainController> {
             ),
           ),
         ),
-        Stack(
-          children: [
-            const Image(
-              image: AssetImage("assets/images/home_tab_background.png"),
-            ),
-            Positioned(
-              right: 12,
-              bottom: 36,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: const [
-                  Text(
-                    "환경을 위한 솔선수선",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+        Expanded(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              Stack(
+                children: [
+                  const Image(
+                    fit: BoxFit.fitWidth,
+                    image: AssetImage("assets/images/home_tab_background.png"),
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    "수선으로 시작하는\n친환경 라이프스타일",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                  Positioned(
+                    right: 12,
+                    bottom: 36,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: const [
+                        Text(
+                          "환경을 위한 솔선수선",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "수선으로 시작하는\n친환경 라이프스타일",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
                     ),
-                    textAlign: TextAlign.right,
                   ),
                 ],
               ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Divider(
-                height: 48,
-                color: Colors.black,
-              ),
-              const Text(
-                "얼핏이 처음이세요?",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 12),
-              InkWell(
-                onTap: () => showUnpreparedDialog(context),
-                child: const SizedBox(
-                  height: 100,
-                  child: Image(
-                    image: AssetImage("assets/images/price_table.png"),
-                  ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Divider(
+                      height: 48,
+                      color: Colors.black,
+                    ),
+                    const Text(
+                      "얼핏이 처음이세요?",
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    InkWell(
+                      onTap: () => showUnpreparedDialog(context),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.fitWidth,
+                            image: AssetImage("assets/images/price_table.png"),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 16,
+                            horizontal: 20,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                "수선 가격표",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                "언제 어디서든 일정한 가격",
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              Text(
+                                "7,500원~ ",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

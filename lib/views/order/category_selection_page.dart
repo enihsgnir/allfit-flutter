@@ -35,7 +35,7 @@ class CategorySelectionPage extends GetView<OrderController> {
             ),
             const SizedBox(height: 38),
             ...List.generate(
-              Category.values.length,
+              controller.icons.length,
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: ListTile(

@@ -25,19 +25,31 @@ class MainPage extends GetView<MainController> {
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/images/home.png")),
+              icon: ImageIcon(
+                AssetImage("assets/images/home.png"),
+                size: 28,
+              ),
               label: "홈",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/images/repair.png")),
+              icon: ImageIcon(
+                AssetImage("assets/images/order.png"),
+                size: 28,
+              ),
               label: "수선요청",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/images/history.png")),
+              icon: ImageIcon(
+                AssetImage("assets/images/history.png"),
+                size: 28,
+              ),
               label: "이용내역",
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage("assets/images/my_page.png")),
+              icon: ImageIcon(
+                AssetImage("assets/images/my_page.png"),
+                size: 28,
+              ),
               label: "마이",
             ),
           ],

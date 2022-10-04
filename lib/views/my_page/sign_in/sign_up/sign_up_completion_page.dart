@@ -25,6 +25,7 @@ class SignUpCompletionPage extends StatelessWidget {
             ),
             const Spacer(),
             const Image(
+              width: 144,
               image: AssetImage("assets/images/sign_up_completion.png"),
             ),
             const SizedBox(height: 24),

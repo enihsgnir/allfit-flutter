@@ -99,6 +99,7 @@ class MyPageTab extends GetView<MainController> {
               child: Column(
                 children: const [
                   Image(
+                    height: 32,
                     image: AssetImage("assets/images/coupon.png"),
                   ),
                   SizedBox(height: 10),
@@ -116,6 +117,7 @@ class MyPageTab extends GetView<MainController> {
               child: Column(
                 children: const [
                   Image(
+                    height: 32,
                     image: AssetImage("assets/images/reward_point.png"),
                   ),
                   SizedBox(height: 10),
@@ -133,6 +135,7 @@ class MyPageTab extends GetView<MainController> {
               child: Column(
                 children: const [
                   Image(
+                    height: 32,
                     image: AssetImage("assets/images/payment_history.png"),
                   ),
                   SizedBox(height: 10),
@@ -154,6 +157,7 @@ class MyPageTab extends GetView<MainController> {
               child: Column(
                 children: const [
                   Image(
+                    height: 32,
                     image: AssetImage("assets/images/my_info.png"),
                   ),
                   SizedBox(height: 10),

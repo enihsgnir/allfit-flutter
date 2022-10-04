@@ -22,12 +22,7 @@ class User with _$User {
 
   const User._();
 
-  String get mainAddress {
-    if (addresses.isEmpty) {
-      return "없음";
-    }
-    return addresses[mainAddressIndex].toFormatted();
-  }
+  String get mainAddress => addresses[mainAddressIndex].toFormatted();
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

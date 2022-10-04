@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 class CustomCachedImage extends StatelessWidget {
   final double? width;
   final double? height;
+  final BoxFit? fit;
   final String path;
 
   const CustomCachedImage({
     super.key,
     this.width,
     this.height,
+    this.fit,
     required this.path,
   });
 
@@ -37,6 +39,7 @@ class CustomCachedImage extends StatelessWidget {
             return Image(
               width: width,
               height: height,
+              fit: fit,
               image: imageProvider,
             );
           },

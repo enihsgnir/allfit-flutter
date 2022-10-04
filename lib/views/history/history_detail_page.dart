@@ -10,10 +10,10 @@ class HistoryDetailPage extends StatelessWidget {
 
   static const route = "/history/detail";
 
-  static final order = Get.arguments as Order;
-
   @override
   Widget build(BuildContext context) {
+    final order = Get.arguments as Order;
+
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Padding(

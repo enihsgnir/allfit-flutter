@@ -4,14 +4,6 @@ import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-enum Category {
-  tShirt,
-  dressShirt,
-  pants,
-  onePieceDress,
-  skirt,
-}
-
 class OrderController extends GetxController {
   static OrderController get to => Get.find();
 
@@ -170,13 +162,13 @@ class OrderController extends GetxController {
   }
 
   void addPoint({
-    required String category,
+    required String part,
     required double value,
     required int cost,
   }) {
     pointsCache.add(
       OrderPoint(
-        category: category,
+        part: part,
         value: value,
         cost: cost,
       ),
@@ -184,23 +176,23 @@ class OrderController extends GetxController {
   }
 
   Future<void> createOrder() async {
+    final user = MainController.to.currentUser;
+    if (user == null) {
+      return;
+    }
+
     await orderRepository.createOne(
       Order(
         id: "",
-        userId: MainController.to.currentUser?.id ?? "",
+        userId: user.id,
         tailorId: tailorId,
         items: [
           OrderItem(
-            points: [
-              OrderPoint(
-                category: category,
-                value: pointValue.toDouble(),
-                cost: minCost,
-              ),
-            ],
+            category: category,
+            points: pointsCache,
           ),
         ],
-        address: address,
+        address: user.addresses[user.mainAddressIndex],
         pickUpSchedule: pickUpSchedule,
         serviceCategory: "1회 이용수선서비스",
         deliveryFee: deliveryFee,

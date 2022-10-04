@@ -32,6 +32,11 @@ class AddressController extends GetxController {
   final postCodeEdit = TextEditingController();
   final roadAddressEdit = TextEditingController();
   final detailAddressEdit = TextEditingController();
+  final aliasEdit = TextEditingController();
+
+  final _aliasEditEnabled = true.obs;
+  bool get aliasEditEnabled => _aliasEditEnabled.value;
+  set aliasEditEnabled(bool value) => _aliasEditEnabled.value = value;
 
   @override
   void onInit() {
@@ -51,19 +56,29 @@ class AddressController extends GetxController {
     postCodeEdit.dispose();
     roadAddressEdit.dispose();
     detailAddressEdit.dispose();
+    aliasEdit.dispose();
   }
 
-  Future<void> addAddress({String? alias}) async {
+  void resetTextEdit() {
+    postCodeEdit.clear();
+    roadAddressEdit.clear();
+    detailAddressEdit.clear();
+    aliasEdit.clear();
+  }
+
+  Future<void> addAddress() async {
     final address = Address(
-      alias: alias,
+      alias: aliasEdit.text.trim().isEmpty ? null : aliasEdit.text,
       postCode: postCodeEdit.text,
       roadAddress: roadAddressEdit.text,
       detailAddress: detailAddressEdit.text.trim(),
     );
-    user = await userRepository.addAddress(user.id, address);
+    user = await userRepository.addAddress(user.id, address: address);
+    resetTextEdit();
   }
 
-  Future<void> changeMainAddress(int index) async {
+  Future<void> changeMainAddress(Address address) async {
+    final index = addresses.indexOf(address);
     if (index == user.mainAddressIndex) {
       return;
     }
@@ -72,5 +87,16 @@ class AddressController extends GetxController {
       user.id,
       index: index,
     );
+  }
+
+  Future<bool> removeAddress(Address address) async {
+    final index = addresses.indexOf(address);
+    if (index == user.mainAddressIndex) {
+      return false;
+    }
+
+    await userRepository.removeAddress(user.id, address: address);
+    user = await userRepository.updateMainAddressIndex(user.id, index: 0);
+    return true;
   }
 }

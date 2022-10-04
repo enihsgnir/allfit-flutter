@@ -1,16 +1,19 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/domains/order/order_repository.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
-import 'package:allfit_flutter/views/history/history_detail_page.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/notice/notice_page.dart';
+import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_page.dart';
 import 'package:allfit_flutter/views/tailor/main/tailor_main_controller.dart';
 import 'package:allfit_flutter/views/tailor/sign_in/tailor_sign_in_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -91,11 +94,19 @@ class _TailorMainPageState extends State<TailorMainPage>
                       const CustomTopPadding(),
                       Text(
                         tailor.name,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      const SizedBox(height: 16),
                       Text(
                         tailor.address.toFormatted(),
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                          color: greyPointColor,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
@@ -219,69 +230,119 @@ class _TailorMainPageState extends State<TailorMainPage>
             child: TabBarView(
               controller: tabController,
               children: [
-                Obx(() {
-                  final tailor = controller.currentTailor;
-                  if (tailor == null) {
-                    return const Center(
-                      child: Text("로그인 후 확인 가능합니다."),
-                    );
-                  }
-
-                  return PaginateFirestore(
-                    query: orderRepository
-                        .paginatedByTailorIdInProgress(tailor.id),
-                    isLive: true,
-                    itemBuilderType: PaginateBuilderType.listView,
-                    itemBuilder: (context, documentSnapshots, index) {
-                      final order = documentSnapshots[index].data()! as Order;
-                      return ListTile(
-                        leading: const CircleAvatar(child: Icon(Icons.person)),
-                        title: Text(formatDateTime(order.createdAt)),
-                        subtitle: Text(order.id),
-                        onTap: () {
-                          Get.toNamed(
-                            HistoryDetailPage.route,
-                            arguments: order,
-                          );
-                        },
-                      );
-                    },
-                    onEmpty: const Text("수선 요청이 없습니다."),
-                  );
-                }),
-                Obx(() {
-                  final tailor = controller.currentTailor;
-                  if (tailor == null) {
-                    return const Center(
-                      child: Text("로그인 후 확인 가능합니다."),
-                    );
-                  }
-
-                  return PaginateFirestore(
-                    query:
-                        orderRepository.paginatedByTailorIdFinished(tailor.id),
-                    isLive: true,
-                    itemBuilderType: PaginateBuilderType.listView,
-                    itemBuilder: (context, documentSnapshots, index) {
-                      final order = documentSnapshots[index].data()! as Order;
-                      return ListTile(
-                        leading: const CircleAvatar(child: Icon(Icons.person)),
-                        title: Text(formatDateTime(order.createdAt)),
-                        subtitle: Text(order.id),
-                        onTap: () {
-                          Get.toNamed(
-                            HistoryDetailPage.route,
-                            arguments: order,
-                          );
-                        },
-                      );
-                    },
-                    onEmpty: const Text("수선 요청이 없습니다."),
-                  );
-                }),
+                TailorOrderList(
+                  paginatedQuery: orderRepository.paginatedByTailorIdInProgress,
+                ),
+                TailorOrderList(
+                  paginatedQuery: orderRepository.paginatedByTailorIdFinished,
+                ),
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class TailorOrderList extends GetView<TailorMainController> {
+  final Query<Order> Function(String) paginatedQuery;
+
+  const TailorOrderList({
+    super.key,
+    required this.paginatedQuery,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      final tailor = controller.currentTailor;
+      if (tailor == null) {
+        return const Center(
+          child: Text("로그인 후 확인 가능합니다."),
+        );
+      }
+
+      return PaginateFirestore(
+        query: paginatedQuery(tailor.id),
+        isLive: true,
+        itemBuilderType: PaginateBuilderType.listView,
+        itemBuilder: (context, documentSnapshots, index) {
+          return TailorOrderListTile(
+            order: documentSnapshots[index].data()! as Order,
+          );
+        },
+        onEmpty: const Text("수선 요청이 없습니다."),
+      );
+    });
+  }
+}
+
+class TailorOrderListTile extends StatelessWidget {
+  final Order order;
+
+  const TailorOrderListTile({
+    super.key,
+    required this.order,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final imagePath = order.items.first.imagePath;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            formatDateTimeDottedWithHourAndMinute(order.createdAt),
+            style: const TextStyle(fontSize: 10),
+          ),
+          ListTile(
+            leading: CustomCachedImage(
+              width: 64,
+              height: double.infinity,
+              fit: BoxFit.fitWidth,
+              path: imagePath ?? "order_image/default.png",
+            ),
+            title: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  order.items.first.category,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  order.pointsSummary,
+                  style: const TextStyle(fontSize: 11),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  order.address.roadAddress,
+                  style: const TextStyle(
+                    color: greyPointColor,
+                    fontSize: 11,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
+              ],
+            ),
+            trailing: const Icon(CupertinoIcons.chevron_forward),
+            onTap: () {
+              Get.toNamed(
+                TailorOrderDetailPage.route,
+                arguments: order,
+              );
+            },
+          ),
+          const Divider(),
         ],
       ),
     );

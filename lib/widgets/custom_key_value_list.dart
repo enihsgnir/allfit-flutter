@@ -6,6 +6,8 @@ class CustomKeyValueList extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final double? keyWidth;
   final double interval;
+  final Widget? leading;
+  final Widget? trailing;
   final TextStyle? keyStyle;
   final TextStyle? valueStyle;
   final Map<String, String> data;
@@ -15,6 +17,8 @@ class CustomKeyValueList extends StatelessWidget {
     required this.mainAxisAlignment,
     this.keyWidth,
     required this.interval,
+    this.leading,
+    this.trailing,
     this.keyStyle,
     this.valueStyle,
     required this.data,

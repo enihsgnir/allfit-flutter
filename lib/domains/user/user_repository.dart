@@ -31,7 +31,10 @@ class UserRepository extends _UserRepository {
     );
   }
 
-  Future<User> addAddress(String id, Address address) async {
+  Future<User> addAddress(
+    String id, {
+    required Address address,
+  }) async {
     return updateOne(
       id,
       data: {
@@ -40,7 +43,10 @@ class UserRepository extends _UserRepository {
     );
   }
 
-  Future<User> removeAddress(String id, Address address) async {
+  Future<User> removeAddress(
+    String id, {
+    required Address address,
+  }) async {
     return updateOne(
       id,
       data: {
@@ -70,7 +76,7 @@ class UserRepository extends _UserRepository {
     return updateOne(
       id,
       data: {
-        "name": FieldValue.delete(),
+        "nickname": FieldValue.delete(),
         "phone": FieldValue.delete(),
         "address": FieldValue.delete(),
         "wayToEnter": FieldValue.delete(),

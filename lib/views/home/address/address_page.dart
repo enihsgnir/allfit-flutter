@@ -5,9 +5,10 @@ import 'package:allfit_flutter/views/home/address/address_search_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_modal_bottom_sheet.dart';
-import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
+import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intersperse/intersperse.dart';
 
 class AddressPage extends GetView<AddressController> {
   const AddressPage({super.key});
@@ -92,12 +93,27 @@ class AddressPage extends GetView<AddressController> {
                         ),
                         style: const TextStyle(fontSize: 12),
                       ),
+                      const SizedBox(height: 8),
+                      Obx(() {
+                        return TextFormField(
+                          enabled: controller.aliasEditEnabled,
+                          controller: controller.aliasEdit,
+                          decoration: const InputDecoration(
+                            hintText: "별명",
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                          ),
+                          style: const TextStyle(fontSize: 12),
+                        );
+                      }),
                       Row(
                         children: [
                           Expanded(
                             child: OutlinedButton(
                               onPressed: () {
                                 controller.isAddressEditing = false;
+                                controller.resetTextEdit();
                               },
                               child: const Text(
                                 "취소",
@@ -134,9 +150,7 @@ class AddressPage extends GetView<AddressController> {
                     Expanded(
                       child: OutlinedButton(
                         onPressed: () {
-                          controller.postCodeEdit.text = "";
-                          controller.roadAddressEdit.text = "";
-                          controller.detailAddressEdit.text = "";
+                          controller.aliasEditEnabled = true;
                           controller.isAddressEditing = true;
                         },
                         child: const Text("주소 추가"),
@@ -146,118 +160,40 @@ class AddressPage extends GetView<AddressController> {
                 );
               }),
               const SizedBox(height: 20),
-              Obx(() {
-                final home = controller.home;
-                return ListTile(
-                  leading: const CustomCachedImage(
-                    width: 16,
-                    path: "icons/address/home.png",
-                  ),
-                  title: Text(
-                    home == null ? "집 추가" : "집",
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  subtitle: home == null
-                      ? null
-                      : Text(
-                          home.roadAddress,
-                          style: const TextStyle(fontSize: 11),
-                        ),
-                  trailing: home == null ||
-                          controller.user.mainAddressIndex !=
-                              controller.addresses.indexOf(home)
-                      ? null
-                      : const Icon(Icons.check),
-                  contentPadding: EdgeInsets.zero,
-                  onTap: home == null
-                      ? null
-                      : () {
-                          showAddressActionSheet(
-                            context: context,
-                            address: home,
-                          );
-                        },
-                );
-              }),
-              const Divider(),
-              Obx(() {
-                final work = controller.work;
-                return ListTile(
-                  leading: const CustomCachedImage(
-                    width: 16,
-                    path: "icons/address/work.png",
-                  ),
-                  title: Text(
-                    work == null ? "회사 추가" : "회사",
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  subtitle: work == null
-                      ? null
-                      : Text(
-                          work.roadAddress,
-                          style: const TextStyle(fontSize: 11),
-                        ),
-                  trailing: work == null ||
-                          controller.user.mainAddressIndex !=
-                              controller.addresses.indexOf(work)
-                      ? null
-                      : const Icon(Icons.check),
-                  contentPadding: EdgeInsets.zero,
-                  onTap: work == null
-                      ? null
-                      : () {
-                          showAddressActionSheet(
-                            context: context,
-                            address: work,
-                          );
-                        },
-                );
-              }),
-              const Divider(),
               Expanded(
-                child: Obx(() {
-                  return ListView.separated(
-                    itemCount: controller.others.length,
-                    separatorBuilder: (context, index) => const Divider(),
-                    itemBuilder: (context, index) {
-                      final address = controller.others[index];
-                      return ListTile(
-                        leading: const CustomCachedImage(
-                          width: 16,
-                          path: "icons/address/location.png",
-                        ),
-                        title: Text(
-                          address.detailAddress,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        subtitle: Text(
-                          address.roadAddress,
-                          style: const TextStyle(fontSize: 11),
-                        ),
-                        trailing: controller.user.mainAddressIndex !=
-                                controller.addresses.indexOf(address)
-                            ? null
-                            : const Icon(Icons.check),
-                        contentPadding: EdgeInsets.zero,
-                        onTap: () {
-                          showAddressActionSheet(
-                            context: context,
-                            address: address,
-                          );
-                        },
+                child: ListView(
+                  children: [
+                    Obx(() {
+                      final home = controller.home;
+                      return AddressListTile(
+                        address: home,
+                        icon: "home",
                       );
-                    },
-                  );
-                }),
+                    }),
+                    const Divider(),
+                    Obx(() {
+                      final work = controller.work;
+                      return AddressListTile(
+                        address: work,
+                        icon: "work",
+                      );
+                    }),
+                    Obx(() {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: controller.others
+                            .map<Widget>(
+                              (e) => AddressListTile(
+                                address: e,
+                                icon: "location",
+                              ),
+                            )
+                            .intersperseOuter(const Divider())
+                            .toList(),
+                      );
+                    }),
+                  ],
+                ),
               ),
             ],
           ),
@@ -265,9 +201,89 @@ class AddressPage extends GetView<AddressController> {
       ),
     );
   }
+}
 
-  Future<void> showAddressActionSheet({
-    required BuildContext context,
+class AddressListTile extends GetView<AddressController> {
+  final Address? address;
+  final String icon;
+
+  const AddressListTile({
+    super.key,
+    required this.address,
+    required this.icon,
+  });
+
+  bool get isHome => icon == "home";
+  bool get isWork => icon == "work";
+
+  String get title {
+    final address = this.address;
+    final alias = address?.alias;
+
+    if (address == null) {
+      if (isHome) {
+        return "집 추가";
+      } else if (isWork) {
+        return "회사 추가";
+      }
+      return "";
+    } else {
+      if (isHome) {
+        return "집";
+      } else if (isWork) {
+        return "회사";
+      } else if (alias != null) {
+        return alias;
+      }
+      return address.detailAddress;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final address = this.address;
+    final mainAddressIndex = controller.user.mainAddressIndex;
+
+    return ListTile(
+      leading: CustomCachedImage(
+        width: 20,
+        height: double.infinity,
+        path: "icons/address/$icon.png",
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+      subtitle: Text(
+        address == null ? "" : address.roadAddress,
+        style: const TextStyle(fontSize: 11),
+      ),
+      trailing: address == null ||
+              mainAddressIndex != controller.addresses.indexOf(address)
+          ? null
+          : const Icon(Icons.check),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+      onTap: address == null
+          ? isHome || isWork
+              ? () {
+                  if (isHome) {
+                    controller.aliasEdit.text = "집";
+                  } else if (isWork) {
+                    controller.aliasEdit.text = "회사";
+                  }
+                  controller.aliasEditEnabled = false;
+                  controller.isAddressEditing = true;
+                }
+              : null
+          : () => showAddressActionSheet(context, address: address),
+    );
+  }
+
+  Future<void> showAddressActionSheet(
+    BuildContext context, {
     required Address address,
   }) async {
     return showCustomModalBottomSheet(
@@ -280,17 +296,19 @@ class AddressPage extends GetView<AddressController> {
             const Divider(),
             TextButton(
               onPressed: () async {
-                final index = controller.addresses.indexOf(address);
-                await controller.changeMainAddress(index);
+                await controller.changeMainAddress(address);
                 Get.back();
               },
               child: const Text("대표 주소로 설정"),
             ),
             const Divider(),
             TextButton(
-              onPressed: () {
-                Get.back();
-                showUnpreparedDialog(context);
+              onPressed: () async {
+                if (await controller.removeAddress(address)) {
+                  Get.back();
+                } else {
+                  showCustomToast("대표 주소는 삭제할 수 없습니다.");
+                }
               },
               child: const Text("삭제"),
             ),
@@ -303,45 +321,6 @@ class AddressPage extends GetView<AddressController> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class AddressListTile extends StatelessWidget {
-  final String? alias;
-  final Address? address;
-  final String icon;
-
-  const AddressListTile({
-    super.key,
-    this.alias,
-    required this.address,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final address = this.address;
-    return ListTile(
-      leading: CustomCachedImage(
-        height: 16,
-        path: "icons/address/$icon.png",
-      ),
-      title: Text(
-        address == null ? "집 추가" : "집",
-        style: const TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      subtitle: address == null
-          ? null
-          : Text(
-              address.roadAddress,
-              style: const TextStyle(fontSize: 11),
-            ),
-      contentPadding: EdgeInsets.zero,
-      onTap: address == null ? null : () {},
     );
   }
 }

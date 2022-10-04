@@ -1,3 +1,4 @@
+import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'order.freezed.dart';
@@ -10,7 +11,7 @@ class Order with _$Order {
     required String userId,
     required String tailorId,
     required List<OrderItem> items,
-    required String address,
+    required Address address,
     required DateTime pickUpSchedule,
     String? extra,
     required String serviceCategory,
@@ -64,13 +65,20 @@ class Order with _$Order {
     );
   }
 
+  String get pointsSummary {
+    final points = allPoints;
+    return "${points.first.summary} 등 ${points.length}건";
+  }
+
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 }
 
 @freezed
 class OrderItem with _$OrderItem {
   const factory OrderItem({
+    required String category,
     required List<OrderPoint> points,
+    String? imagePath,
   }) = _OrderItem;
 
   factory OrderItem.fromJson(Map<String, dynamic> json) =>
@@ -80,10 +88,14 @@ class OrderItem with _$OrderItem {
 @freezed
 class OrderPoint with _$OrderPoint {
   const factory OrderPoint({
-    required String category,
+    required String part,
     required double value,
     required int cost,
   }) = _OrderPoint;
+
+  const OrderPoint._();
+
+  String get summary => "$part ${value}cm";
 
   factory OrderPoint.fromJson(Map<String, dynamic> json) =>
       _$OrderPointFromJson(json);
