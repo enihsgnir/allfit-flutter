@@ -127,6 +127,10 @@ class OrderController extends GetxController {
   int get pointValue => _pointValue.value;
   set pointValue(int value) => _pointValue.value = value;
 
+  final _pointsCache = <OrderPoint>[].obs;
+  List<OrderPoint> get pointsCache => _pointsCache;
+  set pointsCache(List<OrderPoint> value) => _pointsCache.value = value;
+
   final _minCost = 12000.obs;
   int get minCost => _minCost.value;
   set minCost(int value) => _minCost.value = value;
@@ -163,6 +167,20 @@ class OrderController extends GetxController {
   @override
   void onClose() {
     extraEdit.dispose();
+  }
+
+  void addPoint({
+    required String category,
+    required double value,
+    required int cost,
+  }) {
+    pointsCache.add(
+      OrderPoint(
+        category: category,
+        value: value,
+        cost: cost,
+      ),
+    );
   }
 
   Future<void> createOrder() async {
