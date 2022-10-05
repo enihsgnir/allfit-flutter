@@ -1,3 +1,5 @@
+import 'package:allfit_flutter/domains/order/order.dart';
+import 'package:allfit_flutter/domains/order/order_repository.dart';
 import 'package:allfit_flutter/domains/tailor/tailor.dart';
 import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,17 +12,27 @@ class TailorMainController extends GetxController {
   Tailor? get currentTailor => _currentTailor.value;
   set currentTailor(Tailor? value) => _currentTailor.value = value;
 
-  // final _inProgressLength = 0.obs;
-  // int get inProgressLength => _inProgressLength.value;
-  // set inProgressLength(int value) => _inProgressLength.value = value;
+  final _ordersInProgress = <Order>[].obs;
+  List<Order> get ordersInProgress => _ordersInProgress;
+  set ordersInProgress(List<Order> value) => _ordersInProgress.value = value;
 
-  // String get inProgressTabText => "현재 처리 중 $inProgressLength";
+  final _ordersFinished = <Order>[].obs;
+  List<Order> get ordersFinished => _ordersFinished;
+  set ordersFinished(List<Order> value) => _ordersFinished.value = value;
 
-  // final _finishedLength = 0.obs;
-  // int get finishedLength => _finishedLength.value;
-  // set finishedLength(int value) => _finishedLength.value = value;
+  Worker? orderWorker;
 
-  // String get finishedTabText => "완료 $finishedLength";
+  @override
+  void onInit() {
+    super.onInit();
+    orderWorker = ever(_currentTailor, (_) async {
+      final tailor = currentTailor;
+      if (tailor == null) {
+        return;
+      }
+      await getOrders(tailor.id);
+    });
+  }
 
   @override
   Future<void> onReady() async {
@@ -35,8 +47,17 @@ class TailorMainController extends GetxController {
     }
   }
 
+  Future<void> getOrders(String tailorId) async {
+    final orders = await orderRepository.getAllByTailorId(tailorId);
+    ordersInProgress =
+        orders.where((element) => element.paidAt == null).toList();
+    ordersFinished = orders.where((element) => element.paidAt != null).toList();
+  }
+
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     currentTailor = null;
+    ordersInProgress.clear();
+    ordersFinished.clear();
   }
 }

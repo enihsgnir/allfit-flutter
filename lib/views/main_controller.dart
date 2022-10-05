@@ -2,6 +2,7 @@ import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/domains/order/order_repository.dart';
 import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/domains/user/user_repository.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:get/get.dart';
 
@@ -18,9 +19,25 @@ class MainController extends GetxController {
   int get index => _index.value;
   set index(int value) => _index.value = value;
 
-  final _historyPreview = <Order>[].obs;
-  List<Order> get historyPreview => _historyPreview;
-  set historyPreview(List<Order> value) => _historyPreview.value = value;
+  final _histories = <Order>[].obs;
+  List<Order> get histories => _histories;
+  set histories(List<Order> value) => _histories.value = value;
+
+  Worker? _historyWorker;
+
+  Order? get historyPreview => histories.firstOrNull;
+
+  @override
+  void onInit() {
+    super.onInit();
+    _historyWorker = ever(_currentUser, (_) async {
+      final user = currentUser;
+      if (user == null) {
+        return;
+      }
+      histories = await orderRepository.getAllByUserId(user.id);
+    });
+  }
 
   @override
   Future<void> onReady() async {
@@ -29,22 +46,20 @@ class MainController extends GetxController {
       final user = await userRepository.getByAuthUid(authUser.uid);
       if (user != null) {
         currentUser = user;
-        await getHistoryPreview(user);
       } else {
         await signOut();
       }
     }
   }
 
-  Future<void> getHistoryPreview(User user) async {
-    historyPreview = await orderRepository.getAllByUserId(
-      user.id,
-      limit: 1,
-    );
+  @override
+  void onClose() {
+    _historyWorker?.dispose();
   }
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
     currentUser = null;
+    histories.clear();
   }
 }

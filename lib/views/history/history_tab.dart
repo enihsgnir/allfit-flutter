@@ -90,9 +90,23 @@ class HistoryTab extends GetView<MainController> {
                 ],
               ),
               const Divider(color: Colors.black),
-              ...controller.historyPreview
-                  .map((e) => HistoryListTile(order: e))
-                  .toList(),
+              Obx(() {
+                final preview = controller.historyPreview;
+                if (preview == null) {
+                  return Container(
+                    alignment: Alignment.center,
+                    height: 60,
+                    child: const Text(
+                      "이용내역이 없습니다.",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
+                }
+                return HistoryListTile(order: preview);
+              }),
               const Divider(),
               const SizedBox(height: 40),
               const Text(

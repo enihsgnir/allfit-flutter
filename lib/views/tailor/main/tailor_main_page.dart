@@ -1,5 +1,4 @@
 import 'package:allfit_flutter/domains/order/order.dart';
-import 'package:allfit_flutter/domains/order/order_repository.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/main_page.dart';
@@ -13,11 +12,9 @@ import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:paginate_firestore/paginate_firestore.dart';
 
 class TailorMainPage extends StatefulWidget {
   const TailorMainPage({super.key});
@@ -207,35 +204,36 @@ class _TailorMainPageState extends State<TailorMainPage>
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TabBar(
-            controller: tabController,
-            isScrollable: true,
-            indicatorColor: Colors.black,
-            labelColor: Colors.black,
-            tabs: ["현재 처리 중", "완료"]
-                .map(
-                  (e) => Tab(
-                    child: Text(
-                      e,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+          Obx(() {
+            return TabBar(
+              controller: tabController,
+              isScrollable: true,
+              indicatorColor: Colors.black,
+              labelColor: Colors.black,
+              tabs: [
+                "현재 처리 중 ${controller.ordersInProgress.length}",
+                "완료 ${controller.ordersFinished.length}",
+              ]
+                  .map(
+                    (e) => Tab(
+                      child: Text(
+                        e,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                )
-                .toList(),
-          ),
+                  )
+                  .toList(),
+            );
+          }),
           Expanded(
             child: TabBarView(
               controller: tabController,
               children: [
-                TailorOrderList(
-                  paginatedQuery: orderRepository.paginatedByTailorIdInProgress,
-                ),
-                TailorOrderList(
-                  paginatedQuery: orderRepository.paginatedByTailorIdFinished,
-                ),
+                TailorOrderList(orders: controller.ordersInProgress),
+                TailorOrderList(orders: controller.ordersFinished),
               ],
             ),
           ),
@@ -246,11 +244,11 @@ class _TailorMainPageState extends State<TailorMainPage>
 }
 
 class TailorOrderList extends GetView<TailorMainController> {
-  final Query<Order> Function(String) paginatedQuery;
+  final List<Order> orders;
 
   const TailorOrderList({
     super.key,
-    required this.paginatedQuery,
+    required this.orders,
   });
 
   @override
@@ -263,16 +261,14 @@ class TailorOrderList extends GetView<TailorMainController> {
         );
       }
 
-      return PaginateFirestore(
-        query: paginatedQuery(tailor.id),
-        isLive: true,
-        itemBuilderType: PaginateBuilderType.listView,
-        itemBuilder: (context, documentSnapshots, index) {
-          return TailorOrderListTile(
-            order: documentSnapshots[index].data()! as Order,
-          );
-        },
-        onEmpty: const Text("수선 요청이 없습니다."),
+      if (orders.isEmpty) {
+        return const Center(
+          child: Text("이용 내역이 없습니다."),
+        );
+      }
+
+      return ListView(
+        children: orders.map((e) => TailorOrderListTile(order: e)).toList(),
       );
     });
   }

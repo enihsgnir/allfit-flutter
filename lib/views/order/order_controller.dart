@@ -214,6 +214,14 @@ class OrderController extends GetxController {
     costCache = 0;
   }
 
+  void modifyPoint(OrderPoint point) {
+    final index = pointsCache.indexOf(point);
+    pointsCache
+      ..removeAt(index)
+      ..insert(index, point.copyWith(value: valueCache));
+    valueCache = 0.0;
+  }
+
   void removePoint(OrderPoint point) {
     pointsCache.remove(point);
   }
@@ -237,7 +245,7 @@ class OrderController extends GetxController {
         ],
         address: user.addresses[user.mainAddressIndex],
         pickUpSchedule: pickUpSchedule,
-        serviceCategory: "1회 이용수선서비스",
+        serviceCategory: user.service.category,
         deliveryFee: deliveryFee,
         discount: 0,
         createdAt: DateTime.now(),

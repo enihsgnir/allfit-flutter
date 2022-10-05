@@ -1,3 +1,4 @@
+import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
@@ -13,6 +14,8 @@ class ValueSelectionPage extends GetView<OrderController> {
 
   @override
   Widget build(BuildContext context) {
+    final point = Get.arguments as OrderPoint?;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const CustomAppBar(),
@@ -63,7 +66,11 @@ class ValueSelectionPage extends GetView<OrderController> {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
-                              controller.addPoint();
+                              if (point == null) {
+                                controller.addPoint();
+                              } else {
+                                controller.modifyPoint(point);
+                              }
                               Get.offNamedUntil(
                                 PointSelectionPage.route,
                                 ModalRoute.withName(PartSelectionPage.route),

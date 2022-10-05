@@ -5,19 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final orderRepository = OrderRepository();
 
 class OrderRepository extends _OrderRepository {
-  Future<List<Order>> getAllByUserId(String userId, {int limit = 0}) async {
+  Future<List<Order>> getAllByUserId(String userId) async {
     final snapshot = await collection
         .where("userId", isEqualTo: userId)
         .orderBy("createdAt", descending: true)
-        .limit(limit)
         .get();
     return snapshot.docs.map((e) => e.data()).toList();
-  }
-
-  Query<Order> paginatedByUserId(String userId) {
-    return collection
-        .where("userId", isEqualTo: userId)
-        .orderBy("createdAt", descending: true);
   }
 
   Future<List<Order>> getAllPaid(
@@ -39,21 +32,12 @@ class OrderRepository extends _OrderRepository {
     return snapshot.docs.map((e) => e.data()).toList();
   }
 
-  Query<Order> paginatedByTailorIdInProgress(String tailorId) {
-    return collection
+  Future<List<Order>> getAllByTailorId(String tailorId) async {
+    final snapshot = await collection
         .where("tailorId", isEqualTo: tailorId)
-        .where("finishedAt", isEqualTo: null)
-        .orderBy("createdAt", descending: true);
-  }
-
-  Query<Order> paginatedByTailorIdFinished(String tailorId) {
-    return collection
-        .where("tailorId", isEqualTo: tailorId)
-        .where(
-          "finishedAt",
-          isLessThanOrEqualTo: DateTime.now().toIso8601String(),
-        )
-        .orderBy("finishedAt", descending: true);
+        .orderBy("createdAt", descending: true)
+        .get();
+    return snapshot.docs.map((e) => e.data()).toList();
   }
 
   Future<Order> finishOrder(String id) async {

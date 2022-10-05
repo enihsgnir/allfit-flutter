@@ -1,11 +1,8 @@
-import 'package:allfit_flutter/domains/order/order.dart';
-import 'package:allfit_flutter/domains/order/order_repository.dart';
 import 'package:allfit_flutter/views/history/history_tab.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:paginate_firestore/paginate_firestore.dart';
 
 class HistoryListPage extends GetView<MainController> {
   const HistoryListPage({super.key});
@@ -27,16 +24,16 @@ class HistoryListPage extends GetView<MainController> {
               );
             }
 
-            return PaginateFirestore(
-              query: orderRepository.paginatedByUserId(user.id),
-              isLive: true,
-              itemBuilderType: PaginateBuilderType.listView,
-              itemBuilder: (context, documentSnapshots, index) {
-                return HistoryListTile(
-                  order: documentSnapshots[index].data()! as Order,
-                );
-              },
-              onEmpty: const Text("이용 내역이 없습니다."),
+            if (controller.histories.isEmpty) {
+              return const Center(
+                child: Text("이용 내역이 없습니다."),
+              );
+            }
+
+            return ListView(
+              children: controller.histories
+                  .map((e) => HistoryListTile(order: e))
+                  .toList(),
             );
           },
         ),
