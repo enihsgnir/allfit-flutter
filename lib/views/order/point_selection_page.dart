@@ -22,9 +22,20 @@ class PointSelectionPage extends GetView<OrderController> {
       appBar: const CustomAppBar(),
       body: Stack(
         children: [
-          const Image(
-            fit: BoxFit.fitWidth,
-            image: AssetImage("assets/images/clothes_sample.png"),
+          Builder(
+            builder: (context) {
+              final itemImage = controller.itemImage;
+              if (itemImage == null) {
+                return const Image(
+                  fit: BoxFit.fitWidth,
+                  image: AssetImage("assets/images/clothes_sample.png"),
+                );
+              }
+              return Image(
+                fit: BoxFit.fitWidth,
+                image: FileImage(itemImage),
+              );
+            },
           ),
           ListView(
             reverse: true,
@@ -38,7 +49,7 @@ class PointSelectionPage extends GetView<OrderController> {
                   children: [
                     const SizedBox(height: 16),
                     Text(
-                      controller.getCurrentCategoryKo(),
+                      controller.currentCategoryKo,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -53,7 +64,6 @@ class PointSelectionPage extends GetView<OrderController> {
                         children: controller.pointsCache
                             .map(
                               (e) => OrderPointListTile(
-                                categoryEng: "t_shirt",
                                 point: e,
                                 atDecision: false,
                               ),
@@ -96,14 +106,16 @@ class PointSelectionPage extends GetView<OrderController> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          "${formatCurrency(controller.totalCost)}~",
-                          style: const TextStyle(
-                            color: bluePointColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        Obx(() {
+                          return Text(
+                            "${formatCurrency(controller.alterCost)} ~",
+                            style: const TextStyle(
+                              color: bluePointColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          );
+                        }),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -137,26 +149,27 @@ class PointSelectionPage extends GetView<OrderController> {
   }
 }
 
-class OrderPointListTile extends StatelessWidget {
-  final String categoryEng;
+class OrderPointListTile extends GetView<OrderController> {
   final OrderPoint point;
   final bool atDecision;
 
   const OrderPointListTile({
     super.key,
-    required this.categoryEng,
     required this.point,
     required this.atDecision,
   });
 
   @override
   Widget build(BuildContext context) {
+    final categoryIndex = controller.categoryIndexCache;
+    final partIndex = controller.partListKo[categoryIndex].indexOf(point.part);
+
     return ListTile(
       leading: SizedBox(
         height: double.infinity,
         child: CustomCachedImage(
           width: 28,
-          path: "icons/category/$categoryEng.png",
+          path: "icons/order_category/$categoryIndex/$partIndex.png",
         ),
       ),
       title: Text(
@@ -175,7 +188,7 @@ class OrderPointListTile extends StatelessWidget {
         children: [
           if (atDecision)
             Text(
-              formatCurrency(point.cost),
+              "${formatCurrency(point.cost)} ~",
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
@@ -196,7 +209,7 @@ class OrderPointListTile extends StatelessWidget {
               width: 40,
               child: TextButton(
                 onPressed: () {
-                  OrderController.to.removePoint(point);
+                  controller.removePoint(point);
                 },
                 child: const Text(
                   "삭제",

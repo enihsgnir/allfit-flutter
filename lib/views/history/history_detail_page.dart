@@ -60,9 +60,9 @@ class HistoryDetailPage extends StatelessWidget {
               ),
               valueStyle: const TextStyle(fontSize: 12),
               data: {
-                "안심 정찰 가격": order.alterCost.toString(),
-                "수거 & 배송": order.deliveryFee.toString(),
-                "총 결제 금액": order.totalCost.toString(),
+                "안심 정찰 가격": formatCurrency(order.alterCost),
+                "수거 & 배송": formatCurrency(order.deliveryFee),
+                "총 결제 금액": formatCurrency(order.totalCost),
               },
             ),
             const SizedBox(height: 120),

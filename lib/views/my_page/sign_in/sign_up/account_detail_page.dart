@@ -7,6 +7,7 @@ import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AccountDetailPage extends GetView<SignUpController> {
@@ -42,9 +43,20 @@ class AccountDetailPage extends GetView<SignUpController> {
                 ),
               ),
               const SizedBox(height: 44),
-              const Text(
-                "얼핏 닉네임",
-                style: TextStyle(fontSize: 12),
+              Row(
+                children: const [
+                  Text(
+                    "얼핏 닉네임",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  Text(
+                    " *",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 4),
               TextFormField(
@@ -57,8 +69,35 @@ class AccountDetailPage extends GetView<SignUpController> {
               ),
               const SizedBox(height: 24),
               const Text(
-                "주소 정보",
+                "전화번호 (하이픈 '-' 제외)",
                 style: TextStyle(fontSize: 12),
+              ),
+              const SizedBox(height: 4),
+              TextFormField(
+                controller: controller.phoneEdit,
+                decoration: const InputDecoration(
+                  hintText: "전화번호",
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                ),
+                keyboardType: TextInputType.phone,
+                style: const TextStyle(fontSize: 12),
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+              const SizedBox(height: 24),
+              Row(
+                children: const [
+                  Text(
+                    "주소 정보",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  Text(
+                    " *",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 4),
               Row(
@@ -103,7 +142,7 @@ class AccountDetailPage extends GetView<SignUpController> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               TextFormField(
                 enabled: false,
                 controller: controller.roadAddressEdit,

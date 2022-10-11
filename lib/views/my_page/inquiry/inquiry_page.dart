@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/inquiry/inquiry_writing_page.dart';
+import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
-import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -62,8 +62,8 @@ class InquiryPage extends GetView<MainController> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      if (!controller.isSignedIn) {
-                        showCustomToast("로그인 후 이용가능합니다");
+                      if (controller.currentUser == null) {
+                        Get.toNamed(SignInPage.route);
                       } else {
                         Get.toNamed(InquiryWritingPage.route);
                       }

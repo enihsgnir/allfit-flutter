@@ -28,7 +28,7 @@ class MyPageTab extends GetView<MainController> {
         SizedBox(height: MediaQuery.of(context).padding.top),
         const SizedBox(height: 36),
         Obx(() {
-          if (!controller.isSignedIn) {
+          if (controller.currentUser == null) {
             return Row(
               children: [
                 const SizedBox(width: 12),
@@ -148,8 +148,8 @@ class MyPageTab extends GetView<MainController> {
             ),
             InkWell(
               onTap: () {
-                if (!controller.isSignedIn) {
-                  showCustomToast("로그인 후 이용가능합니다");
+                if (controller.currentUser == null) {
+                  Get.toNamed(SignInPage.route);
                 } else {
                   Get.toNamed(MyInfoPage.route);
                 }
@@ -182,8 +182,8 @@ class MyPageTab extends GetView<MainController> {
           trailing: const Icon(CupertinoIcons.chevron_forward),
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
-            if (!controller.isSignedIn) {
-              showCustomToast("로그인 후 이용가능합니다");
+            if (controller.currentUser == null) {
+              Get.toNamed(SignInPage.route);
             } else {
               Get.toNamed(AlterServicePage.route);
             }

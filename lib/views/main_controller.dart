@@ -13,8 +13,6 @@ class MainController extends GetxController {
   User? get currentUser => _currentUser.value;
   set currentUser(User? value) => _currentUser.value = value;
 
-  bool get isSignedIn => currentUser != null;
-
   final _index = 0.obs;
   int get index => _index.value;
   set index(int value) => _index.value = value;

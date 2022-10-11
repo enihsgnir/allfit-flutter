@@ -1,6 +1,9 @@
-import 'package:allfit_flutter/views/history/history_tab.dart';
+import 'package:allfit_flutter/domains/order/order.dart';
+import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/views/history/history_detail_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,13 +20,6 @@ class HistoryListPage extends GetView<MainController> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Builder(
           builder: (context) {
-            final user = controller.currentUser;
-            if (user == null) {
-              return const Center(
-                child: Text("로그인 후 확인 가능합니다."),
-              );
-            }
-
             if (controller.histories.isEmpty) {
               return const Center(
                 child: Text("이용 내역이 없습니다."),
@@ -38,6 +34,38 @@ class HistoryListPage extends GetView<MainController> {
           },
         ),
       ),
+    );
+  }
+}
+
+class HistoryListTile extends StatelessWidget {
+  final Order order;
+
+  const HistoryListTile({
+    super.key,
+    required this.order,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        formatDateTime(order.createdAt),
+        style: const TextStyle(fontSize: 13),
+      ),
+      subtitle: Text(
+        order.status,
+        style: const TextStyle(
+          color: Color.fromRGBO(60, 132, 240, 1),
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      trailing: const Icon(CupertinoIcons.chevron_forward),
+      contentPadding: EdgeInsets.zero,
+      onTap: () {
+        Get.toNamed(HistoryDetailPage.route, arguments: order);
+      },
     );
   }
 }

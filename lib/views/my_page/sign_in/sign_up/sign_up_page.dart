@@ -39,10 +39,26 @@ class SignUpPage extends GetView<SignUpController> {
                 ),
               ),
               const SizedBox(height: 36),
+              Row(
+                children: const [
+                  Text(
+                    "이메일 주소",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  Text(
+                    " *",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
               TextFormField(
                 controller: controller.emailEdit,
                 decoration: const InputDecoration(
-                  hintText: "이메일 주소 입력",
+                  hintText: "이메일",
                   contentPadding: EdgeInsets.symmetric(horizontal: 12),
                 ),
                 keyboardType: TextInputType.emailAddress,
@@ -61,6 +77,22 @@ class SignUpPage extends GetView<SignUpController> {
                 );
               }),
               const SizedBox(height: 24),
+              Row(
+                children: const [
+                  Text(
+                    "비밀번호",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  Text(
+                    " *",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
               Obx(() {
                 return TextFormField(
                   controller: controller.pwEdit,

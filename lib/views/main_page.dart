@@ -2,6 +2,7 @@ import 'package:allfit_flutter/views/history/history_tab.dart';
 import 'package:allfit_flutter/views/home/home_tab.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/my_page_tab.dart';
+import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:allfit_flutter/views/order/order_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,6 +55,9 @@ class MainPage extends GetView<MainController> {
             ),
           ],
           onTap: (index) {
+            if (index == 2 && controller.currentUser == null) {
+              Get.toNamed(SignInPage.route);
+            }
             controller.index = index;
           },
           currentIndex: controller.index,

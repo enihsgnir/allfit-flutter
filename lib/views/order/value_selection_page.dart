@@ -21,9 +21,20 @@ class ValueSelectionPage extends GetView<OrderController> {
       appBar: const CustomAppBar(),
       body: Stack(
         children: [
-          const Image(
-            fit: BoxFit.fitWidth,
-            image: AssetImage("assets/images/clothes_sample.png"),
+          Builder(
+            builder: (context) {
+              final itemImage = controller.itemImage;
+              if (itemImage == null) {
+                return const Image(
+                  fit: BoxFit.fitWidth,
+                  image: AssetImage("assets/images/clothes_sample.png"),
+                );
+              }
+              return Image(
+                fit: BoxFit.fitWidth,
+                image: FileImage(itemImage),
+              );
+            },
           ),
           Column(
             children: [
@@ -36,7 +47,7 @@ class ValueSelectionPage extends GetView<OrderController> {
                   children: [
                     const SizedBox(height: 16),
                     Text(
-                      controller.getCurrentPartKo(),
+                      controller.currentPartKo,
                       style: const TextStyle(
                         fontSize: 21,
                         fontWeight: FontWeight.bold,

@@ -20,8 +20,11 @@ class AdminMainPage extends GetView<AdminMainController> {
             const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text("admin"),
+              children: [
+                ElevatedButton(
+                  onPressed: () async {},
+                  child: const Text("dev"),
+                ),
               ],
             ),
             const Spacer(),

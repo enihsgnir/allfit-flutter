@@ -35,14 +35,13 @@ class CategorySelectionPage extends GetView<OrderController> {
             ),
             const SizedBox(height: 38),
             ...List.generate(
-              controller.categoryListEn.length,
+              controller.categoryListKo.length,
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: ListTile(
                   leading: CustomCachedImage(
                     width: 24,
-                    path:
-                        "icons/category/${controller.categoryListEn[index]}.png",
+                    path: "icons/order_category/$index.png",
                   ),
                   title: Text(
                     controller.categoryListKo[index],

@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/value_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PartSelectionPage extends GetView<OrderController> {
   const PartSelectionPage({super.key});
@@ -13,6 +17,8 @@ class PartSelectionPage extends GetView<OrderController> {
 
   @override
   Widget build(BuildContext context) {
+    final categoryIndex = controller.categoryIndexCache;
+
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Padding(
@@ -35,14 +41,16 @@ class PartSelectionPage extends GetView<OrderController> {
                 mainAxisSpacing: 9,
                 crossAxisSpacing: 9,
                 children: List.generate(
-                  controller.partListKo[controller.categoryIndexCache].length,
+                  controller.partListKo[categoryIndex].length,
                   (index) {
-                    final part = controller
-                        .partListKo[controller.categoryIndexCache][index];
                     return InkWell(
-                      onTap: () {
+                      onTap: () async {
                         controller.partIndexCache = index;
-                        Get.toNamed(ValueSelectionPage.route);
+                        if (controller.itemImage == null) {
+                          showImagePickActionSheet(context);
+                        } else {
+                          Get.toNamed(ValueSelectionPage.route);
+                        }
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -52,11 +60,18 @@ class PartSelectionPage extends GetView<OrderController> {
                           children: [
                             CustomCachedImage(
                               width: 96,
+                              height: 96,
                               path:
-                                  "category/${controller.getCurrentCategoryEn()}/${controller.getPartEn(index)}.png",
+                                  "icons/order_category/${controller.categoryIndexCache}/$index.png",
                             ),
                             const SizedBox(height: 12),
-                            Text(part),
+                            Text(
+                              controller.partListKo[categoryIndex][index],
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -65,6 +80,72 @@ class PartSelectionPage extends GetView<OrderController> {
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> showImagePickActionSheet(BuildContext context) async {
+    return showCustomModalBottomSheet(
+      context: context,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 8),
+            const Text(
+              "수선 물품 이미지 선택",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Divider(),
+            TextButton(
+              onPressed: () async {
+                final imagePicker = ImagePicker();
+                final image = await imagePicker.pickImage(
+                  source: ImageSource.camera,
+                );
+
+                if (image != null) {
+                  controller.itemImage = File(image.path);
+                  Get.toNamed(ValueSelectionPage.route);
+                }
+              },
+              child: const Text("카메라"),
+            ),
+            const Divider(),
+            TextButton(
+              onPressed: () async {
+                final imagePicker = ImagePicker();
+                final photo = await imagePicker.pickImage(
+                  source: ImageSource.gallery,
+                );
+
+                if (photo != null) {
+                  controller.itemImage = File(photo.path);
+                  Get.toNamed(ValueSelectionPage.route);
+                }
+              },
+              child: const Text("갤러리"),
+            ),
+            const Divider(),
+            TextButton(
+              onPressed: () async {
+                Get.toNamed(ValueSelectionPage.route);
+              },
+              child: const Text("skip_for_test"),
+            ),
+            const Divider(),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text("취소"),
+            ),
+            const Divider(),
           ],
         ),
       ),

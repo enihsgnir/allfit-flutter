@@ -1,9 +1,10 @@
 import 'package:allfit_flutter/domains/user/user.dart';
 import 'package:allfit_flutter/views/home/address/address_page.dart';
+import 'package:allfit_flutter/views/home/price_table_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
+import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
-import 'package:allfit_flutter/widgets/custom_toast.dart';
-import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,8 +21,8 @@ class HomeTab extends GetView<MainController> {
           height: 50,
           child: InkWell(
             onTap: () {
-              if (!controller.isSignedIn) {
-                showCustomToast("로그인 후 이용가능합니다");
+              if (controller.currentUser == null) {
+                Get.toNamed(SignInPage.route);
               } else {
                 Get.toNamed(AddressPage.route);
               }
@@ -138,7 +139,9 @@ class HomeTab extends GetView<MainController> {
                     ),
                     const SizedBox(height: 12),
                     InkWell(
-                      onTap: () => showUnpreparedDialog(context),
+                      onTap: () {
+                        Get.toNamed(PriceTablePage.route);
+                      },
                       child: Container(
                         width: double.infinity,
                         decoration: const BoxDecoration(
@@ -172,7 +175,7 @@ class HomeTab extends GetView<MainController> {
                               ),
                               SizedBox(height: 12),
                               Text(
-                                "7,500원~ ",
+                                "7,500원 ~",
                                 style: TextStyle(
                                   fontSize: 13,
                                   fontWeight: FontWeight.bold,
@@ -183,6 +186,7 @@ class HomeTab extends GetView<MainController> {
                         ),
                       ),
                     ),
+                    const CustomBottomPadding(),
                   ],
                 ),
               ),

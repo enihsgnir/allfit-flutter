@@ -16,7 +16,7 @@ class DepositInfoPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
-            const SizedBox(height: 44),
+            const Spacer(),
             const Image(
               width: 108,
               image: AssetImage("assets/images/bank.png"),

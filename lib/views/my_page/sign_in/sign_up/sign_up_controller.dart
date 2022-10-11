@@ -49,6 +49,7 @@ class SignUpController extends GetxController {
   bool get isPwValueFailed => pwErrorMessage.isNotEmpty;
 
   final nicknameEdit = TextEditingController();
+  final phoneEdit = TextEditingController();
   final postCodeEdit = TextEditingController();
   final roadAddressEdit = TextEditingController();
   final detailAddressEdit = TextEditingController();
@@ -58,6 +59,7 @@ class SignUpController extends GetxController {
     emailEdit.dispose();
     pwEdit.dispose();
     nicknameEdit.dispose();
+    phoneEdit.dispose();
     postCodeEdit.dispose();
     roadAddressEdit.dispose();
     detailAddressEdit.dispose();
@@ -82,6 +84,7 @@ class SignUpController extends GetxController {
           authUid: credential.user!.uid,
           email: emailEdit.text.trim(),
           nickname: nicknameEdit.text.trim(),
+          phone: phoneEdit.text.trim().isEmpty ? null : phoneEdit.text,
           addresses: [
             Address(
               postCode: postCodeEdit.text,

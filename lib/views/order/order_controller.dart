@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/domains/order/order_repository.dart';
 import 'package:allfit_flutter/domains/tailor/tailor.dart';
 import 'package:allfit_flutter/domains/tailor/tailor_repository.dart';
+import 'package:allfit_flutter/utils/storage.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,63 +12,12 @@ import 'package:get/get.dart';
 class OrderController extends GetxController {
   static OrderController get to => Get.find();
 
-  final categoryListEn = [
-    "t_shirt",
-    "dress_shirt",
-    "pants",
-    "one_piece_dress",
-    "skirt",
-  ];
   final categoryListKo = [
     "티셔츠/맨투맨",
     "셔츠/블라우스",
     "바지",
     "원피스",
     "치마",
-  ];
-
-  final partListEn = [
-    [
-      "sleeve_length",
-      "sleeve_width",
-      "shoulder_width",
-      "chest_width",
-      "total_length",
-      "accessory",
-    ],
-    [
-      "sleeve_length",
-      "sleeve_width",
-      "shoulder_width",
-      "chest_width",
-      "total_length",
-      "shoulder_pad",
-      "accessory",
-    ],
-    [
-      "waist_hips_width",
-      "overall_pant_legs_width",
-      "rise_length",
-      "total_length",
-      "partial_pant_legs_width",
-      "pants_fly",
-      "accessory",
-    ],
-    [
-      "sleeve_length",
-      "sleeve_width",
-      "shoulder_width",
-      "total_width",
-      "total_length",
-      "accessory",
-    ],
-    [
-      "waist_width",
-      "total_width",
-      "total_length",
-      "partial_width",
-      "accessory",
-    ],
   ];
   final partListKo = [
     [
@@ -110,6 +62,13 @@ class OrderController extends GetxController {
       "부속품 찢김, 수선",
     ],
   ];
+  final prices = [
+    [7500, 7500, 9500, 8000, 10000, 3000],
+    [14500, 14500, 14500, 14500, 11500, 7500, 3000],
+    [14500, 14500, 14500, 5500, 12500, 11500, 3000],
+    [14500, 14500, 14500, 17500, 14500, 3000],
+    [14500, 14500, 14500, 14500, 3000],
+  ];
 
   final _pointsCache = <OrderPoint>[].obs;
   List<OrderPoint> get pointsCache => _pointsCache;
@@ -119,17 +78,21 @@ class OrderController extends GetxController {
   int get categoryIndexCache => _categoryIndexCache.value;
   set categoryIndexCache(int value) => _categoryIndexCache.value = value;
 
+  String get currentCategoryKo => categoryListKo[categoryIndexCache];
+
+  final _itemImage = Rxn<File>();
+  File? get itemImage => _itemImage.value;
+  set itemImage(File? value) => _itemImage.value = value;
+
   final _partIndexCache = 0.obs;
   int get partIndexCache => _partIndexCache.value;
   set partIndexCache(int value) => _partIndexCache.value = value;
 
-  final _valueCache = 0.0.obs;
+  String get currentPartKo => partListKo[categoryIndexCache][partIndexCache];
+
+  final _valueCache = 5.0.obs;
   double get valueCache => _valueCache.value;
   set valueCache(double value) => _valueCache.value = value;
-
-  final _costCache = 0.obs;
-  int get costCache => _costCache.value;
-  set costCache(int value) => _costCache.value = value;
 
   int get alterCost {
     return pointsCache.fold(
@@ -138,9 +101,7 @@ class OrderController extends GetxController {
     );
   }
 
-  final _deliveryFee = 3000.obs;
-  int get deliveryFee => _deliveryFee.value;
-  set deliveryFee(int value) => _deliveryFee.value = value;
+  final deliveryFee = 3000;
 
   int get totalCost => alterCost + deliveryFee;
 
@@ -181,37 +142,16 @@ class OrderController extends GetxController {
     extraEdit.dispose();
   }
 
-  String getCurrentCategoryEn() {
-    return categoryListEn[categoryIndexCache];
-  }
-
-  String getCurrentCategoryKo() {
-    return categoryListKo[categoryIndexCache];
-  }
-
-  String getPartEn(int index) {
-    return partListEn[categoryIndexCache][index];
-  }
-
-  String getPartKo(int index) {
-    return partListKo[categoryIndexCache][index];
-  }
-
-  String getCurrentPartKo() {
-    return partListKo[categoryIndexCache][partIndexCache];
-  }
-
   void addPoint() {
     pointsCache.add(
       OrderPoint(
-        part: getPartKo(partIndexCache),
+        part: currentPartKo,
         value: valueCache,
-        cost: costCache,
+        cost: prices[categoryIndexCache][partIndexCache],
       ),
     );
     partIndexCache = 0;
-    valueCache = 0.0;
-    costCache = 0;
+    valueCache = 5.0;
   }
 
   void modifyPoint(OrderPoint point) {
@@ -232,14 +172,14 @@ class OrderController extends GetxController {
       return;
     }
 
-    await orderRepository.createOne(
+    final order = await orderRepository.createOne(
       Order(
         id: "",
         userId: user.id,
         tailorId: tailorId,
         items: [
           OrderItem(
-            category: getCurrentCategoryKo(),
+            category: currentCategoryKo,
             points: pointsCache,
           ),
         ],
@@ -251,5 +191,13 @@ class OrderController extends GetxController {
         createdAt: DateTime.now(),
       ),
     );
+
+    final itemImage = this.itemImage;
+    if (itemImage != null) {
+      Storage.uploadImage(
+        newPath: "order_image/${order.id}.png",
+        image: itemImage,
+      );
+    }
   }
 }

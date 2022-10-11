@@ -2,11 +2,11 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/main_page.dart';
+import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
-import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +18,7 @@ class OrderDetailPage extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const CustomAppBar(title: "주문 상세"),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -29,7 +30,6 @@ class OrderDetailPage extends GetView<OrderController> {
                   ...controller.pointsCache
                       .map(
                         (e) => OrderPointListTile(
-                          categoryEng: "t_shirt",
                           point: e,
                           atDecision: true,
                         ),
@@ -38,14 +38,6 @@ class OrderDetailPage extends GetView<OrderController> {
                   Text(
                     "수선업체: ${controller.tailorName}",
                     style: const TextStyle(
-                      color: Color.fromRGBO(177, 177, 177, 1),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const Text(
-                    "주문번호: B0T301NQ",
-                    style: TextStyle(
                       color: Color.fromRGBO(177, 177, 177, 1),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -199,7 +191,7 @@ class OrderDetailPage extends GetView<OrderController> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (MainController.to.currentUser == null) {
-                        showCustomToast("로그인 후 이용가능합니다");
+                        Get.toNamed(SignInPage.route);
                       } else {
                         await controller.createOrder();
                         Get.offNamedUntil(

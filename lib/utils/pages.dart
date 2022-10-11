@@ -5,6 +5,7 @@ import 'package:allfit_flutter/views/history/history_list_page.dart';
 import 'package:allfit_flutter/views/home/address/address_controller.dart';
 import 'package:allfit_flutter/views/home/address/address_page.dart';
 import 'package:allfit_flutter/views/home/address/address_search_page.dart';
+import 'package:allfit_flutter/views/home/price_table_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_change_page.dart';
@@ -76,6 +77,10 @@ abstract class Pages {
     GetPage(
       name: AddressSearchPage.route,
       page: () => const AddressSearchPage(),
+    ),
+    GetPage(
+      name: PriceTablePage.route,
+      page: () => const PriceTablePage(),
     ),
 
     // history
