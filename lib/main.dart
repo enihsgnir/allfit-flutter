@@ -51,29 +51,32 @@ class MyApp extends StatelessWidget {
         Locale("ko", "KR"),
       ],
       theme: ThemeData(
-        backgroundColor: const Color(0xFFF5F5F5),
+        backgroundColor: whiteBackgroundColor,
         fontFamily: "NotoSansKR",
         inputDecorationTheme: const InputDecorationTheme(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: greyPointColor),
+            borderSide: BorderSide(color: borderColor),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: greyPointColor),
+            borderSide: BorderSide(color: borderColor),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromRGBO(30, 30, 30, 1),
+            backgroundColor: semiBlackIconColor,
+            elevation: 0,
           ),
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-            foregroundColor: const Color.fromRGBO(30, 30, 30, 1),
+            foregroundColor: semiBlackIconColor,
+            elevation: 0,
           ),
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: const Color.fromRGBO(30, 30, 30, 1),
+            foregroundColor: semiBlackIconColor,
+            elevation: 0,
           ),
         ),
         textSelectionTheme: const TextSelectionThemeData(

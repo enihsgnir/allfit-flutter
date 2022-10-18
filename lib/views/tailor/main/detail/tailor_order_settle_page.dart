@@ -40,13 +40,26 @@ class TailorOrderSettlePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              formatCurrency(order.totalCost),
-              style: const TextStyle(
-                color: bluePointColor,
-                fontSize: 46,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  formatCurrencyNoUnit(order.totalCost),
+                  style: const TextStyle(
+                    color: bluePointColor,
+                    fontSize: 46,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const Text(
+                  "원",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 72),
             CustomKeyValueList(

@@ -72,14 +72,34 @@ class AlterServicePage extends GetView<AlterServiceController> {
                     onPressed: () {
                       Get.toNamed(AlterServiceChangePage.route);
                     },
-                    child: const Text("변경"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: lightGreyBackgroundColor,
+                    ),
+                    child: const Text(
+                      "변경",
+                      style: TextStyle(
+                        color: lightBlackTextColor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () => showUnpreparedDialog(context),
-                    child: const Text("해지"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: lightGreyBackgroundColor,
+                    ),
+                    child: const Text(
+                      "해지",
+                      style: TextStyle(
+                        color: lightBlackTextColor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
               ],

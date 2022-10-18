@@ -33,7 +33,7 @@ class RewardPointRegistrationPage
                         decoration: const InputDecoration(
                           hintText: "포인트 코드를 입력해주세요",
                           filled: true,
-                          fillColor: backgroundColor,
+                          fillColor: lightGreyBackgroundColor,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),

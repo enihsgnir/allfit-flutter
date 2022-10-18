@@ -101,7 +101,7 @@ class _TailorMainPageState extends State<TailorMainPage>
                       Text(
                         tailor.address.toFormatted(),
                         style: const TextStyle(
-                          color: greyPointColor,
+                          color: greyIconColor,
                           fontSize: 11,
                         ),
                       ),
@@ -322,7 +322,7 @@ class TailorOrderListTile extends StatelessWidget {
                 Text(
                   order.address.roadAddress,
                   style: const TextStyle(
-                    color: greyPointColor,
+                    color: greyIconColor,
                     fontSize: 11,
                   ),
                   overflow: TextOverflow.ellipsis,

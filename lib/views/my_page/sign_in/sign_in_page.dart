@@ -125,14 +125,14 @@ class SignInPage extends GetView<SignInController> {
                       child: Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: lightGreyBackgroundColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         height: 44,
                         child: const Text(
                           "계정이 없으신가요? 간편가입하기",
                           style: TextStyle(
-                            color: Color.fromRGBO(79, 73, 73, 1),
+                            color: lightBlackTextColor,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),

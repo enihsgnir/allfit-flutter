@@ -4,6 +4,10 @@ String formatCurrency(int number) {
   return NumberFormat("#,###원").format(number);
 }
 
+String formatCurrencyNoUnit(int number) {
+  return NumberFormat("#,###").format(number);
+}
+
 String formatDateTime(DateTime dateTime) {
   return DateFormat("yyyy년 MM월 dd일 (E)", "ko_KR").format(dateTime);
 }

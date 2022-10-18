@@ -50,7 +50,7 @@ class OrderTab extends GetView<MainController> {
                   InkWell(
                     onTap: () => Get.toNamed(CategorySelectionPage.route),
                     child: Container(
-                      color: backgroundColor,
+                      color: lightGreyBackgroundColor,
                       padding: const EdgeInsets.symmetric(horizontal: 28),
                       height: 90,
                       child: Row(
@@ -77,7 +77,7 @@ class OrderTab extends GetView<MainController> {
                       Get.toNamed(MySizePage.route);
                     },
                     child: Container(
-                      color: backgroundColor,
+                      color: lightGreyBackgroundColor,
                       padding: const EdgeInsets.symmetric(horizontal: 28),
                       height: 90,
                       child: Row(

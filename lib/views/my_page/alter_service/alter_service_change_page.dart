@@ -1,8 +1,8 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
-import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,70 +35,64 @@ class AlterServiceChangePage extends GetView<AlterServiceController> {
               style: TextStyle(fontSize: 12),
             ),
             const SizedBox(height: 48),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: () => showUnpreparedDialog(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: backgroundColor,
-                      ),
-                      child: Row(
-                        children: const [
-                          CustomCachedImage(
-                            width: 22,
-                            path: "icons/alter_service/monthly.png",
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "월정액 서비스",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () => showUnpreparedDialog(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: lightGreyBackgroundColor,
+                ),
+                child: Row(
+                  children: const [
+                    Image(
+                      height: 18,
+                      image: AssetImage(
+                        "assets/images/icon_alter_service_monthly.png",
                       ),
                     ),
-                  ),
+                    SizedBox(width: 10),
+                    Text(
+                      "월정액 서비스",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
             const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 56,
-                    child: ElevatedButton(
-                      onPressed: () => showUnpreparedDialog(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: backgroundColor,
-                      ),
-                      child: Row(
-                        children: const [
-                          CustomCachedImage(
-                            width: 22,
-                            path: "icons/alter_service/free.png",
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "자유이용 서비스",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
+            SizedBox(
+              width: double.infinity,
+              height: 56,
+              child: ElevatedButton(
+                onPressed: () => showUnpreparedDialog(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: lightGreyBackgroundColor,
+                ),
+                child: Row(
+                  children: const [
+                    Image(
+                      height: 18,
+                      image: AssetImage(
+                        "assets/images/icon_alter_service_free.png",
                       ),
                     ),
-                  ),
+                    SizedBox(width: 10),
+                    Text(
+                      "자유이용 서비스",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
             const Spacer(),
             Row(
@@ -115,7 +109,7 @@ class AlterServiceChangePage extends GetView<AlterServiceController> {
               text: "확인",
               onPressed: () => showUnpreparedDialog(context),
             ),
-            const SizedBox(height: 16),
+            const CustomBottomPadding(),
           ],
         ),
       ),

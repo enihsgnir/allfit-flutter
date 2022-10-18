@@ -1,3 +1,4 @@
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
@@ -164,42 +165,45 @@ class PriceListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          alignment: Alignment.center,
-          width: 92,
-          height: 92,
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(245, 245, 245, 1),
-            shape: BoxShape.circle,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: Row(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            width: 92,
+            height: 92,
+            decoration: const BoxDecoration(
+              color: lightGreyBackgroundColor,
+              shape: BoxShape.circle,
+            ),
+            child: CustomCachedImage(
+              width: 56,
+              height: 56,
+              path: "icons/order_category/$categoryIndex/$partIndex.png",
+            ),
           ),
-          child: CustomCachedImage(
-            width: 56,
-            height: 56,
-            path: "icons/order_category/$categoryIndex/$partIndex.png",
-          ),
-        ),
-        const SizedBox(width: 16),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _partListKo[categoryIndex][partIndex],
-              style: const TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+          const SizedBox(width: 16),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _partListKo[categoryIndex][partIndex],
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              "${formatCurrency(_prices[categoryIndex][partIndex])} ~",
-              style: const TextStyle(fontSize: 14),
-            ),
-          ],
-        ),
-      ],
+              const SizedBox(height: 4),
+              Text(
+                "${formatCurrency(_prices[categoryIndex][partIndex])} ~",
+                style: const TextStyle(fontSize: 14),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

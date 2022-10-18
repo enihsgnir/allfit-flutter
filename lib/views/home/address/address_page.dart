@@ -3,7 +3,6 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/home/address/address_controller.dart';
 import 'package:allfit_flutter/views/home/address/address_search_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
-import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_modal_bottom_sheet.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class AddressPage extends GetView<AddressController> {
                           Expanded(
                             flex: 2,
                             child: TextFormField(
-                              enabled: false,
+                              readOnly: true,
                               controller: controller.postCodeEdit,
                               decoration: const InputDecoration(
                                 hintText: "우편번호",
@@ -62,7 +61,7 @@ class AddressPage extends GetView<AddressController> {
                                 alignment: Alignment.center,
                                 height: 48,
                                 decoration: BoxDecoration(
-                                  color: backgroundColor,
+                                  color: lightGreyBackgroundColor,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: const Text(
@@ -76,7 +75,7 @@ class AddressPage extends GetView<AddressController> {
                       ),
                       const SizedBox(height: 8),
                       TextFormField(
-                        enabled: false,
+                        readOnly: true,
                         controller: controller.roadAddressEdit,
                         decoration: const InputDecoration(
                           hintText: "주소",
@@ -245,10 +244,12 @@ class AddressListTile extends GetView<AddressController> {
     final mainAddressIndex = controller.user.mainAddressIndex;
 
     return ListTile(
-      leading: CustomCachedImage(
+      leading: Image(
         width: 20,
         height: double.infinity,
-        path: "icons/address/$icon.png",
+        image: AssetImage(
+          "assets/images/icon_address_$icon.png",
+        ),
       ),
       title: Text(
         title,

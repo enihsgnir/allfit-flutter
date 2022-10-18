@@ -31,7 +31,7 @@ class CouponPage extends GetView<CouponController> {
                         decoration: const InputDecoration(
                           hintText: "쿠폰 코드를 입력해주세요",
                           filled: true,
-                          fillColor: backgroundColor,
+                          fillColor: lightGreyBackgroundColor,
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
@@ -65,7 +65,7 @@ class CouponPage extends GetView<CouponController> {
               const Text(
                 "사용 가능한 쿠폰이 없습니다.",
                 style: TextStyle(
-                  color: greyPointColor,
+                  color: greyIconColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),

@@ -128,14 +128,14 @@ class TailorSignInPage extends GetView<TailorSignInController> {
                       child: Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: lightGreyBackgroundColor,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         height: 44,
                         child: const Text(
                           "업체 등록하기",
                           style: TextStyle(
-                            color: Color.fromRGBO(79, 73, 73, 1),
+                            color: lightBlackTextColor,
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),

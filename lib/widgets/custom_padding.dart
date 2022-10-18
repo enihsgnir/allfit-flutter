@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 
 class CustomTopPadding extends StatelessWidget {
   final double? top;
+  final bool addStatusBarHeight;
+  final bool addAppbarHeight;
 
   const CustomTopPadding({
     super.key,
     this.top,
+    this.addStatusBarHeight = false,
+    this.addAppbarHeight = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: top ?? 32);
+    double height = top ?? 32;
+    if (addStatusBarHeight) {
+      height += MediaQuery.of(context).padding.top;
+    }
+    if (addAppbarHeight) {
+      height += kToolbarHeight;
+    }
+
+    return SizedBox(height: height);
   }
 }
 
@@ -24,6 +36,6 @@ class CustomBottomPadding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: bottom ?? 16);
+    return SizedBox(height: bottom ?? 32);
   }
 }

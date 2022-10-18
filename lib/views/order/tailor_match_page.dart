@@ -96,19 +96,19 @@ class TailorMatchPage extends GetView<OrderController> {
                     const Text(
                       "수선 사장님께",
                       style: TextStyle(
-                        color: Color.fromRGBO(79, 73, 73, 1),
+                        color: lightBlackTextColor,
                         fontSize: 14,
                       ),
                     ),
                     const SizedBox(height: 16),
                     Container(
-                      color: const Color.fromRGBO(245, 245, 245, 1),
+                      color: lightGreyBackgroundColor,
                       height: 48,
                       child: TextField(
                         controller: controller.extraEdit,
                         decoration: const InputDecoration(
                           hintText: "예) 밑단 포인트 살려주세요",
-                          hintStyle: TextStyle(color: greyPointColor),
+                          hintStyle: TextStyle(color: greyIconColor),
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
@@ -132,7 +132,7 @@ class TailorMatchPage extends GetView<OrderController> {
                         Text(
                           "총 ${controller.pointsCache.length}개",
                           style: const TextStyle(
-                            color: greyPointColor,
+                            color: greyIconColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),

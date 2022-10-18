@@ -26,8 +26,8 @@ class SignUpPage extends GetView<SignUpController> {
               const SizedBox(height: 36),
               const LinearProgressIndicator(
                 value: 2 / 4,
-                backgroundColor: backgroundColor,
-                color: semiBlackPointColor,
+                backgroundColor: lightGreyBackgroundColor,
+                color: semiBlackIconColor,
                 minHeight: 4,
               ),
               const SizedBox(height: 24),
@@ -39,20 +39,9 @@ class SignUpPage extends GetView<SignUpController> {
                 ),
               ),
               const SizedBox(height: 36),
-              Row(
-                children: const [
-                  Text(
-                    "이메일 주소",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    " *",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              const Text(
+                "이메일 주소",
+                style: TextStyle(fontSize: 12),
               ),
               const SizedBox(height: 4),
               TextFormField(
@@ -77,20 +66,9 @@ class SignUpPage extends GetView<SignUpController> {
                 );
               }),
               const SizedBox(height: 24),
-              Row(
-                children: const [
-                  Text(
-                    "비밀번호",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    " *",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              const Text(
+                "비밀번호",
+                style: TextStyle(fontSize: 12),
               ),
               const SizedBox(height: 4),
               Obx(() {
@@ -110,7 +88,7 @@ class SignUpPage extends GetView<SignUpController> {
                         controller.obscureText
                             ? CupertinoIcons.eye
                             : CupertinoIcons.eye_slash,
-                        color: semiBlackPointColor,
+                        color: semiBlackIconColor,
                       ),
                     ),
                   ),

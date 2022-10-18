@@ -1,4 +1,5 @@
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/utils/text_formatters.dart';
 import 'package:allfit_flutter/views/home/address/address_search_page.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_completion_page.dart';
@@ -6,8 +7,8 @@ import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class AccountDetailPage extends GetView<SignUpController> {
@@ -30,8 +31,8 @@ class AccountDetailPage extends GetView<SignUpController> {
               const SizedBox(height: 36),
               const LinearProgressIndicator(
                 value: 3 / 4,
-                backgroundColor: backgroundColor,
-                color: semiBlackPointColor,
+                backgroundColor: lightGreyBackgroundColor,
+                color: semiBlackIconColor,
                 minHeight: 4,
               ),
               const SizedBox(height: 24),
@@ -43,20 +44,12 @@ class AccountDetailPage extends GetView<SignUpController> {
                 ),
               ),
               const SizedBox(height: 44),
-              Row(
-                children: const [
-                  Text(
-                    "얼핏 닉네임",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    " *",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              const Text(
+                "얼핏 닉네임",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               const SizedBox(height: 4),
               TextFormField(
@@ -69,35 +62,11 @@ class AccountDetailPage extends GetView<SignUpController> {
               ),
               const SizedBox(height: 24),
               const Text(
-                "전화번호 (하이픈 '-' 제외)",
-                style: TextStyle(fontSize: 12),
-              ),
-              const SizedBox(height: 4),
-              TextFormField(
-                controller: controller.phoneEdit,
-                decoration: const InputDecoration(
-                  hintText: "전화번호",
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                "주소 정보",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
-                keyboardType: TextInputType.phone,
-                style: const TextStyle(fontSize: 12),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                children: const [
-                  Text(
-                    "주소 정보",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    " *",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
               ),
               const SizedBox(height: 4),
               Row(
@@ -105,7 +74,7 @@ class AccountDetailPage extends GetView<SignUpController> {
                   Expanded(
                     flex: 2,
                     child: TextFormField(
-                      enabled: false,
+                      readOnly: true,
                       controller: controller.postCodeEdit,
                       decoration: const InputDecoration(
                         hintText: "우편번호",
@@ -130,7 +99,7 @@ class AccountDetailPage extends GetView<SignUpController> {
                         alignment: Alignment.center,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: lightGreyBackgroundColor,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Text(
@@ -144,7 +113,7 @@ class AccountDetailPage extends GetView<SignUpController> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                enabled: false,
+                readOnly: true,
                 controller: controller.roadAddressEdit,
                 decoration: const InputDecoration(
                   hintText: "주소",
@@ -161,6 +130,26 @@ class AccountDetailPage extends GetView<SignUpController> {
                 ),
                 style: const TextStyle(fontSize: 12),
               ),
+              const SizedBox(height: 24),
+              const Text(
+                "연락처",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 4),
+              TextFormField(
+                controller: controller.phoneEdit,
+                decoration: const InputDecoration(
+                  hintText: "연락처",
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                ),
+                keyboardType: TextInputType.phone,
+                style: const TextStyle(fontSize: 12),
+                toolbarOptions: const ToolbarOptions(),
+                inputFormatters: [PhoneNumberInputFormatter()],
+              ),
               const Spacer(),
               CustomElevatedButton(
                 text: "다음",
@@ -175,7 +164,7 @@ class AccountDetailPage extends GetView<SignUpController> {
                   }
                 },
               ),
-              const SizedBox(height: 16),
+              const CustomBottomPadding(),
             ],
           ),
         ),

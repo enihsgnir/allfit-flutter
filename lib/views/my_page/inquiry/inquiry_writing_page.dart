@@ -68,7 +68,7 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                     width: 17,
                     height: 17,
                     decoration: BoxDecoration(
-                      border: Border.all(color: greyPointColor),
+                      border: Border.all(color: greyIconColor),
                       borderRadius: BorderRadiusDirectional.circular(4),
                     ),
                     child: Obx(() {
@@ -76,7 +76,7 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
                         activeColor: Colors.transparent,
                         checkColor: controller.allowReply
                             ? bluePointColor
-                            : greyPointColor,
+                            : greyIconColor,
                         value: true,
                         onChanged: (value) {
                           controller.allowReply = !controller.allowReply;

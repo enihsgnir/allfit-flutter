@@ -41,7 +41,7 @@ class ValueSelectionPage extends GetView<OrderController> {
               const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                color: backgroundColor,
+                color: lightGreyBackgroundColor,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

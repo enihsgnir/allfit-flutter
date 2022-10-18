@@ -6,6 +6,7 @@ import 'package:allfit_flutter/views/order/value_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_modal_bottom_sheet.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,7 +55,10 @@ class PartSelectionPage extends GetView<OrderController> {
                       },
                       child: Container(
                         alignment: Alignment.center,
-                        color: backgroundColor,
+                        decoration: BoxDecoration(
+                          color: lightGreyBackgroundColor,
+                          borderRadius: BorderRadius.circular(16),
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -80,6 +84,18 @@ class PartSelectionPage extends GetView<OrderController> {
                 ),
               ),
             ),
+            const SizedBox(height: 4),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "상황에 따라 요청이 취소되거나 수선 품질 향상을 위해\n개별적인 확인 과정이 필요할 수도 있습니다.",
+                  style: TextStyle(fontSize: 11),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            const CustomBottomPadding(),
           ],
         ),
       ),

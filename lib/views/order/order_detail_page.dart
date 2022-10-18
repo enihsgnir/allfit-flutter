@@ -38,7 +38,7 @@ class OrderDetailPage extends GetView<OrderController> {
                   Text(
                     "수선업체: ${controller.tailorName}",
                     style: const TextStyle(
-                      color: Color.fromRGBO(177, 177, 177, 1),
+                      color: greyTextColor,
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -54,7 +54,7 @@ class OrderDetailPage extends GetView<OrderController> {
                   Text(
                     controller.address,
                     style: const TextStyle(
-                      color: Color.fromRGBO(177, 177, 177, 1),
+                      color: greyTextColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -70,7 +70,7 @@ class OrderDetailPage extends GetView<OrderController> {
                   Text(
                     formatDateTime(controller.pickUpSchedule),
                     style: const TextStyle(
-                      color: Color.fromRGBO(177, 177, 177, 1),
+                      color: greyTextColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
@@ -86,7 +86,7 @@ class OrderDetailPage extends GetView<OrderController> {
                   Text(
                     controller.extra,
                     style: const TextStyle(
-                      color: Color.fromRGBO(177, 177, 177, 1),
+                      color: greyTextColor,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),

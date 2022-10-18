@@ -3,7 +3,6 @@ import 'package:allfit_flutter/views/home/address/address_page.dart';
 import 'package:allfit_flutter/views/home/price_table_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
-import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +45,15 @@ class HomeTab extends GetView<MainController> {
                   final address = user.addresses[index];
                   return Row(
                     children: [
-                      CustomCachedImage(
+                      Image(
                         height: 16,
-                        path: address.isHome
-                            ? "icons/address/home.png"
-                            : address.isWork
-                                ? "icons/address/work.png"
-                                : "icons/address/location.png",
+                        image: AssetImage(
+                          address.isHome
+                              ? "assets/images/icon_address_home.png"
+                              : address.isWork
+                                  ? "assets/images/icon_address_work.png"
+                                  : "assets/images/icon_address_location.png",
+                        ),
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -127,7 +128,8 @@ class HomeTab extends GetView<MainController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Divider(
-                      height: 48,
+                      height: 64,
+                      thickness: 2,
                       color: Colors.black,
                     ),
                     const Text(
@@ -144,11 +146,12 @@ class HomeTab extends GetView<MainController> {
                       },
                       child: Container(
                         width: double.infinity,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
+                        decoration: BoxDecoration(
+                          image: const DecorationImage(
                             fit: BoxFit.fitWidth,
                             image: AssetImage("assets/images/price_table.png"),
                           ),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

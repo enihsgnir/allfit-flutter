@@ -48,7 +48,7 @@ class DepositInfoPage extends StatelessWidget {
                 width: 188,
                 height: 34,
                 decoration: BoxDecoration(
-                  color: backgroundColor,
+                  color: lightGreyBackgroundColor,
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: const Text(

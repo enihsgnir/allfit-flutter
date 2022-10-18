@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-const backgroundColor = Color.fromRGBO(245, 245, 245, 1);
+const borderColor = Color(0xFFEEEEEE);
 
-const bluePointColor = Color.fromRGBO(60, 132, 240, 1);
+const greyTextColor = Color(0xFFB1B1B1);
+const lightBlackTextColor = Color(0xFF4F4949);
+const dartGreyTextColor = Color(0xFF86868C);
 
-const greyPointColor = Color.fromRGBO(207, 207, 207, 1);
+const lightGreyBackgroundColor = Color(0xFFF5F5F5);
+const whiteBackgroundColor = Color(0xFFFFFFFF);
 
-const semiBlackPointColor = Color.fromRGBO(30, 30, 30, 1);
+const semiBlackIconColor = Color(0xFF1E1E1E);
+const greyIconColor = Color(0xFFCFCFCF);
+
+const bluePointColor = Color(0xFF3C84F0);

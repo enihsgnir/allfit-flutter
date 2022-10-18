@@ -42,7 +42,7 @@ class PointSelectionPage extends GetView<OrderController> {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                color: backgroundColor,
+                color: lightGreyBackgroundColor,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,

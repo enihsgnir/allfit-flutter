@@ -72,7 +72,7 @@ class TailorSignUpPage extends GetView<TailorSignUpController> {
                         controller.obscureText
                             ? CupertinoIcons.eye
                             : CupertinoIcons.eye_slash,
-                        color: semiBlackPointColor,
+                        color: semiBlackIconColor,
                       ),
                     ),
                   ),

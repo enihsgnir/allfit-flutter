@@ -1,4 +1,5 @@
 import 'package:allfit_flutter/domains/order/order.dart';
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/utils/formats.dart';
 import 'package:allfit_flutter/views/history/history_detail_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
@@ -56,7 +57,7 @@ class HistoryListTile extends StatelessWidget {
       subtitle: Text(
         order.status,
         style: const TextStyle(
-          color: Color.fromRGBO(60, 132, 240, 1),
+          color: bluePointColor,
           fontSize: 10,
           fontWeight: FontWeight.bold,
         ),

@@ -1,3 +1,4 @@
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/history/history_tab.dart';
 import 'package:allfit_flutter/views/home/home_tab.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
@@ -27,28 +28,28 @@ class MainPage extends GetView<MainController> {
           items: const [
             BottomNavigationBarItem(
               icon: ImageIcon(
-                AssetImage("assets/images/home.png"),
+                AssetImage("assets/images/icon_main_home.png"),
                 size: 28,
               ),
               label: "홈",
             ),
             BottomNavigationBarItem(
               icon: ImageIcon(
-                AssetImage("assets/images/order.png"),
+                AssetImage("assets/images/icon_main_order.png"),
                 size: 28,
               ),
               label: "수선요청",
             ),
             BottomNavigationBarItem(
               icon: ImageIcon(
-                AssetImage("assets/images/history.png"),
+                AssetImage("assets/images/icon_main_history.png"),
                 size: 28,
               ),
               label: "이용내역",
             ),
             BottomNavigationBarItem(
               icon: ImageIcon(
-                AssetImage("assets/images/my_page.png"),
+                AssetImage("assets/images/icon_main_my_page.png"),
                 size: 28,
               ),
               label: "마이",
@@ -63,8 +64,8 @@ class MainPage extends GetView<MainController> {
           currentIndex: controller.index,
           type: BottomNavigationBarType.fixed,
           iconSize: 28,
-          selectedItemColor: const Color.fromRGBO(30, 30, 30, 1),
-          unselectedItemColor: const Color.fromRGBO(207, 207, 207, 1),
+          selectedItemColor: semiBlackIconColor,
+          unselectedItemColor: greyIconColor,
           selectedLabelStyle: const TextStyle(fontSize: 12),
           unselectedLabelStyle: const TextStyle(fontSize: 12),
         ),

@@ -109,7 +109,7 @@ class FAQExpansionPanel extends ExpansionPanelRadio {
                       Text(
                         faq.category,
                         style: const TextStyle(
-                          color: greyPointColor,
+                          color: greyIconColor,
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
@@ -117,7 +117,7 @@ class FAQExpansionPanel extends ExpansionPanelRadio {
                       Text(
                         formatDateTimeDotted(faq.createdAt),
                         style: const TextStyle(
-                          color: greyPointColor,
+                          color: greyIconColor,
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
@@ -138,7 +138,7 @@ class FAQExpansionPanel extends ExpansionPanelRadio {
           },
           body: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-            color: backgroundColor,
+            color: lightGreyBackgroundColor,
             constraints: const BoxConstraints(minHeight: 180),
             child: Text(
               faq.contents,

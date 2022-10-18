@@ -56,7 +56,7 @@ class RewardPointPage extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 34,
                 decoration: BoxDecoration(
-                  color: backgroundColor,
+                  color: lightGreyBackgroundColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Text(

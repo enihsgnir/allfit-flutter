@@ -37,7 +37,7 @@ class TailorAccountDetailPage extends GetView<TailorSignUpController> {
                   Expanded(
                     flex: 2,
                     child: TextFormField(
-                      enabled: false,
+                      readOnly: true,
                       controller: controller.postCodeEdit,
                       decoration: const InputDecoration(
                         hintText: "우편번호",
@@ -62,7 +62,7 @@ class TailorAccountDetailPage extends GetView<TailorSignUpController> {
                         alignment: Alignment.center,
                         height: 48,
                         decoration: BoxDecoration(
-                          color: backgroundColor,
+                          color: lightGreyBackgroundColor,
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: const Text(
@@ -76,7 +76,7 @@ class TailorAccountDetailPage extends GetView<TailorSignUpController> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                enabled: false,
+                readOnly: true,
                 controller: controller.roadAddressEdit,
                 decoration: const InputDecoration(
                   hintText: "주소",

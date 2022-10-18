@@ -1,3 +1,4 @@
+import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
@@ -59,7 +60,7 @@ class CategorySelectionPage extends GetView<OrderController> {
                     controller.categoryIndexCache = index;
                     Get.toNamed(PartSelectionPage.route);
                   },
-                  tileColor: const Color.fromRGBO(245, 245, 245, 1),
+                  tileColor: lightGreyBackgroundColor,
                 ),
               ),
             ),
@@ -72,9 +73,18 @@ class CategorySelectionPage extends GetView<OrderController> {
               ),
             ),
             const SizedBox(height: 32),
-            const Text(
-              "선택한 카테고리에 따라 맞춤 핏 추천이 이루어지니 정확한 항목을 선택해주세요.",
-              style: TextStyle(fontSize: 11),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "\u2022 ",
+                  style: TextStyle(fontSize: 11),
+                ),
+                Text(
+                  "선택한 카테고리에 따라 맞춤 핏 추천이 이루어지니 정확한 항목을\n선택해주세요.",
+                  style: TextStyle(fontSize: 11),
+                ),
+              ],
             ),
           ],
         ),

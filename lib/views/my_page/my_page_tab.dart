@@ -100,7 +100,7 @@ class MyPageTab extends GetView<MainController> {
                 children: const [
                   Image(
                     height: 32,
-                    image: AssetImage("assets/images/coupon.png"),
+                    image: AssetImage("assets/images/icon_my_page_coupon.png"),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -118,7 +118,9 @@ class MyPageTab extends GetView<MainController> {
                 children: const [
                   Image(
                     height: 32,
-                    image: AssetImage("assets/images/reward_point.png"),
+                    image: AssetImage(
+                      "assets/images/icon_my_page_reward_point.png",
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -136,7 +138,9 @@ class MyPageTab extends GetView<MainController> {
                 children: const [
                   Image(
                     height: 32,
-                    image: AssetImage("assets/images/payment_history.png"),
+                    image: AssetImage(
+                      "assets/images/icon_my_page_payment_history.png",
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -158,7 +162,7 @@ class MyPageTab extends GetView<MainController> {
                 children: const [
                   Image(
                     height: 32,
-                    image: AssetImage("assets/images/my_info.png"),
+                    image: AssetImage("assets/images/icon_my_page_my_info.png"),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -191,7 +195,7 @@ class MyPageTab extends GetView<MainController> {
         ),
         Container(
           height: 9,
-          color: backgroundColor,
+          color: lightGreyBackgroundColor,
         ),
         ListTile(
           title: const Text(
@@ -246,7 +250,7 @@ class MyPageTab extends GetView<MainController> {
             Text(
               "고객센터",
               style: TextStyle(
-                color: Color.fromRGBO(177, 177, 177, 1),
+                color: greyTextColor,
                 fontSize: 11,
                 fontWeight: FontWeight.bold,
               ),

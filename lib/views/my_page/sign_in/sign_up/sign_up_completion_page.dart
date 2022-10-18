@@ -19,8 +19,8 @@ class SignUpCompletionPage extends StatelessWidget {
             const SizedBox(height: 36),
             const LinearProgressIndicator(
               value: 4 / 4,
-              backgroundColor: backgroundColor,
-              color: semiBlackPointColor,
+              backgroundColor: lightGreyBackgroundColor,
+              color: semiBlackIconColor,
               minHeight: 4,
             ),
             const Spacer(),
