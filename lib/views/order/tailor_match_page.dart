@@ -165,7 +165,7 @@ class TailorMatchPage extends GetView<OrderController> {
                     const Divider(),
                     InkWell(
                       onTap: () {
-                        Get.until(ModalRoute.withName(PartSelectionPage.route));
+                        Get.toNamed(PartSelectionPage.route);
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),

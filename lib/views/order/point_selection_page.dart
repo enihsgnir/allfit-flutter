@@ -75,7 +75,7 @@ class PointSelectionPage extends GetView<OrderController> {
                     }),
                     InkWell(
                       onTap: () {
-                        Get.until(ModalRoute.withName(PartSelectionPage.route));
+                        Get.toNamed(PartSelectionPage.route);
                       },
                       child: Row(
                         children: const [

@@ -1,7 +1,7 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/views/order/category_selection_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
-import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
@@ -113,7 +113,7 @@ class ValueSelectionPage extends GetView<OrderController> {
                         }
                         Get.offNamedUntil(
                           PointSelectionPage.route,
-                          ModalRoute.withName(PartSelectionPage.route),
+                          ModalRoute.withName(CategorySelectionPage.route),
                         );
                       },
                       child: const Text(
