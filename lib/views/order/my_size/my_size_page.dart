@@ -17,47 +17,12 @@ class _MySizePageState extends State<MySizePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        actions: [
-          TextButton(
-            onPressed: () async {
-              await controller.loadUrl("https://m.naver.com");
-            },
-            child: const Text("NAVER"),
-          ),
-          TextButton(
-            onPressed: () async {
-              await controller.loadUrl("https://www.google.com");
-            },
-            child: const Text("Google"),
-          ),
-          TextButton(
-            onPressed: () async {
-              await controller.loadUrl("https://m.youtube.com");
-            },
-            child: const Text("YouTube"),
-          ),
-          // TextButton(
-          //   onPressed: () async {
-          //     await controller.runJavascript(
-          //       "window.Flutter('{'key': 'value'}')",
-          //     );
-          //   },
-          //   child: const Text("test"),
-          // ),
-        ],
-      ),
+      appBar: const CustomAppBar(),
       body: SafeArea(
         child: WebView(
           initialUrl: "http://sizemine.co.kr/pro/sm_webview.htm",
           javascriptMode: JavascriptMode.unrestricted,
           gestureNavigationEnabled: true,
-          // javascriptChannels: {
-          //   JavascriptChannel(
-          //     name: "Flutter",
-          //     onMessageReceived: (message) {},
-          //   ),
-          // },
           onWebViewCreated: (controller) {
             this.controller = controller;
           },
