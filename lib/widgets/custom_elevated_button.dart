@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final double height;
+  final Color? backgroundColor;
   final bool isActiveIf;
   final VoidCallback? onPressed;
-  final Color? backgroundColor;
-  final String text;
-  final Widget? child;
+  final Widget child;
 
   const CustomElevatedButton({
     super.key,
     this.height = 44,
+    this.backgroundColor,
     this.isActiveIf = true,
     required this.onPressed,
-    this.backgroundColor,
-    required this.text,
-    this.child,
+    required this.child,
   });
 
   @override
@@ -28,14 +26,7 @@ class CustomElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
         ),
-        child: child ??
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+        child: child,
       ),
     );
   }

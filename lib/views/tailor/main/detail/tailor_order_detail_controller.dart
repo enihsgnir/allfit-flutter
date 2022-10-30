@@ -1,4 +1,5 @@
 import 'package:allfit_flutter/domains/order/order_repository.dart';
+import 'package:allfit_flutter/views/tailor/main/tailor_main_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,12 @@ class TailorOrderDetailController extends GetxController {
   }
 
   Future<void> finishOrder(String id) async {
-    await orderRepository.finishOrder(id);
+    TailorMainController.to.ordersInProgress
+        .removeWhere((element) => element.id == id);
+
+    final order = await orderRepository.finishOrder(id);
+    TailorMainController.to.ordersFinished
+      ..add(order)
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 }

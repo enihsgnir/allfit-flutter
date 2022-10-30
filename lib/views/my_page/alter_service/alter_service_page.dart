@@ -1,8 +1,9 @@
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_change_page.dart';
 import 'package:allfit_flutter/views/my_page/alter_service/alter_service_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class AlterServicePage extends GetView<AlterServiceController> {
               valueStyle: const TextStyle(fontSize: 12),
               data: {
                 "신청 서비스": controller.user.service.category,
-                "신청일": formatDateTime(controller.user.service.createdAt),
+                "신청일": controller.user.service.createdAt.toFormatted(),
                 "이용 상태": controller.user.service.status,
                 "수선요금": controller.user.service.cost,
               },
@@ -68,13 +69,11 @@ class AlterServicePage extends GetView<AlterServiceController> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
+                  child: CustomElevatedButton(
+                    backgroundColor: lightGreyBackgroundColor,
                     onPressed: () {
                       Get.toNamed(AlterServiceChangePage.route);
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: lightGreyBackgroundColor,
-                    ),
                     child: const Text(
                       "변경",
                       style: TextStyle(
@@ -87,11 +86,9 @@ class AlterServicePage extends GetView<AlterServiceController> {
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: ElevatedButton(
+                  child: CustomElevatedButton(
+                    backgroundColor: lightGreyBackgroundColor,
                     onPressed: () => showUnpreparedDialog(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: lightGreyBackgroundColor,
-                    ),
                     child: const Text(
                       "해지",
                       style: TextStyle(
@@ -128,7 +125,6 @@ class AlterServicePage extends GetView<AlterServiceController> {
                 "공동현관 출입 방법": "공동현관 비밀번호",
               },
             ),
-            const SizedBox(height: 16),
           ],
         ),
       ),

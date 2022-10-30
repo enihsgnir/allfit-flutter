@@ -1,7 +1,8 @@
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/history/history_list_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,12 +23,19 @@ class HistoryTab extends GetView<MainController> {
         children: [
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            color: Colors.black,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fitWidth,
+                image: AssetImage("assets/images/history_tab_background.png"),
+              ),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: MediaQuery.of(context).padding.top),
-                const SizedBox(height: 40),
+                const CustomTopPadding(
+                  top: 40,
+                  addStatusBarHeight: true,
+                ),
                 Text(
                   user.service.category,
                   style: const TextStyle(
@@ -51,7 +59,7 @@ class HistoryTab extends GetView<MainController> {
                   ),
                   data: {
                     "신청 서비스": user.service.category,
-                    "신청일": formatDateTime(user.service.createdAt),
+                    "신청일": user.service.createdAt.toFormatted(),
                     "이용 상태": user.service.status,
                     "수선요금": user.service.cost,
                   },

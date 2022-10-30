@@ -3,6 +3,7 @@ import 'package:allfit_flutter/views/tailor/main/tailor_main_page.dart';
 import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_sign_up_page.dart';
 import 'package:allfit_flutter/views/tailor/sign_in/tailor_sign_in_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
@@ -70,31 +71,22 @@ class TailorSignInPage extends GetView<TailorSignInController> {
                 );
               }),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 44,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (await controller.signIn()) {
-                            Get.until(
-                              ModalRoute.withName(TailorMainPage.route),
-                            );
-                            showCustomToast("로그인 성공!");
-                          }
-                        },
-                        child: const Text(
-                          "로그인하기",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+              CustomElevatedButton(
+                onPressed: () async {
+                  if (await controller.signIn()) {
+                    Get.until(
+                      ModalRoute.withName(TailorMainPage.route),
+                    );
+                    showCustomToast("로그인 성공!");
+                  }
+                },
+                child: const Text(
+                  "로그인하기",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
               const SizedBox(height: 30),
               Row(

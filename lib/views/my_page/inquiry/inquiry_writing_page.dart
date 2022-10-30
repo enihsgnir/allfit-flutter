@@ -97,13 +97,18 @@ class InquiryWritingPage extends GetView<InquiryWritingController> {
               const SizedBox(height: 36),
               Obx(() {
                 return CustomElevatedButton(
-                  text: "등록하기",
-                  onPressed: !controller.canMoveOn
-                      ? null
-                      : () async {
-                          await controller.inquire();
-                          Get.back();
-                        },
+                  isActiveIf: controller.canMoveOn,
+                  onPressed: () async {
+                    await controller.inquire();
+                    Get.back();
+                  },
+                  child: const Text(
+                    "등록하기",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 );
               }),
             ],

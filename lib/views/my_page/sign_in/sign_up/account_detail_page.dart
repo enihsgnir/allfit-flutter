@@ -152,7 +152,6 @@ class AccountDetailPage extends GetView<SignUpController> {
               ),
               const Spacer(),
               CustomElevatedButton(
-                text: "다음",
                 onPressed: () async {
                   if (await controller.signUp()) {
                     Get.offNamedUntil(
@@ -163,6 +162,13 @@ class AccountDetailPage extends GetView<SignUpController> {
                     Get.until(ModalRoute.withName(SignUpPage.route));
                   }
                 },
+                child: const Text(
+                  "다음",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const CustomBottomPadding(),
             ],

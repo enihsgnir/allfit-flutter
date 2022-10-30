@@ -1,5 +1,5 @@
 import 'package:allfit_flutter/domains/order/order.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
@@ -29,7 +29,7 @@ class PaymentHistoryDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              formatCurrency(order.totalCost),
+              order.totalCost.toFormatted(),
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
@@ -45,7 +45,7 @@ class PaymentHistoryDetailPage extends StatelessWidget {
               ),
               valueStyle: const TextStyle(fontSize: 12),
               data: {
-                "결제일": formatDateTime(order.paidAt!),
+                "결제일": order.paidAt!.toFormatted(),
                 "이용 서비스": order.serviceCategory,
               },
             ),
@@ -80,7 +80,7 @@ class PaymentHistoryDetailPage extends StatelessWidget {
               valueStyle: const TextStyle(fontSize: 12),
               data: {
                 for (final point in order.allPoints)
-                  point.part: formatCurrency(point.cost)
+                  point.part: point.cost.toFormatted()
               },
             ),
             const SizedBox(height: 48),
@@ -94,9 +94,9 @@ class PaymentHistoryDetailPage extends StatelessWidget {
               ),
               valueStyle: const TextStyle(fontSize: 12),
               data: {
-                "결제 금액": formatCurrency(order.alterCost),
-                "할인 금액": formatCurrency(order.discount),
-                "총 결제 금액": formatCurrency(order.totalCost),
+                "결제 금액": order.alterCost.toFormatted(),
+                "할인 금액": order.discount.toFormatted(),
+                "총 결제 금액": order.totalCost.toFormatted(),
               },
             ),
             const SizedBox(height: 120),

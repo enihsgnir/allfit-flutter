@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
@@ -9,6 +9,7 @@ import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,6 +68,7 @@ class TailorMatchPage extends GetView<OrderController> {
                             Text(
                               tailor.description ?? tailor.name,
                               style: const TextStyle(
+                                color: greyTextColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -151,7 +153,7 @@ class TailorMatchPage extends GetView<OrderController> {
                           ),
                         ),
                         Text(
-                          "${formatCurrency(controller.alterCost)} ~",
+                          "${controller.alterCost.toFormatted()} ~",
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -194,32 +196,26 @@ class TailorMatchPage extends GetView<OrderController> {
                 ),
               ),
               const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        final now = DateTime.now();
-                        controller.tailorId = tailor.id;
-                        controller.tailorName = tailor.name;
-                        controller.address = user?.mainAddress ?? "-";
-                        controller.pickUpSchedule =
-                            now.add(const Duration(days: 3));
-                        controller.deliverySchedule =
-                            now.add(const Duration(days: 7));
+              CustomElevatedButton(
+                backgroundColor: bluePointColor,
+                onPressed: () {
+                  final now = DateTime.now();
+                  controller.tailorId = tailor.id;
+                  controller.tailorName = tailor.name;
+                  controller.address = user?.mainAddress ?? "-";
+                  controller.pickUpSchedule = now.add(const Duration(days: 3));
+                  controller.deliverySchedule =
+                      now.add(const Duration(days: 7));
 
-                        Get.toNamed(OrderDetailPage.route);
-                      },
-                      child: const Text(
-                        "주문하기",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                  Get.toNamed(OrderDetailPage.route);
+                },
+                child: const Text(
+                  "주문하기",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
-                ],
+                ),
               ),
               const CustomBottomPadding(),
             ],

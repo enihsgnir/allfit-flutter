@@ -84,7 +84,9 @@ class SignUpController extends GetxController {
           authUid: credential.user!.uid,
           email: emailEdit.text.trim(),
           nickname: nicknameEdit.text.trim(),
-          phone: phoneEdit.text.trim().isEmpty ? null : phoneEdit.text,
+          phone: phoneEdit.text.isEmpty
+              ? null
+              : phoneEdit.text.replaceAll("-", ""),
           addresses: [
             Address(
               postCode: postCodeEdit.text,

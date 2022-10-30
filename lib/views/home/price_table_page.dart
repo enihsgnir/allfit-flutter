@@ -1,5 +1,5 @@
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
 import 'package:flutter/material.dart';
@@ -197,7 +197,7 @@ class PriceListTile extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                "${formatCurrency(_prices[categoryIndex][partIndex])} ~",
+                "${_prices[categoryIndex][partIndex].toFormatted()} ~",
                 style: const TextStyle(fontSize: 14),
               ),
             ],

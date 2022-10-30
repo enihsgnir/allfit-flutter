@@ -2,6 +2,7 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/account_detail_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -109,26 +110,17 @@ class SignUpPage extends GetView<SignUpController> {
                 );
               }),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 44,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(AccountDetailPage.route);
-                        },
-                        child: const Text(
-                          "다음",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+              CustomElevatedButton(
+                onPressed: () {
+                  Get.toNamed(AccountDetailPage.route);
+                },
+                child: const Text(
+                  "다음",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
             ],
           ),

@@ -104,7 +104,6 @@ class TailorAccountDetailPage extends GetView<TailorSignUpController> {
               const Text("전문 분야 선택"),
               const Spacer(),
               CustomElevatedButton(
-                text: "등록하기",
                 onPressed: () async {
                   if (await controller.signUp()) {
                     Get.until(ModalRoute.withName(TailorMainPage.route));
@@ -112,6 +111,13 @@ class TailorAccountDetailPage extends GetView<TailorSignUpController> {
                     Get.until(ModalRoute.withName(TailorSignUpPage.route));
                   }
                 },
+                child: const Text(
+                  "등록하기",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const CustomBottomPadding(),
             ],

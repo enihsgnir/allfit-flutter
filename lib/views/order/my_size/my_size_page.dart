@@ -49,15 +49,15 @@ class _MySizePageState extends State<MySizePage> {
       ),
       body: SafeArea(
         child: WebView(
-          initialUrl: "https://sizemine.imemine.co.kr/sizemine",
+          initialUrl: "http://sizemine.co.kr/pro/sm_webview.htm",
           javascriptMode: JavascriptMode.unrestricted,
           gestureNavigationEnabled: true,
-          javascriptChannels: {
-            JavascriptChannel(
-              name: "Flutter",
-              onMessageReceived: (message) {},
-            ),
-          },
+          // javascriptChannels: {
+          //   JavascriptChannel(
+          //     name: "Flutter",
+          //     onMessageReceived: (message) {},
+          //   ),
+          // },
           onWebViewCreated: (controller) {
             this.controller = controller;
           },

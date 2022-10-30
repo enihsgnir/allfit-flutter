@@ -27,8 +27,8 @@ class PhoneNumberInputFormatter extends TextInputFormatter {
 
       for (int i = 0; i < newText.length; i++) {
         if (i == 3 ||
-            (newText.length == 10 && i == 6) ||
-            (newText.length > 7 && newText.length != 10 && i == 7)) {
+            (i == 6 && newText.length == 10) ||
+            (i == 7 && newText.length > 7 && newText.length != 10)) {
           buffer.write("-");
         }
 

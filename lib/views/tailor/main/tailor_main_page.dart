@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/main_page.dart';
 import 'package:allfit_flutter/views/my_page/notice/notice_page.dart';
 import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_page.dart';
@@ -167,11 +167,17 @@ class _TailorMainPageState extends State<TailorMainPage>
                       return const SizedBox.shrink();
                     }
                     return CustomElevatedButton(
-                      text: "로그아웃",
                       onPressed: () async {
                         await controller.signOut();
                         showCustomToast("로그아웃 성공!");
                       },
+                      child: const Text(
+                        "로그아웃",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     );
                   }),
                   const SizedBox(height: 8),
@@ -284,15 +290,16 @@ class TailorOrderListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imagePath = order.items.first.imagePath;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            formatDateTimeDottedWithHourAndMinute(order.createdAt),
+            order.createdAt.toFormatted(
+              isDotSeparated: true,
+              printHourMinute: true,
+            ),
             style: const TextStyle(fontSize: 10),
           ),
           ListTile(
@@ -300,7 +307,7 @@ class TailorOrderListTile extends StatelessWidget {
               width: 64,
               height: double.infinity,
               fit: BoxFit.fitWidth,
-              path: imagePath ?? "order_image/default.png",
+              path: "order_image/${order.id}.png",
             ),
             title: Column(
               mainAxisSize: MainAxisSize.min,

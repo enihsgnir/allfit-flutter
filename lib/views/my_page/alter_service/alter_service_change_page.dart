@@ -35,63 +35,53 @@ class AlterServiceChangePage extends GetView<AlterServiceController> {
               style: TextStyle(fontSize: 12),
             ),
             const SizedBox(height: 48),
-            SizedBox(
-              width: double.infinity,
+            CustomElevatedButton(
               height: 56,
-              child: ElevatedButton(
-                onPressed: () => showUnpreparedDialog(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lightGreyBackgroundColor,
-                ),
-                child: Row(
-                  children: const [
-                    Image(
-                      height: 18,
-                      image: AssetImage(
-                        "assets/images/icon_alter_service_monthly.png",
-                      ),
+              backgroundColor: lightGreyBackgroundColor,
+              onPressed: () => showUnpreparedDialog(context),
+              child: Row(
+                children: const [
+                  Image(
+                    height: 18,
+                    image: AssetImage(
+                      "assets/images/icon_alter_service_monthly.png",
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      "월정액 서비스",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "월정액 서비스",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
+            CustomElevatedButton(
               height: 56,
-              child: ElevatedButton(
-                onPressed: () => showUnpreparedDialog(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: lightGreyBackgroundColor,
-                ),
-                child: Row(
-                  children: const [
-                    Image(
-                      height: 18,
-                      image: AssetImage(
-                        "assets/images/icon_alter_service_free.png",
-                      ),
+              backgroundColor: lightGreyBackgroundColor,
+              onPressed: () => showUnpreparedDialog(context),
+              child: Row(
+                children: const [
+                  Image(
+                    height: 18,
+                    image: AssetImage(
+                      "assets/images/icon_alter_service_free.png",
                     ),
-                    SizedBox(width: 10),
-                    Text(
-                      "자유이용 서비스",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "자유이용 서비스",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             const Spacer(),
@@ -106,8 +96,14 @@ class AlterServiceChangePage extends GetView<AlterServiceController> {
             ),
             const SizedBox(height: 24),
             CustomElevatedButton(
-              text: "확인",
               onPressed: () => showUnpreparedDialog(context),
+              child: const Text(
+                "확인",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             const CustomBottomPadding(),
           ],

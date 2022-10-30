@@ -2,6 +2,7 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
@@ -209,29 +210,21 @@ class AgreementPage extends GetView<SignUpController> {
               ],
             ),
             const SizedBox(height: 32),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 44,
-                    child: Obx(() {
-                      return ElevatedButton(
-                        onPressed: !controller.canMoveOn
-                            ? null
-                            : () => Get.toNamed(SignUpPage.route),
-                        child: const Text(
-                          "동의 후 가입하기",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
-                    }),
+            Obx(() {
+              return CustomElevatedButton(
+                isActiveIf: controller.canMoveOn,
+                onPressed: () {
+                  Get.toNamed(SignUpPage.route);
+                },
+                child: const Text(
+                  "동의 후 가입하기",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
+              );
+            }),
             const CustomBottomPadding(),
           ],
         ),

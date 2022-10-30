@@ -39,8 +39,10 @@ import 'package:allfit_flutter/views/my_page/sign_in/sign_up/sign_up_page.dart';
 import 'package:allfit_flutter/views/order/category_selection_page.dart';
 import 'package:allfit_flutter/views/order/deposit_info_page.dart';
 import 'package:allfit_flutter/views/order/my_size/my_size_page.dart';
+import 'package:allfit_flutter/views/order/order_cancel_page.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/order_detail_page.dart';
+import 'package:allfit_flutter/views/order/order_summary_page.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/point_selection_page.dart';
 import 'package:allfit_flutter/views/order/tailor_match_page.dart';
@@ -122,6 +124,14 @@ abstract class Pages {
     GetPage(
       name: DepositInfoPage.route,
       page: () => const DepositInfoPage(),
+    ),
+    GetPage(
+      name: OrderSummaryPage.route,
+      page: () => const OrderSummaryPage(),
+    ),
+    GetPage(
+      name: OrderCancelPage.route,
+      page: () => const OrderCancelPage(),
     ),
     GetPage(
       name: MySizePage.route,

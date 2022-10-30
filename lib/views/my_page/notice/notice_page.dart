@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/domains/notice/notice.dart';
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/my_page/notice/notice_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +115,7 @@ class NoticeExpansionPanel extends ExpansionPanelRadio {
                         ),
                       ),
                       Text(
-                        formatDateTimeDotted(notice.createdAt),
+                        notice.createdAt.toFormatted(isDotSeparated: true),
                         style: const TextStyle(
                           color: greyIconColor,
                           fontSize: 10,

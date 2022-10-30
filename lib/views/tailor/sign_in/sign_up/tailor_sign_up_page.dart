@@ -2,6 +2,7 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_account_detail_page.dart';
 import 'package:allfit_flutter/views/tailor/sign_in/sign_up/tailor_sign_up_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -93,26 +94,17 @@ class TailorSignUpPage extends GetView<TailorSignUpController> {
                 );
               }),
               const Spacer(),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 44,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(TailorAccountDetailPage.route);
-                        },
-                        child: const Text(
-                          "다음",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+              CustomElevatedButton(
+                onPressed: () {
+                  Get.toNamed(TailorAccountDetailPage.route);
+                },
+                child: const Text(
+                  "다음",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
               const CustomBottomPadding(),
             ],

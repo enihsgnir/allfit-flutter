@@ -151,13 +151,6 @@ class PartSelectionPage extends GetView<OrderController> {
             ),
             const Divider(),
             TextButton(
-              onPressed: () async {
-                Get.toNamed(ValueSelectionPage.route);
-              },
-              child: const Text("skip_for_test"),
-            ),
-            const Divider(),
-            TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: const Text("취소"),
             ),

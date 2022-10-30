@@ -15,7 +15,10 @@ class HomeTab extends GetView<MainController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: MediaQuery.of(context).padding.top),
+        const CustomTopPadding(
+          top: 0,
+          addStatusBarHeight: true,
+        ),
         SizedBox(
           height: 50,
           child: InkWell(

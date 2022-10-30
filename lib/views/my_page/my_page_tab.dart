@@ -12,6 +12,7 @@ import 'package:allfit_flutter/views/my_page/reward_point/reward_point_page.dart
 import 'package:allfit_flutter/views/my_page/settings_page.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_page.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +26,10 @@ class MyPageTab extends GetView<MainController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: MediaQuery.of(context).padding.top),
-        const SizedBox(height: 36),
+        const CustomTopPadding(
+          top: 36,
+          addStatusBarHeight: true,
+        ),
         Obx(() {
           if (controller.currentUser == null) {
             return Row(
@@ -63,28 +66,6 @@ class MyPageTab extends GetView<MainController> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Spacer(),
-              SizedBox(
-                height: 20,
-                child: OutlinedButton(
-                  onPressed: () async {
-                    await controller.signOut();
-                    showCustomToast("로그아웃 성공!");
-                  },
-                  style: OutlinedButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    side: const BorderSide(),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    "로그아웃",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 24),
             ],
           );
         }),
@@ -184,6 +165,7 @@ class MyPageTab extends GetView<MainController> {
             ),
           ),
           trailing: const Icon(CupertinoIcons.chevron_forward),
+          dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
             if (controller.currentUser == null) {
@@ -206,6 +188,7 @@ class MyPageTab extends GetView<MainController> {
             ),
           ),
           trailing: const Icon(CupertinoIcons.chevron_forward),
+          dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () async {
             final box = context.findRenderObject() as RenderBox?;
@@ -224,6 +207,7 @@ class MyPageTab extends GetView<MainController> {
             ),
           ),
           trailing: const Icon(CupertinoIcons.chevron_forward),
+          dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
             Get.toNamed(NoticePage.route);
@@ -238,6 +222,7 @@ class MyPageTab extends GetView<MainController> {
             ),
           ),
           trailing: const Icon(CupertinoIcons.chevron_forward),
+          dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
             Get.toNamed(SettingsPage.route);
@@ -265,6 +250,7 @@ class MyPageTab extends GetView<MainController> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
             Get.toNamed(FAQPage.route);
@@ -278,12 +264,40 @@ class MyPageTab extends GetView<MainController> {
               fontWeight: FontWeight.bold,
             ),
           ),
+          dense: true,
           contentPadding: const EdgeInsets.symmetric(horizontal: 24),
           onTap: () {
             Get.toNamed(InquiryPage.route);
           },
         ),
         const SizedBox(height: 60),
+        Obx(() {
+          if (controller.currentUser == null) {
+            return const SizedBox(height: 20);
+          }
+          return SizedBox(
+            height: 20,
+            child: Row(
+              children: [
+                const SizedBox(width: 24),
+                InkWell(
+                  onTap: () async {
+                    await controller.signOut();
+                    showCustomToast("로그아웃 성공!");
+                  },
+                  child: const Text(
+                    "로그아웃",
+                    style: TextStyle(
+                      fontSize: 11,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+        const SizedBox(height: 20),
       ],
     );
   }

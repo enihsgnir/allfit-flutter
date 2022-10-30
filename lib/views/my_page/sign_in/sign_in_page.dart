@@ -2,6 +2,7 @@ import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_in_controller.dart';
 import 'package:allfit_flutter/views/my_page/sign_in/sign_up/agreement_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
@@ -69,29 +70,20 @@ class SignInPage extends GetView<SignInController> {
                 );
               }),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 44,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (await controller.signIn()) {
-                            Get.back();
-                            showCustomToast("로그인 성공!");
-                          }
-                        },
-                        child: const Text(
-                          "로그인하기",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
+              CustomElevatedButton(
+                onPressed: () async {
+                  if (await controller.signIn()) {
+                    Get.back();
+                    showCustomToast("로그인 성공!");
+                  }
+                },
+                child: const Text(
+                  "로그인하기",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
+                ),
               ),
               const SizedBox(height: 30),
               Row(

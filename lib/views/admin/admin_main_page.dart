@@ -16,16 +16,11 @@ class AdminMainPage extends GetView<AdminMainController> {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).padding.top),
+            const CustomTopPadding(addAppbarHeight: true),
             const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () async {},
-                  child: const Text("dev"),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: () async {},
+              child: const Text("dev"),
             ),
             const Spacer(),
             Row(

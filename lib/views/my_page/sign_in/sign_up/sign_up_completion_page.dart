@@ -1,5 +1,7 @@
 import 'package:allfit_flutter/utils/colors.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,26 +40,17 @@ class SignUpCompletionPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 44,
-                    child: ElevatedButton(
-                      onPressed: Get.back,
-                      child: const Text(
-                        "시작하기",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+            CustomElevatedButton(
+              onPressed: Get.back,
+              child: const Text(
+                "시작하기",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
+              ),
             ),
-            const SizedBox(height: 16),
+            const CustomBottomPadding(),
           ],
         ),
       ),

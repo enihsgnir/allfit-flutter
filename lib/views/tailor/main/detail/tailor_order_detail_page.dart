@@ -1,4 +1,6 @@
 import 'package:allfit_flutter/domains/order/order.dart';
+import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_detail_controller.dart';
 import 'package:allfit_flutter/views/tailor/main/detail/tailor_order_settle_page.dart';
 import 'package:allfit_flutter/views/tailor/main/tailor_main_page.dart';
@@ -32,8 +34,7 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                   CustomCachedImage(
                     height: 400,
                     fit: BoxFit.fitHeight,
-                    path: order.items.first.imagePath ??
-                        "order_image/default.png",
+                    path: "order_image/${order.id}.png",
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -51,7 +52,7 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                     valueStyle: const TextStyle(fontSize: 14),
                     data: {
                       for (final point in order.allPoints)
-                        point.summary: "${point.cost}~"
+                        point.summary: "${point.cost.toFormatted()} ~"
                     },
                   ),
                   const SizedBox(height: 16),
@@ -81,12 +82,18 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
               ),
             ),
             CustomElevatedButton(
-              text: "수선 완료",
-              onPressed: order.finishedAt != null
-                  ? null
-                  : () {
-                      showOrderFinishBottomSheet(context, order: order);
-                    },
+              backgroundColor: bluePointColor,
+              isActiveIf: order.finishedAt == null,
+              onPressed: () {
+                showOrderFinishBottomSheet(context, order: order);
+              },
+              child: const Text(
+                "수선 완료",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             const CustomBottomPadding(),
           ],
@@ -128,6 +135,8 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                   const TextField(
                     decoration: InputDecoration(
                       hintText: "예) 밑단 포인트 살려주세요",
+                      filled: true,
+                      fillColor: lightGreyBackgroundColor,
                     ),
                     style: TextStyle(fontSize: 14),
                     maxLines: 3,
@@ -151,6 +160,7 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                             controller.surchargeExists =
                                 !controller.surchargeExists;
                           },
+                          activeColor: Colors.black,
                         );
                       }),
                       const Text(
@@ -168,6 +178,10 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                             return TextField(
                               enabled: controller.surchargeExists,
                               controller: controller.surchargeEdit,
+                              decoration: const InputDecoration(
+                                filled: true,
+                                fillColor: lightGreyBackgroundColor,
+                              ),
                               style: const TextStyle(fontSize: 16),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
@@ -198,6 +212,7 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                             controller.surchargeExists =
                                 !controller.surchargeExists;
                           },
+                          activeColor: Colors.black,
                         );
                       }),
                       const Text(
@@ -211,7 +226,7 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                   ),
                   const SizedBox(height: 120),
                   CustomElevatedButton(
-                    text: "확인",
+                    backgroundColor: bluePointColor,
                     onPressed: () async {
                       await controller.finishOrder(order.id);
                       Get.offNamedUntil(
@@ -220,6 +235,13 @@ class TailorOrderDetailPage extends GetView<TailorOrderDetailController> {
                         arguments: order,
                       );
                     },
+                    child: const Text(
+                      "확인",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const CustomBottomPadding(),
                 ],

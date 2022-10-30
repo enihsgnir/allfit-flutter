@@ -1,11 +1,13 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/order/order_controller.dart';
 import 'package:allfit_flutter/views/order/part_selection_page.dart';
 import 'package:allfit_flutter/views/order/tailor_match_page.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_cached_image.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,7 +110,7 @@ class PointSelectionPage extends GetView<OrderController> {
                         ),
                         Obx(() {
                           return Text(
-                            "${formatCurrency(controller.alterCost)} ~",
+                            "${controller.alterCost.toFormatted()} ~",
                             style: const TextStyle(
                               color: bluePointColor,
                               fontSize: 14,
@@ -119,25 +121,19 @@ class PointSelectionPage extends GetView<OrderController> {
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Get.toNamed(TailorMatchPage.route);
-                            },
-                            child: const Text(
-                              "다음",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
+                    CustomElevatedButton(
+                      onPressed: () {
+                        Get.toNamed(TailorMatchPage.route);
+                      },
+                      child: const Text(
+                        "다음",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
                         ),
-                      ],
+                      ),
                     ),
-                    const SizedBox(height: 16),
+                    const CustomBottomPadding(),
                   ],
                 ),
               ),
@@ -168,7 +164,7 @@ class OrderPointListTile extends GetView<OrderController> {
       leading: SizedBox(
         height: double.infinity,
         child: CustomCachedImage(
-          width: 28,
+          width: 40,
           path: "icons/order_category/$categoryIndex/$partIndex.png",
         ),
       ),
@@ -188,7 +184,7 @@ class OrderPointListTile extends GetView<OrderController> {
         children: [
           if (atDecision)
             Text(
-              "${formatCurrency(point.cost)} ~",
+              "${point.cost.toFormatted()} ~",
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

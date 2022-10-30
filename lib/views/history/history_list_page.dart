@@ -1,6 +1,6 @@
 import 'package:allfit_flutter/domains/order/order.dart';
 import 'package:allfit_flutter/utils/colors.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/views/history/history_detail_page.dart';
 import 'package:allfit_flutter/views/main_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
@@ -51,7 +51,7 @@ class HistoryListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(
-        formatDateTime(order.createdAt),
+        order.createdAt.toFormatted(),
         style: const TextStyle(fontSize: 13),
       ),
       subtitle: Text(

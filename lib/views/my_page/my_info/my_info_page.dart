@@ -1,6 +1,7 @@
 import 'package:allfit_flutter/views/my_page/my_info/my_info_controller.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/unprepared_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -354,19 +355,31 @@ class MyInfoPage extends GetView<MyInfoController> {
                   Obx(() {
                     if (controller.isInfoEditing) {
                       return CustomElevatedButton(
-                        text: "저장하기",
                         onPressed: () async {
                           controller.willEditInfo(willOpen: false);
                         },
+                        child: const Text(
+                          "저장하기",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       );
                     }
                     return CustomElevatedButton(
-                      text: "정보 수정하기",
                       onPressed: () {
                         controller.nicknameEdit.clear();
                         controller.wayToEnterEdit.clear();
                         controller.willEditInfo(willOpen: true);
                       },
+                      child: const Text(
+                        "정보 수정하기",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     );
                   }),
                 ],
@@ -386,7 +399,7 @@ class MyInfoPage extends GetView<MyInfoController> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const CustomBottomPadding(),
             ],
           ),
         ),

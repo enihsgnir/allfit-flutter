@@ -1,5 +1,5 @@
 import 'package:allfit_flutter/domains/order/order.dart';
-import 'package:allfit_flutter/utils/formats.dart';
+import 'package:allfit_flutter/utils/extensions.dart';
 import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:allfit_flutter/widgets/custom_key_value_list.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class HistoryDetailPage extends StatelessWidget {
           children: [
             const SizedBox(height: 12),
             Text(
-              formatDateTime(order.createdAt),
+              order.createdAt.toFormatted(),
               style: const TextStyle(fontSize: 12),
             ),
             const SizedBox(height: 8),
@@ -60,9 +60,9 @@ class HistoryDetailPage extends StatelessWidget {
               ),
               valueStyle: const TextStyle(fontSize: 12),
               data: {
-                "안심 정찰 가격": formatCurrency(order.alterCost),
-                "수거 & 배송": formatCurrency(order.deliveryFee),
-                "총 결제 금액": formatCurrency(order.totalCost),
+                "안심 정찰 가격": order.alterCost.toFormatted(),
+                "수거 & 배송": order.deliveryFee.toFormatted(),
+                "총 결제 금액": order.totalCost.toFormatted(),
               },
             ),
             const SizedBox(height: 120),

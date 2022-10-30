@@ -50,8 +50,9 @@ class TailorMainController extends GetxController {
   Future<void> getOrders(String tailorId) async {
     final orders = await orderRepository.getAllByTailorId(tailorId);
     ordersInProgress =
-        orders.where((element) => element.paidAt == null).toList();
-    ordersFinished = orders.where((element) => element.paidAt != null).toList();
+        orders.where((element) => element.finishedAt == null).toList();
+    ordersFinished =
+        orders.where((element) => element.finishedAt != null).toList();
   }
 
   Future<void> signOut() async {

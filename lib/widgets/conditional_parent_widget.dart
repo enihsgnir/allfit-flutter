@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ConditionalParentWidget extends StatelessWidget {
   final bool condition;
-  final TransitionBuilder parentBuilder;
+  final Widget Function(BuildContext, Widget) parentBuilder;
   final Widget child;
 
   const ConditionalParentWidget({

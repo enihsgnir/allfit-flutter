@@ -1,4 +1,8 @@
 import 'package:allfit_flutter/utils/colors.dart';
+import 'package:allfit_flutter/views/order/order_summary_page.dart';
+import 'package:allfit_flutter/widgets/custom_app_bar.dart';
+import 'package:allfit_flutter/widgets/custom_elevated_button.dart';
+import 'package:allfit_flutter/widgets/custom_padding.dart';
 import 'package:allfit_flutter/widgets/custom_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +16,7 @@ class DepositInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -74,23 +79,19 @@ class DepositInfoPage extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: Get.back,
-                    child: const Text(
-                      "확인",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+            CustomElevatedButton(
+              onPressed: () {
+                Get.toNamed(OrderSummaryPage.route);
+              },
+              child: const Text(
+                "확인",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
+              ),
             ),
-            const SizedBox(height: 16),
+            const CustomBottomPadding(),
           ],
         ),
       ),
