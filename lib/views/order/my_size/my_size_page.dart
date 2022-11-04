@@ -1,4 +1,3 @@
-import 'package:allfit_flutter/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -17,10 +16,9 @@ class _MySizePageState extends State<MySizePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
       body: SafeArea(
         child: WebView(
-          initialUrl: "http://sizemine.co.kr/pro/sm_webview.htm",
+          initialUrl: "http://sizemine.co.kr/hyundai/view",
           javascriptMode: JavascriptMode.unrestricted,
           gestureNavigationEnabled: true,
           onWebViewCreated: (controller) {
